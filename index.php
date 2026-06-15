@@ -53,218 +53,168 @@ $stats = [
   ['value'=>setting('stats_resumes',$pdo),    'label'=>'Resumes Revised'],
   ['value'=>setting('stats_clients',$pdo),    'label'=>'Happy Clients'],
 ];
+
+function getServiceCategory($slug) {
+    $slug = strtolower($slug);
+    if (strpos($slug, 'support') !== false || strpos($slug, 'call') !== false || strpos($slug, 'language') !== false) {
+        return ['tag' => 'Support', 'class' => 'tag-support'];
+    } elseif (strpos($slug, 'data') !== false || strpos($slug, 'office') !== false || strpos($slug, 'validation') !== false) {
+        return ['tag' => 'Data Operations', 'class' => 'tag-data'];
+    } elseif (strpos($slug, 'moderation') !== false || strpos($slug, 'safety') !== false) {
+        return ['tag' => 'Trust & Safety', 'class' => 'tag-content'];
+    } elseif (strpos($slug, 'marketing') !== false || strpos($slug, 'seo') !== false) {
+        return ['tag' => 'Marketing', 'class' => 'tag-marketing'];
+    } else {
+        return ['tag' => 'Technology', 'class' => 'tag-tech'];
+    }
+}
 ?>
 
-<!-- ─── HERO ─────────────────────────────────────────── -->
-<?php
-$hero_slides = [
-  [
-    'eyebrow' => 'GLOBAL BPO SOLUTIONS',
-    'title' => 'Business Outsourcing',
-    'quote' => 'In your goals, we find our mission.',
-    'image' => '/assets/images/hero-bg.jpg',
-    'bullets' => [
-      'Customer care and live chat support',
-      'Multi-language communication support',
-      'Order management and fulfilment services',
-      'Data analysis, online filing, forms and claims',
-    ],
-  ],
-  [
-    'eyebrow' => 'TRUST & SAFETY OPERATIONS',
-    'title' => 'Content Moderation',
-    'quote' => 'Protect communities with fast, consistent review.',
-    'image' => '/assets/images/content-mod.jpg',
-    'bullets' => [
-      'Web content moderation',
-      'Social media content moderation',
-      'User-generated content review',
-      'Discussion board and marketplace moderation',
-    ],
-  ],
-  [
-    'eyebrow' => 'DATA OPERATIONS',
-    'title' => 'Database Management',
-    'quote' => 'Reliable service for clean, usable data.',
-    'image' => '/assets/images/service-banner.jpg',
-    'bullets' => [
-      'Processing standard and non-standard data formats',
-      'Database consolidation and duplicate elimination',
-      'Address verification and postal code correction',
-      'List management, segmentation and response analysis',
-    ],
-  ],
-  [
-    'eyebrow' => 'SOFTWARE & AUTOMATION',
-    'title' => 'Software Solutions',
-    'quote' => 'Runs faster, costs less, and scales cleanly.',
-    'image' => '/assets/images/hero-bg.jpg',
-    'bullets' => [
-      'Database and product development',
-      'Information processing',
-      'Information enhancement and analytics',
-      'Contact center tools and information security',
-    ],
-  ],
-  [
-    'eyebrow' => 'GROWTH SERVICES',
-    'title' => 'Digital Marketing',
-    'quote' => 'Make contact. Build relationships. Get results.',
-    'image' => '/assets/images/content-mod.jpg',
-    'bullets' => [
-      'Social media management',
-      'Search, paid media and performance campaigns',
-      'Influencer and viral marketing',
-      'Brand content for web, radio and mobile channels',
-    ],
-  ],
-];
-?>
-<section class="hero-slider" aria-label="Clevora services">
-  <div class="hero-slider__viewport">
-    <?php foreach($hero_slides as $idx => $slide): ?>
-    <article class="hero-slide <?= $idx === 0 ? 'is-active' : '' ?>" data-hero-slide>
-      <img class="hero-slide__image" src="<?= htmlspecialchars($slide['image']) ?>" alt="" aria-hidden="true">
-      <div class="hero-slide__overlay"></div>
-      <div class="hero-slide__content">
-        <span class="hero-slide__eyebrow"><?= htmlspecialchars($slide['eyebrow']) ?></span>
-        <h1><?= htmlspecialchars($slide['title']) ?></h1>
-        <p class="hero-slide__quote">&ldquo;<?= htmlspecialchars($slide['quote']) ?>&rdquo;</p>
-        <ul class="hero-slide__list">
-          <?php foreach($slide['bullets'] as $bullet): ?>
-          <li><?= htmlspecialchars($bullet) ?></li>
-          <?php endforeach; ?>
-        </ul>
-        <div class="hero-slide__actions">
-          <a class="hero-btn hero-btn--primary" href="/contact.php">Contact Us</a>
-          <a class="hero-btn hero-btn--ghost" href="/services.php">Explore Services</a>
+<!-- ─── HERO SECTION ───────────────────────────────────── -->
+<section class="premium-hero d-flex align-items-center">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="hero-trust-badge mb-3 text-white">
+          <span class="d-inline-block" style="width: 8px; height: 8px; border-radius: 50%; background: var(--orange);"></span>
+          <span>Global BPO &amp; Trust Operations</span>
+        </div>
+        <h1 class="display-5 fw-bold text-white mb-3 text-uppercase" style="letter-spacing: -0.01em; line-height: 1.15;">
+          <?= !empty($hero_headline) ? htmlspecialchars($hero_headline) : 'Scale Your Business Operations Globally' ?>
+        </h1>
+        <p class="text-light opacity-75 mb-4 fs-6" style="line-height: 1.8; max-width: 520px;">
+          Clevora delivers enterprise-grade content moderation, multi-language support, database management, and digital marketing. Achieve zero-latency scaling and unmatched quality.
+        </p>
+        
+        <div class="d-flex flex-wrap gap-3 mb-5">
+          <a href="/contact.php" class="btn btn-primary px-4 py-3 text-white" style="background: var(--orange); border: none; font-weight: 700; border-radius: 8px; box-shadow: 0 10px 20px rgba(249,115,22,0.2); text-decoration: none;">
+            <?= !empty($hero_cta) ? htmlspecialchars($hero_cta) : 'Get Free Consultation' ?>
+          </a>
+          <a href="/services.php" class="btn btn-outline-light px-4 py-3" style="border: 1px solid rgba(255,255,255,0.3); font-weight: 700; border-radius: 8px; background: rgba(255,255,255,0.05); text-decoration: none;">
+            Explore Services
+          </a>
+        </div>
+
+        <div class="d-flex align-items-center gap-4 text-white-50 small">
+          <div>
+            <span class="text-warning">★★★★★</span>
+            <span class="d-block text-white fw-semibold">4.8/5 on Google Business</span>
+          </div>
+          <div style="border-left: 1px solid rgba(255,255,255,0.15); padding-left: 20px;">
+            <span class="text-white fw-bold d-block">24/7/365</span>
+            <span>Always-On Operations</span>
+          </div>
         </div>
       </div>
-    </article>
-    <?php endforeach; ?>
+      
+      <div class="col-lg-6">
+        <div class="hero-skew-card d-none d-lg-block">
+          <img src="/assets/images/hero-bg.jpg" alt="Clevora Premium Operations">
+        </div>
+      </div>
+    </div>
   </div>
+</section>
 
-  <button class="hero-slider__arrow hero-slider__arrow--prev" type="button" data-hero-prev aria-label="Previous hero slide">
-    <span aria-hidden="true"></span>
-  </button>
-  <button class="hero-slider__arrow hero-slider__arrow--next" type="button" data-hero-next aria-label="Next hero slide">
-    <span aria-hidden="true"></span>
-  </button>
-
-  <div class="hero-slider__dots" aria-label="Hero slide controls">
-    <?php foreach($hero_slides as $idx => $slide): ?>
-    <button class="<?= $idx === 0 ? 'is-active' : '' ?>" type="button" data-hero-dot="<?= $idx ?>" aria-label="Show <?= htmlspecialchars($slide['title']) ?> slide"></button>
-    <?php endforeach; ?>
+<!-- ─── TRUST LOGOS SECTION ─────────────────────────── -->
+<section class="trust-logos">
+  <div class="container">
+    <p class="text-center text-muted small fw-bold text-uppercase mb-4" style="letter-spacing: 0.15em;">Trusted by Industry Leaders Worldwide</p>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4 align-items-center justify-content-center text-center">
+      <?php for($x = 1; $x <= 6; $x++): ?>
+      <div class="col">
+        <img src="/assets/images/client-<?=$x?>.png" alt="Client Partner <?=$x?>" class="logo-item img-fluid">
+      </div>
+      <?php endfor; ?>
+    </div>
   </div>
 </section>
 
 <!-- ─── STATS STRIP ──────────────────────────────────── -->
-<section style="background:#1a1a2e; padding:28px 24px;">
-  <div style="max-width:900px; margin:0 auto;" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    <?php foreach($stats as $st): ?>
-    <div style="text-align:center;">
-      <p class="stat-count" data-target="<?= (int)filter_var($st['value'], FILTER_SANITIZE_NUMBER_INT) ?>"
-         style="font-size:32px; font-weight:700; color:#f97316;">0</p>
-      <p style="font-size:11px; color:#94a3b8; text-transform:uppercase;
-                letter-spacing:.5px; margin-top:2px;">
-        <?=htmlspecialchars($st['label'])?>
-      </p>
+<section class="premium-stats-section py-5">
+  <div class="container">
+    <div class="row g-4 text-center">
+      <?php foreach($stats as $st): ?>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-number stat-count" data-target="<?= (int)filter_var($st['value'], FILTER_SANITIZE_NUMBER_INT) ?>" data-suffix="+">0</div>
+          <div class="stat-label"><?= htmlspecialchars($st['label']) ?></div>
+        </div>
+      </div>
+      <?php endforeach; ?>
     </div>
-    <?php endforeach; ?>
   </div>
 </section>
 
-<!-- ─── ABOUT US SNIPPET (Index.php page update) ──────── -->
-<section style="background:#fff; padding:64px 24px;">
-  <div style="max-width:1200px; margin:0 auto; display:flex; gap:48px; align-items:center; flex-wrap:wrap;">
-    <div style="flex:1; min-width:300px;" class="space-y-4">
-      <div style="margin-bottom:20px;">
-        <span style="display:inline-block; background:#dbeafe; color:#1d4ed8;
-                     font-size:11px; font-weight:600; padding:4px 14px;
-                     border-radius:20px; letter-spacing:.5px; margin-bottom:10px;">
-          WHO WE ARE
-        </span>
-        <h2 style="font-size:26px; font-weight:700; color:#0f172a; margin-bottom:8px;">
-          Global BPO Operations Since 2011
-        </h2>
-        <div style="width:48px; height:3px; background:#2563eb; border-radius:2px; margin-top:10px;"></div>
+<!-- ─── ABOUT US SNIPPET ──────────────────────────────── -->
+<section class="py-5 bg-white">
+  <div class="container my-4">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <span class="section-kicker mb-3">Who We Are</span>
+        <h2 class="section-title mb-4">Global BPO &amp; Outsourcing Partner Since 2011</h2>
+        <p class="text-muted mb-4 fs-6" style="line-height: 1.8;">
+          <?= nl2br(htmlspecialchars($about_text)) ?>
+        </p>
+        <a href="/about-us.php" class="btn btn-outline-primary fw-bold" style="border-radius: 8px; border: 2px solid var(--blue); color: var(--blue); text-decoration: none;">
+          Learn More About Us &rarr;
+        </a>
       </div>
-      <p style="font-size:13px; color:#4b5563; line-height:1.9; margin-bottom:20px;">
-        <?= nl2br(htmlspecialchars($about_text)) ?>
-      </p>
-      <a href="/about-us.php" style="font-size:12px; font-weight:700; color:#2563eb;">Learn more about us &rarr;</a>
-    </div>
-    <div style="flex:1; min-width:300px; display:flex; justify-content:center;">
-      <img src="/assets/images/about-home.jpg" alt="About Clevora" style="border-radius:14px; border:1px solid #e8eaf0; max-height:360px; object-fit:cover; width:100%;">
+      <div class="col-lg-6">
+        <div class="position-relative">
+          <div class="position-absolute bg-primary rounded-4" style="inset: -15px 15px 15px -15px; z-index: 0; opacity: 0.05;"></div>
+          <img src="/assets/images/about-home.jpg" alt="Clevora Headquarters" class="img-fluid rounded-4 shadow-lg position-relative" style="z-index: 1; border: 1px solid #e2e8f0;">
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ─── SERVICES GRID ────────────────────────────────── -->
-<section style="background:#f8f9fc; padding:56px 24px;">
-  <!-- Section header -->
-  <div style="text-align:center; margin-bottom:40px;">
-    <span style="display:inline-block; background:#dbeafe; color:#1d4ed8;
-                 font-size:11px; font-weight:600; padding:4px 14px;
-                 border-radius:20px; letter-spacing:.5px; margin-bottom:10px;">
-      OUR SERVICES
-    </span>
-    <h2 style="font-size:26px; font-weight:700; color:#0f172a; margin-bottom:8px;">
-      Comprehensive Outsourcing Solutions
-    </h2>
-    <p style="font-size:13px; color:#6b7280; max-width:500px; margin:0 auto;">
-      Everything your business needs, delivered by expert teams.
-    </p>
-    <div style="width:48px; height:3px; background:#2563eb;
-                border-radius:2px; margin:12px auto 0;"></div>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <?php foreach($services as $s): ?>
-    <div style="background:#fff; border:1px solid #e8eaf0; border-radius:14px;
-                padding:22px; transition:all .2s; cursor:pointer;"
-         onmouseover="this.style.borderColor='#93c5fd';
-                      this.style.boxShadow='0 4px 16px rgba(37,99,235,.08)';
-                      this.style.transform='translateY(-2px)'"
-         onmouseout="this.style.borderColor='#e8eaf0';
-                     this.style.boxShadow='none';
-                     this.style.transform='none'">
-      <div style="width:44px; height:44px; border-radius:10px; background:#eff6ff;
-                  display:flex; align-items:center; justify-content:center;
-                  margin-bottom:12px; overflow:hidden;">
-        <?php if($s['icon_url']): ?>
-        <img src="<?=htmlspecialchars($s['icon_url'])?>" style="width:28px;height:28px;object-fit:contain;">
-        <?php else: ?>
-        <span style="color:#2563eb; font-weight:700; font-size:18px;">⚙</span>
-        <?php endif; ?>
-      </div>
-      <h3 style="font-size:12px; font-weight:700; color:#0f172a; margin-bottom:6px;
-                 text-transform:uppercase; letter-spacing:.3px;">
-        <?=htmlspecialchars($s['name'])?>
-      </h3>
-      <p style="font-size:12px; color:#6b7280; line-height:1.7; margin-bottom:12px;
-                display:-webkit-box; -webkit-line-clamp:3;
-                -webkit-box-orient:vertical; overflow:hidden;">
-        <?=htmlspecialchars($s['intro'])?>
-      </p>
-      <a href="/detail-services.php?slug=<?=urlencode($s['slug'])?>"
-         style="font-size:12px; color:#2563eb; font-weight:600;">
-        Read more →
-      </a>
+<section class="py-5" style="background: #f8fafc;">
+  <div class="container my-4">
+    <div class="text-center mb-5">
+      <span class="section-kicker">Our Services</span>
+      <h2 class="section-title mx-auto mt-2">Comprehensive Outsourcing Solutions</h2>
+      <p class="text-muted mx-auto" style="max-width: 580px;">Everything your enterprise needs to scale, managed by dedicated operational divisions.</p>
     </div>
-    <?php endforeach; ?>
+
+    <div class="row g-4">
+      <?php foreach($services as $s): 
+          $cat = getServiceCategory($s['slug']);
+      ?>
+      <div class="col-md-6 col-lg-4">
+        <div class="premium-service-card">
+          <span class="service-tag <?= $cat['class'] ?>"><?= $cat['tag'] ?></span>
+          <div class="service-icon-wrapper">
+            <?php if(!empty($s['icon_url'])): ?>
+            <img src="<?= htmlspecialchars($s['icon_url']) ?>" alt="<?= htmlspecialchars($s['name']) ?>">
+            <?php else: ?>
+            <span style="color: var(--blue); font-weight: 700; font-size: 20px;">⚙</span>
+            <?php endif; ?>
+          </div>
+          <h3><?= htmlspecialchars($s['name']) ?></h3>
+          <p><?= htmlspecialchars($s['intro']) ?></p>
+          <a href="/detail-services.php?slug=<?= urlencode($s['slug']) ?>" class="read-more">
+            Learn More <span>&rarr;</span>
+          </a>
+        </div>
+      </div>
+      <?php endforeach; ?>
+    </div>
   </div>
 </section>
 
 <!-- ─── GET IN TOUCH (homepage form) ─────────────────── -->
-<section style="background:#1a1a2e; padding:56px 24px;">
-  <div style="max-width:760px; margin:0 auto; text-align:center;">
-    <h2 style="font-size:28px; font-weight:700; color:#fff;
-               font-family:'Poppins',sans-serif; margin-bottom:32px;">
-      Get in Touch
-    </h2>
-    <form id="home-contact-form"
-          class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+<section class="py-5" style="background: #0f172a; position: relative; overflow: hidden;">
+  <div class="container my-4" style="max-width: 800px; position: relative; z-index: 1;">
+    <div class="text-center mb-5">
+      <span class="section-kicker" style="color: var(--orange);">Inquire</span>
+      <h2 class="section-title mx-auto text-white mt-2">Get in Touch</h2>
+      <p class="text-white-50 mx-auto" style="max-width: 500px;">Send us a message and our operations managers will reach out within 24 hours.</p>
+    </div>
+
+    <form id="home-contact-form" class="row g-3">
       <?php
       $fields = [
         ['name'=>'name',    'type'=>'text',  'placeholder'=>'Full Name'],
@@ -274,28 +224,20 @@ $hero_slides = [
       ];
       foreach($fields as $f):
       ?>
-      <input type="<?=$f['type']?>" name="<?=$f['name']?>"
-             placeholder="<?=$f['placeholder']?>"
-             style="background:#1e3a5f; border:1px solid #334155; color:#fff;
-                    border-radius:8px; padding:11px 14px; font-size:13px;
-                    outline:none; transition:border .2s;"
-             onfocus="this.style.borderColor='#2563eb'"
-             onblur="this.style.borderColor='#334155'">
+      <div class="col-md-6">
+        <input type="<?=$f['type']?>" name="<?=$f['name']?>" class="form-control text-white" 
+               placeholder="<?=$f['placeholder']?>" required
+               style="background: #1e293b; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px;">
+      </div>
       <?php endforeach; ?>
-      <textarea name="message" rows="3" placeholder="Your message..."
-                style="background:#1e3a5f; border:1px solid #334155;
-                       color:#fff; border-radius:8px; padding:11px 14px;
-                       font-size:13px; outline:none; resize:none; transition:border .2s;" class="md:col-span-2"
-                onfocus="this.style.borderColor='#2563eb'"
-                onblur="this.style.borderColor='#334155'"></textarea>
-      <div style="text-align:center;" class="md:col-span-2">
-        <button type="submit"
-                style="background:#f97316; color:#fff; padding:12px 40px;
-                       border-radius:8px; font-size:13px; font-weight:700;
-                       border:none; cursor:pointer; transition:background .2s;"
-                onmouseover="this.style.background='#ea6c0a'"
-                onmouseout="this.style.background='#f97316'">
-          SUBMIT
+      <div class="col-12">
+        <textarea name="message" rows="4" class="form-control text-white" placeholder="Your message..." required
+                  style="background: #1e293b; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; resize: none;"></textarea>
+      </div>
+      <div class="col-12 text-center mt-4">
+        <button type="submit" class="btn btn-primary px-5 py-3 text-white fw-bold" 
+                style="background: var(--orange); border: none; font-size: 13px; border-radius: 8px;">
+          SUBMIT MESSAGE
         </button>
       </div>
     </form>
@@ -304,184 +246,242 @@ $hero_slides = [
 </section>
 
 <!-- ─── WHY CHOOSE US ────────────────────────────────── -->
-<section style="background:#fff; padding:56px 24px;">
-  <!-- Section header -->
-  <div style="text-align:center; margin-bottom:40px;">
-    <span style="display:inline-block; background:#dbeafe; color:#1d4ed8;
-                 font-size:11px; font-weight:600; padding:4px 14px;
-                 border-radius:20px; letter-spacing:.5px; margin-bottom:10px;">
-      WHY CHOOSE US
-    </span>
-    <h2 style="font-size:26px; font-weight:700; color:#0f172a; margin-bottom:8px;">
-      What Sets Clevora Apart
-    </h2>
-    <p style="font-size:13px; color:#6b7280; max-width:500px; margin:0 auto;">
-      We deliver quality, availability, and efficiency.
-    </p>
-    <div style="width:48px; height:3px; background:#2563eb;
-                border-radius:2px; margin:12px auto 0;"></div>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <?php
-    $whys = [
-      ['🎓','QUALIFIED EXPERTS',     'Certified professionals with domain-specific training across every service vertical.'],
-      ['⭐','WORKMANSHIP QUALITY',   'Multi-tier QA ensures output with less than 0.5% error rate on every delivery.'],
-      ['🕐','FLEXIBLE SCHEDULE',     '24/7/365 operations adapted to your time zone and business requirements.'],
-      ['💰','AFFORDABLE PACKAGES',   'Enterprise-grade output at SME-friendly pricing with transparent SLAs.'],
-      ['🔒','DATA SECURITY',         'ISO-aligned protocols, NDAs, and GDPR-aware data handling by default.'],
-      ['🤝','WORK ETHICS',           'Dedicated account managers and a customer-first culture in everything we do.'],
-    ];
-    foreach($whys as [$icon,$title,$desc]):
-    ?>
-    <div style="text-align:center; padding:24px 16px;">
-      <div style="width:58px; height:58px; border-radius:50%; background:#eff6ff;
-                  border:2px solid #dbeafe; margin:0 auto 14px;
-                  display:flex; align-items:center; justify-content:center;
-                  font-size:22px;">
-        <?=$icon?>
-      </div>
-      <p style="font-size:12px; font-weight:700; color:#0f172a; margin-bottom:6px;
-                text-transform:uppercase; letter-spacing:.4px;"><?=$title?></p>
-      <p style="font-size:12px; color:#6b7280; line-height:1.7;"><?=$desc?></p>
+<section class="py-5 bg-white">
+  <div class="container my-4">
+    <div class="text-center mb-5">
+      <span class="section-kicker">Why Choose Us</span>
+      <h2 class="section-title mx-auto mt-2">What Sets Clevora Apart</h2>
+      <p class="text-muted mx-auto" style="max-width: 580px;">We combine global standards with customized workflows to deliver premium outcomes.</p>
     </div>
-    <?php endforeach; ?>
+
+    <div class="row g-4">
+      <?php
+      $whys = [
+        ['🎓','Qualified Experts',     'Certified professionals with domain-specific training across every service vertical.'],
+        ['⭐','Workmanship Quality',   'Multi-tier QA ensures output with less than 0.5% error rate on every delivery.'],
+        ['🕐','Flexible Schedule',     '24/7/365 operations adapted to your time zone and business requirements.'],
+        ['💰','Affordable Packages',   'Enterprise-grade output at SME-friendly pricing with transparent SLAs.'],
+        ['🔒','Data Security',         'ISO-aligned protocols, NDAs, and GDPR-aware data handling by default.'],
+        ['🤝','Work Ethics',           'Dedicated account managers and a customer-first culture in everything we do.'],
+      ];
+      foreach($whys as [$icon,$title,$desc]):
+      ?>
+      <div class="col-md-6 col-lg-4">
+        <div class="premium-feature-card">
+          <div class="feature-circle-icon">
+            <?=$icon?>
+          </div>
+          <h3 class="fw-bold fs-6 mb-2 text-uppercase" style="letter-spacing: 0.05em;"><?= $title ?></h3>
+          <p class="text-muted small mb-0" style="line-height: 1.7;"><?= $desc ?></p>
+        </div>
+      </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
+<!-- ─── INDUSTRIES WE SERVE ─────────────────────────── -->
+<section class="py-5" style="background: #f8fafc;">
+  <div class="container my-4">
+    <div class="text-center mb-5">
+      <span class="section-kicker">Industries</span>
+      <h2 class="section-title mx-auto mt-2">Industries We Serve</h2>
+      <p class="text-muted mx-auto" style="max-width: 580px;">Tailored operational workflows designed for the unique compliance and scaling needs of your sector.</p>
+    </div>
+
+    <div class="row g-4">
+      <?php
+      $industries = [
+        ['🛒', 'Retail & E-Commerce', 'Customer support, product listing validation, review moderation, and catalog management.'],
+        ['🏥', 'Healthcare & Biotech', 'Data entry, medical billing documentation, multi-lingual call support, and patient communication.'],
+        ['💳', 'Financial Services', 'Account verification, secure form processing, digital onboarding, and ledger management support.'],
+        ['📚', 'Publishing & Media', 'Data digitisation, typesetting support, copywriting QA, and multi-format conversions.'],
+        ['💻', 'Technology & SaaS', '24/7 technical chat support, API usage logs moderation, customer success, and feedback sorting.'],
+        ['📦', 'Logistics & Shipping', 'Order dispatch validation, shipment tracking updates, claims processing, and address standardization.']
+      ];
+      foreach($industries as [$icon, $title, $desc]):
+      ?>
+      <div class="col-md-6 col-lg-4">
+        <div class="industry-card">
+          <div class="industry-icon-box"><?=$icon?></div>
+          <h4><?=$title?></h4>
+          <p><?=$desc?></p>
+        </div>
+      </div>
+      <?php endforeach; ?>
+    </div>
   </div>
 </section>
 
 <!-- ─── GALLERY ──────────────────────────────────────── -->
-<section style="background:#f8f9fc; padding:56px 24px;">
-  <!-- Section header -->
-  <div style="text-align:center; margin-bottom:40px;">
-    <span style="display:inline-block; background:#dbeafe; color:#1d4ed8;
-                 font-size:11px; font-weight:600; padding:4px 14px;
-                 border-radius:20px; letter-spacing:.5px; margin-bottom:10px;">
-      OUR GALLERY
-    </span>
-    <h2 style="font-size:26px; font-weight:700; color:#0f172a; margin-bottom:8px;">
-      Our Workplace Facilities
-    </h2>
-    <p style="font-size:13px; color:#6b7280; max-width:500px; margin:0 auto;">
-      Have a look at our operations floors and data server rooms.
-    </p>
-    <div style="width:48px; height:3px; background:#2563eb;
-                border-radius:2px; margin:12px auto 0;"></div>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-    <?php foreach($gallery as $g): ?>
-    <div style="border-radius:12px; overflow:hidden; position:relative;
-                border:1px solid #e8eaf0; aspect-ratio:4/3; background:#f0f4ff;
-                display:flex; align-items:center; justify-content:center;"
-         onmouseover="this.querySelector('.gallery-overlay').style.opacity='1'"
-         onmouseout="this.querySelector('.gallery-overlay').style.opacity='0'">
-      <img src="<?=htmlspecialchars($g['image_url'])?>"
-           alt="<?=htmlspecialchars($g['caption']??'')?>"
-           style="width:100%; height:100%; object-fit:cover;">
-      <div class="gallery-overlay"
-           style="position:absolute; inset:0; background:rgba(37,99,235,.65);
-                  display:flex; flex-direction:column; align-items:center;
-                  justify-content:center; gap:8px; opacity:0; transition:opacity .25s;">
-        <?php if(!empty($g['caption'])): ?>
-        <p style="color:#fff; font-size:12px; font-weight:600;">
-          <?=htmlspecialchars($g['caption'])?>
-        </p>
-        <?php endif; ?>
-        <a href="<?=htmlspecialchars($g['image_url'])?>" target="_blank"
-           style="background:#fff; color:#2563eb; font-size:11px; font-weight:700;
-                  padding:6px 14px; border-radius:6px; text-decoration:none;">
-          View More
-        </a>
-      </div>
+<section class="py-5 bg-white">
+  <div class="container my-4">
+    <div class="text-center mb-5">
+      <span class="section-kicker">Our Workspace</span>
+      <h2 class="section-title mx-auto mt-2">Operations Center Gallery</h2>
+      <p class="text-muted mx-auto" style="max-width: 580px;">Take a look at our secure infrastructure, operations floors, and collaborative workspaces.</p>
     </div>
-    <?php endforeach; ?>
+
+    <div class="row g-4">
+      <?php foreach($gallery as $g): ?>
+      <div class="col-md-6 col-lg-4">
+        <div class="position-relative overflow-hidden rounded-4 shadow-sm" style="aspect-ratio: 4/3; border: 1px solid #e2e8f0; cursor: pointer;"
+             onmouseover="this.querySelector('.gallery-hover-overlay').style.opacity='1'"
+             onmouseout="this.querySelector('.gallery-hover-overlay').style.opacity='0'">
+          <img src="<?= htmlspecialchars($g['image_url']) ?>" alt="<?= htmlspecialchars($g['caption'] ?? '') ?>" class="w-100 h-100" style="object-fit: cover;">
+          <div class="gallery-hover-overlay position-absolute inset-0 d-flex flex-column align-items-center justify-content-center"
+               style="background: rgba(37, 99, 235, 0.85); opacity: 0; transition: opacity 0.3s ease;">
+            <?php if(!empty($g['caption'])): ?>
+            <p class="text-white fw-bold mb-3 px-3 text-center"><?= htmlspecialchars($g['caption']) ?></p>
+            <?php endif; ?>
+            <a href="<?= htmlspecialchars($g['image_url']) ?>" target="_blank" class="btn btn-light btn-sm fw-bold px-3" style="border-radius: 6px; font-size: 11px;">
+              View Image &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+      <?php endforeach; ?>
+    </div>
   </div>
 </section>
 
 <!-- ─── TESTIMONIALS ─────────────────────────────────── -->
-<section style="background:#fff; padding:56px 24px;">
-  <!-- Section header -->
-  <div style="text-align:center; margin-bottom:40px;">
-    <span style="display:inline-block; background:#dbeafe; color:#1d4ed8;
-                 font-size:11px; font-weight:600; padding:4px 14px;
-                 border-radius:20px; letter-spacing:.5px; margin-bottom:10px;">
-      TESTIMONIALS
-    </span>
-    <h2 style="font-size:26px; font-weight:700; color:#0f172a; margin-bottom:8px;">
-      What Our Clients Say
-    </h2>
-    <p style="font-size:13px; color:#6b7280; max-width:500px; margin:0 auto;">
-      Trusted reviews from companies and organizations globally.
-    </p>
-    <div style="width:48px; height:3px; background:#2563eb;
-                border-radius:2px; margin:12px auto 0;"></div>
-  </div>
+<section class="py-5" style="background: #f8fafc;">
+  <div class="container my-4">
+    <div class="text-center mb-5">
+      <span class="section-kicker">Testimonials</span>
+      <h2 class="section-title mx-auto mt-2">What Our Clients Say</h2>
+      <p class="text-muted mx-auto" style="max-width: 580px;">Hear directly from the enterprise teams and startup leaders who work with us daily.</p>
+    </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <?php
-    $avatar_colors = ['#2563eb','#f97316','#059669','#7c3aed','#dc2626'];
-    $i = 0;
-    foreach($testimonials as $t):
-      $initials = strtoupper(substr($t['name'],0,1) . (strpos($t['name'],' ')!==false ? substr(strrchr($t['name'],' '),1,1) : ''));
-      $color    = $avatar_colors[$i % count($avatar_colors)];
-      $i++;
-    ?>
-    <div style="background:#fff; border:1px solid #e8eaf0; border-radius:14px;
-                padding:22px; transition:box-shadow .2s;"
-         onmouseover="this.style.boxShadow='0 4px 16px rgba(37,99,235,.08)'"
-         onmouseout="this.style.boxShadow='none'">
-      <div style="font-size:36px; color:#dbeafe; line-height:.8; margin-bottom:10px;">"</div>
-      <p style="font-size:12px; color:#4b5563; line-height:1.8; font-style:italic;
-                margin-bottom:16px;">
-        <?=htmlspecialchars($t['quote'])?>
-      </p>
-      <div style="display:flex; align-items:center; gap:10px;">
-        <?php if($t['photo_url']): ?>
-        <img src="<?=htmlspecialchars($t['photo_url'])?>"
-             style="width:38px;height:38px;border-radius:50%;object-fit:cover;
-                    border:2px solid #dbeafe; flex-shrink:0;">
-        <?php else: ?>
-        <div style="width:38px; height:38px; border-radius:50%; background:<?=$color?>;
-                    display:flex; align-items:center; justify-content:center;
-                    color:#fff; font-size:12px; font-weight:700; flex-shrink:0;">
-          <?=$initials?>
-        </div>
-        <?php endif; ?>
-        <div>
-          <p style="font-size:12px; font-weight:700; color:#0f172a;">
-            <?=htmlspecialchars($t['name'])?>
-          </p>
-          <p style="font-size:11px; color:#9ca3af;">
-            <?=htmlspecialchars($t['location'])?>
-          </p>
+    <div class="row g-4">
+      <?php
+      $avatar_colors = ['#2563eb','#f97316','#059669','#7c3aed','#dc2626'];
+      $i = 0;
+      foreach($testimonials as $t):
+        $initials = strtoupper(substr($t['name'],0,1) . (strpos($t['name'],' ')!==false ? substr(strrchr($t['name'],' '),1,1) : ''));
+        $color    = $avatar_colors[$i % count($avatar_colors)];
+        $i++;
+      ?>
+      <div class="col-md-6 col-lg-4">
+        <div class="testimonial-quote-card">
+          <div>
+            <div class="quote-stars">★★★★★</div>
+            <div class="quote-text">"<?= htmlspecialchars($t['quote']) ?>"</div>
+          </div>
+          <div class="quote-user mt-4">
+            <?php if(!empty($t['photo_url'])): ?>
+            <img src="<?= htmlspecialchars($t['photo_url']) ?>" alt="<?= htmlspecialchars($t['name']) ?>" class="quote-avatar">
+            <?php else: ?>
+            <div class="quote-avatar" style="background: <?=$color?>;"><?=$initials?></div>
+            <?php endif; ?>
+            <div class="quote-info">
+              <h5><?= htmlspecialchars($t['name']) ?></h5>
+              <p><?= htmlspecialchars($t['location']) ?></p>
+            </div>
+          </div>
         </div>
       </div>
+      <?php endforeach; ?>
     </div>
-    <?php endforeach; ?>
   </div>
 </section>
 
-<!-- ─── CTA STRIP ────────────────────────────────────── -->
-<section style="background:#2563eb; padding:24px 24px;">
-  <div style="max-width:1200px; margin:0 auto;
-              display:flex; align-items:center; justify-content:space-between;
-              flex-wrap:wrap; gap:14px;">
-    <div>
-      <h3 style="color:#fff; font-size:17px; font-weight:700;">
-        We have the best experts to elevate your business.
-      </h3>
-      <p style="color:#bfdbfe; font-size:12px; margin-top:2px;">
-        📞 <?=setting('contact_phone',$pdo)?>
-      </p>
+<!-- ─── CONNECT WITH CLEVORA ──────────────────────────── -->
+<section class="py-5 bg-white">
+  <div class="container my-4">
+    <div class="text-center mb-5">
+      <span class="section-kicker">Connect</span>
+      <h2 class="section-title mx-auto mt-2">Connect With Clevora</h2>
+      <p class="text-muted mx-auto" style="max-width: 580px;">Follow us across platforms or get in touch through your preferred channel.</p>
     </div>
-    <a href="/contact.php"
-       style="background:#fff; color:#2563eb; padding:11px 24px;
-              border-radius:8px; font-size:13px; font-weight:700;
-              text-decoration:none; transition:background .2s;"
-       onmouseover="this.style.background='#eff6ff'"
-       onmouseout="this.style.background='#fff'">
-      Contact Us
-    </a>
+
+    <div class="social-grid">
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/clevora.India" target="_blank" class="social-card sc-facebook">
+        <div class="social-icon-wrapper">f</div>
+        <div class="social-meta">
+          <h4>Facebook</h4>
+          <span>Clevora India</span>
+        </div>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/clevora.india/" target="_blank" class="social-card sc-instagram">
+        <div class="social-icon-wrapper">📸</div>
+        <div class="social-meta">
+          <h4>Instagram</h4>
+          <span>@clevora.india</span>
+        </div>
+      </a>
+
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/company/clevoraindia/" target="_blank" class="social-card sc-linkedin">
+        <div class="social-icon-wrapper">in</div>
+        <div class="social-meta">
+          <h4>LinkedIn</h4>
+          <span>Clevora Global</span>
+        </div>
+      </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/919811166666" target="_blank" class="social-card sc-whatsapp">
+        <div class="social-icon-wrapper">💬</div>
+        <div class="social-meta">
+          <h4>WhatsApp</h4>
+          <span>Direct Chat</span>
+        </div>
+      </a>
+
+      <!-- Google Business -->
+      <a href="https://www.google.com/search?q=clevora+global+outsourcing+services" target="_blank" class="social-card sc-google">
+        <div class="social-icon-wrapper">G</div>
+        <div class="social-meta">
+          <h4>Google</h4>
+          <span>Rate Us Online</span>
+        </div>
+      </a>
+
+      <!-- Xing -->
+      <a href="https://www.xing.com/" target="_blank" class="social-card sc-xing">
+        <div class="social-icon-wrapper">X</div>
+        <div class="social-meta">
+          <h4>Xing</h4>
+          <span>European Network</span>
+        </div>
+      </a>
+
+      <!-- IndiaMart -->
+      <a href="https://www.indiamart.com/" target="_blank" class="social-card sc-indiamart">
+        <div class="social-icon-wrapper">🛒</div>
+        <div class="social-meta">
+          <h4>IndiaMart</h4>
+          <span>Trade Profile</span>
+        </div>
+      </a>
+
+      <!-- JustDial -->
+      <a href="https://www.justdial.com/Delhi/Clevora-Global-Outsourcing-Services-Llp-Kirti-Nagar/011PXX11.XX11.230713170701.K6W9_BZDET" target="_blank" class="social-card sc-justdial">
+        <div class="social-icon-wrapper">📞</div>
+        <div class="social-meta">
+          <h4>JustDial</h4>
+          <span>Delhi Listing</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PREMIUM CTA BANNER ───────────────────────────── -->
+<section class="py-5 bg-white">
+  <div class="container my-4">
+    <div class="premium-cta-section px-4">
+      <h2>Ready to Optimise Your Business Operations?</h2>
+      <p>Partner with Clevora to access dedicated, round-the-clock teams, and scale your support, moderation, and data workflows without overheads.</p>
+      <div class="cta-actions">
+        <a href="/contact.php" class="cta-btn text-white" style="text-decoration: none;">Get Started Today &rarr;</a>
+      </div>
+    </div>
   </div>
 </section>
 
