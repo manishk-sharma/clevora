@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="callGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ec4899" />
+      <stop offset="100%" stop-color="#f43f5e" />
+    </linearGradient>
+  </defs>
+  <path d="M32 10a18 18 0 0 0-18 18v12h4V28a14 14 0 0 1 28 0v12h4V28A18 18 0 0 0 32 10z" fill="url(#callGrad)"/>
+  <rect x="10" y="34" width="8" height="12" rx="3" fill="url(#callGrad)"/>
+  <rect x="46" y="34" width="8" height="12" rx="3" fill="url(#callGrad)"/>
+  <path d="M46 42h-8c-2 0-3 1.5-3 3v2" fill="none" stroke="url(#callGrad)" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="35" cy="50" r="3" fill="#ec4899"/>
+</svg>

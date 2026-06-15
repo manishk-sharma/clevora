@@ -1,0 +1,24 @@
+Options -Indexes
+ServerSignature Off
+
+<IfModule mod_headers.c>
+  # Security headers
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+</IfModule>
+
+# Block direct access to config, database, middleware and sql files
+<FilesMatch "(\.sql|config\.php|db\.php|auth\.php)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order Allow,Deny
+    Deny from all
+  </IfModule>
+</FilesMatch>

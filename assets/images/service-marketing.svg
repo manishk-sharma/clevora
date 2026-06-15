@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="markGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+  </defs>
+  <path d="M14 26h6v12h-6z" fill="url(#markGrad)"/>
+  <path d="M20 28l18-8v24l-18-8v-8z" fill="url(#markGrad)"/>
+  <path d="M38 24h6v16h-6z" fill="url(#markGrad)" opacity="0.9"/>
+  <path d="M22 38l6 10c1 1.5 3 1.5 4 0l2-4" fill="none" stroke="url(#markGrad)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M48 20c4 3 6 8 6 12s-2 9-6 12" fill="none" stroke="#6366f1" stroke-width="4" stroke-linecap="round"/>
+  <path d="M52 26c2 2 3 4 3 6s-1 4-3 6" fill="none" stroke="#a855f7" stroke-width="3" stroke-linecap="round"/>
+</svg>
