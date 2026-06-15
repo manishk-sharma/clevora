@@ -83,7 +83,7 @@ if (empty($gallery)) {
                   border-radius:2px; margin:12px auto 0;"></div>
     </div>
 
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;" class="grid grid-cols-1 md:grid-cols-3">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
       <?php foreach($gallery as $g): ?>
       <div style="border-radius:12px; overflow:hidden; position:relative;
                   border:1px solid #e8eaf0; aspect-ratio:4/3; background:#f0f4ff;

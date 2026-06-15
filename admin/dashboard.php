@@ -55,7 +55,7 @@ if ($pdo) {
     </div>
 
     <!-- Stat cards -->
-    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px;" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-7">
       <div style="background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:20px; box-shadow:var(--shadow-card);">
         <p style="font-size:11px; font-weight:600; color:#6b7280; text-transform:uppercase;">Services</p>
         <p style="font-size:24px; font-weight:700; color:#2563eb; margin-top:4px;"><?= $count_services ?></p>

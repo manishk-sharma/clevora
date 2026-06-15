@@ -47,7 +47,7 @@ if (empty($clients)) {
                 border-radius:2px; margin:12px auto 0;"></div>
   </div>
 
-  <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:20px;" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 justify-center items-center">
+  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5 justify-center items-center">
     <?php foreach($clients as $c): ?>
     <div style="background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:20px;
                 display:flex; align-items:center; justify-content:center; height:100px;

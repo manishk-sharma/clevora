@@ -585,6 +585,24 @@ img { max-width: 100%; height: auto; display: block; }
   color: #fff;
 }
 
+.site-footer .btn {
+  display: inline-flex;
+  margin-bottom: 0;
+}
+
+.site-footer .btn--light {
+  background: #ffffff;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.site-footer .btn--light:hover {
+  background: var(--orange);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+}
+
+
 .site-footer__form {
   display: flex;
   gap: 8px;

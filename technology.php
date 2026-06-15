@@ -55,7 +55,7 @@ $infrastructure = setting('tech_infrastructure', $pdo);
                   border-radius:2px; margin:12px auto 0;"></div>
     </div>
 
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;" class="grid grid-cols-1 md:grid-cols-3">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <!-- Power Backups -->
       <div style="background:#f8f9fc; border:1px solid #e8eaf0; border-radius:14px; padding:32px; display:flex; flex-direction:column; gap:12px;">
         <div style="font-size:32px;">⚡</div>

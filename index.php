@@ -160,8 +160,7 @@ $hero_slides = [
 
 <!-- ─── STATS STRIP ──────────────────────────────────── -->
 <section style="background:#1a1a2e; padding:28px 24px;">
-  <div style="max-width:900px; margin:0 auto;
-              display:grid; grid-template-columns:repeat(4,1fr); gap:16px;" class="grid grid-cols-2 md:grid-cols-4">
+  <div style="max-width:900px; margin:0 auto;" class="grid grid-cols-2 md:grid-cols-4 gap-4">
     <?php foreach($stats as $st): ?>
     <div style="text-align:center;">
       <p class="stat-count" data-target="<?= (int)filter_var($st['value'], FILTER_SANITIZE_NUMBER_INT) ?>"
@@ -220,7 +219,7 @@ $hero_slides = [
                 border-radius:2px; margin:12px auto 0;"></div>
   </div>
 
-  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;" class="grid grid-cols-1 md:grid-cols-3">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <?php foreach($services as $s): ?>
     <div style="background:#fff; border:1px solid #e8eaf0; border-radius:14px;
                 padding:22px; transition:all .2s; cursor:pointer;"
@@ -265,7 +264,7 @@ $hero_slides = [
       Get in Touch
     </h2>
     <form id="home-contact-form"
-          style="display:grid; grid-template-columns:1fr 1fr; gap:14px;" class="grid grid-cols-1 md:grid-cols-2">
+          class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
       <?php
       $fields = [
         ['name'=>'name',    'type'=>'text',  'placeholder'=>'Full Name'],
@@ -323,7 +322,7 @@ $hero_slides = [
                 border-radius:2px; margin:12px auto 0;"></div>
   </div>
 
-  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;" class="grid grid-cols-1 md:grid-cols-3">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <?php
     $whys = [
       ['🎓','QUALIFIED EXPERTS',     'Certified professionals with domain-specific training across every service vertical.'],
@@ -369,7 +368,7 @@ $hero_slides = [
                 border-radius:2px; margin:12px auto 0;"></div>
   </div>
 
-  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;" class="grid grid-cols-1 md:grid-cols-3">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
     <?php foreach($gallery as $g): ?>
     <div style="border-radius:12px; overflow:hidden; position:relative;
                 border:1px solid #e8eaf0; aspect-ratio:4/3; background:#f0f4ff;
@@ -418,7 +417,7 @@ $hero_slides = [
                 border-radius:2px; margin:12px auto 0;"></div>
   </div>
 
-  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;" class="grid grid-cols-1 md:grid-cols-3">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <?php
     $avatar_colors = ['#2563eb','#f97316','#059669','#7c3aed','#dc2626'];
     $i = 0;
