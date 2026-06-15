@@ -25,58 +25,65 @@ if (empty($all_services)) {
         ['slug' => 'publishing-solutions', 'name' => 'Publishing Solutions']
     ];
 }
+
+if (!function_exists('getServiceIcon')) {
+    function getServiceIcon($slug) {
+        $mapping = [
+            'database-management' => 'service-db.svg',
+            'content-moderation' => 'service-moderation.svg',
+            'digital-marketing' => 'service-marketing.svg',
+            'software-solutions' => 'service-software.svg',
+            'business-outsourcing' => 'service-bpo.svg',
+            'mortgage-services' => 'service-mortgage.svg',
+            'foreign-language-support' => 'service-language.svg',
+            'data-validation' => 'service-validation.svg',
+            'inbound-outbound' => 'service-callcenter.svg',
+            'conversion-catalyst' => 'service-catalyst.svg',
+            'back-office' => 'service-backoffice.svg',
+            'publishing-solutions' => 'service-publishing.svg'
+        ];
+        return '/assets/images/' . ($mapping[$slug] ?? 'service-db.svg');
+    }
+}
 ?>
 
-<aside style="width:220px; flex-shrink:0; padding:0 0 0 4px;" class="w-full md:w-[220px]">
+<aside style="width:100%;">
   <!-- Services box -->
-  <div style="border:1px solid #e8eaf0; border-radius:10px;
-              overflow:hidden; margin-bottom:16px; background:#fff;">
-    <div style="background:#1a1a2e; color:#fff; font-size:11px;
-                font-weight:700; padding:11px 14px; letter-spacing:.5px;
-                text-transform:uppercase; position:relative;">
-      SERVICES
-      <!-- Decorative corner cut -->
-      <span style="position:absolute; right:0; top:0; width:0; height:0;
-                   border-left:32px solid transparent;
-                   border-top:36px solid #2563eb;"></span>
-    </div>
+  <h3 class="sidebar-header">OUR SERVICES</h3>
+  <div style="display: flex; flex-direction: column; gap: 2px;">
     <?php
     foreach($all_services as $s):
       $isActive = ($s['slug'] === ($currentSlug ?? ''));
+      $iconUrl = getServiceIcon($s['slug']);
     ?>
     <a href="/detail-services.php?slug=<?=urlencode($s['slug'])?>"
-       style="display:block; padding:10px 14px; font-size:11px;
-              border-bottom:1px solid #f0f2f8; text-decoration:none;
-              transition:all .15s;
-              <?= $isActive
-                ? 'background:#2563eb; color:#fff; font-weight:600;'
-                : 'color:#4b5563;' ?>"
-       onmouseover="<?=$isActive?'':'this.style.background=\"#f8f9fc\";this.style.color=\"#2563eb\"'?>"
-       onmouseout="<?=$isActive?'':'this.style.background=\"\";this.style.color=\"#4b5563\"'?>">
-      <?=htmlspecialchars($s['name'])?>
+       class="sidebar-service-card <?= $isActive ? 'active' : '' ?>">
+       <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+         <div style="display:flex; align-items:center; gap:12px;">
+           <img src="<?=$iconUrl?>" style="width:18px; height:18px; object-fit:contain; transition: filter 0.2s;" alt="">
+           <span><?=htmlspecialchars($s['name'])?></span>
+         </div>
+         <span style="font-size:12px;">➔</span>
+       </div>
     </a>
     <?php endforeach; ?>
   </div>
 
   <!-- Follow Us box -->
-  <div style="border:1px solid #e8eaf0; border-radius:10px; overflow:hidden; background:#fff;">
-    <div style="background:#1a1a2e; color:#fff; font-size:11px;
-                font-weight:700; padding:11px 14px; letter-spacing:.5px;
-                text-transform:uppercase; position:relative;">
-      FOLLOW US
-      <span style="position:absolute; right:0; top:0; width:0; height:0;
-                   border-left:32px solid transparent;
-                   border-top:36px solid #2563eb;"></span>
-    </div>
-    <div style="display:flex; gap:8px; padding:12px 14px;">
+  <h3 class="sidebar-header" style="margin-top: 32px;">FOLLOW US</h3>
+  <div style="border:1px solid #e8eaf0; border-radius:12px; padding:18px; background:#fff; box-shadow: 0 2px 4px rgba(0,0,0,.02);">
+    <div style="display:flex; gap:8px;">
       <?php
       $socials = [['f','#1877f2'],['X','#374151'],['in','#0a66c2'],['🌳','#f97316']];
       foreach($socials as [$l,$c]):
       ?>
       <a href="#"
-         style="width:30px; height:30px; border-radius:6px; background:<?=$c?>;
+         style="width:34px; height:34px; border-radius:8px; background:<?=$c?>;
                 display:flex; align-items:center; justify-content:center;
-                color:#fff; font-size:10px; font-weight:700; text-decoration:none;">
+                color:#fff; font-size:12px; font-weight:700; text-decoration:none;
+                transition: transform 0.2s;"
+         onmouseover="this.style.transform='translateY(-2px)'"
+         onmouseout="this.style.transform='none'">
         <?=$l?>
       </a>
       <?php endforeach; ?>
