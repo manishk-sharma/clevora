@@ -19,16 +19,79 @@ if (!$service) {
         'database-management' => [
             'name' => 'Database Management',
             'icon_url' => '/assets/images/service-db.svg',
-            'intro' => "Address Verification, Postal Code Correction, NCOA and Standardization.\nCleaning Databases, Address Checking, Output to Printer, E-Mailer, or Printed Mailing Catalog.",
-            'features' => '["Address Verification", "Database Cleaning", "Postal Code Standardization"]',
-            'benefits' => '["Increased mail deliverability", "Lower database processing costs", "Clean list profiles"]'
+            'intro' => "Address Verification, Postal Code Correction, NCOA and Standardization. Cleaning Databases, Address Checking, Output to Printer, E-Mailer, or Printed Mailing Catalog.",
+            'features' => '["Address Verification", "Database Cleaning", "Postal Code Standardization", "NCOA Processing"]',
+            'benefits' => '["High data accuracy", "Reduced bounce rates", "Optimized marketing spend"]'
         ],
         'content-moderation' => [
             'name' => 'Content Moderation',
             'icon_url' => '/assets/images/service-moderation.svg',
             'intro' => "Protect your brand reputation and build user trust with our global content moderation services. We monitor and filter text, images, and videos 24/7.",
-            'features' => '["Image Moderation", "Video Moderation", "Text and Review moderation"]',
-            'benefits' => '["Community safety", "Brand shield", "Full 24/7 coverage"]'
+            'features' => '["Image Moderation", "Video Moderation", "Text and Review moderation", "User Profile Verification"]',
+            'benefits' => '["Safe community environment", "Stronger brand protection", "24/7 moderation coverage"]'
+        ],
+        'digital-marketing' => [
+            'name' => 'Digital Marketing',
+            'icon_url' => '/assets/images/service-marketing.svg',
+            'intro' => "Enhance your digital footprint with SEO, PPC, and social media campaigns designed to generate high-quality leads.",
+            'features' => '["SEO Auditing", "PPC Management", "Social Media Marketing", "Lead Generation Outlines"]',
+            'benefits' => '["Higher conversion", "Increased visibility", "Better ROI"]'
+        ],
+        'business-outsourcing' => [
+            'name' => 'Business Outsourcing',
+            'icon_url' => '/assets/images/service-bpo.svg',
+            'intro' => "Streamline your operations with our business process outsourcing (BPO) solutions, from front-office to back-office tasks.",
+            'features' => '["Customer Care Support", "Technical Helpdesk", "Transaction Processing", "Order Fulfillment"]',
+            'benefits' => '["Optimized operational cost", "Scalable support workforce", "Higher customer satisfaction"]'
+        ],
+        'mortgage-services' => [
+            'name' => 'Mortgage Services',
+            'icon_url' => '/assets/images/service-mortgage.svg',
+            'intro' => "Accurate and fast mortgage processing support, document indexing, and validation for lenders and brokers.",
+            'features' => '["Loan Processing Support", "Document Indexing & Archiving", "Underwriting Support Tasks", "Closing & Post-Closing Auditing"]',
+            'benefits' => '["Accelerated closing times", "Improved compliance controls", "Reduced overhead costs"]'
+        ],
+        'foreign-language-support' => [
+            'name' => 'Foreign Language Support',
+            'icon_url' => '/assets/images/service-language.svg',
+            'intro' => "Connect with global clients through multilingual customer support, translation, and localized services.",
+            'features' => '["Multilingual Support Agents", "Document Translation Solutions", "Localization Auditing", "Live Multilingual Chat Support"]',
+            'benefits' => '["Broader global reach", "Improved local customer trust", "Seamless cross-border service"]'
+        ],
+        'data-validation' => [
+            'name' => 'Data Validation',
+            'icon_url' => '/assets/images/service-validation.svg',
+            'intro' => "Maintain a high-quality database with real-time validation, address verification, and database scrubbing.",
+            'features' => '["Real-Time Entry Validation", "Database Formatting Audit", "Address Check & Correction", "Duplicate Record Consolidation"]',
+            'benefits' => '["High data accuracy", "Better lead pipeline clarity", "Improved system efficiency"]'
+        ],
+        'inbound-outbound' => [
+            'name' => 'Inbound & Outbound Call Center',
+            'icon_url' => '/assets/images/service-callcenter.svg',
+            'intro' => "Drive sales and support customers with professional inbound and outbound tele-calling services.",
+            'features' => '["Inbound Helpdesk Solutions", "Outbound Lead Generation Calls", "Tele-Sales & Follow-Ups", "24/7 Helpdesk & Answering"]',
+            'benefits' => '["Increased sales conversions", "Responsive client assistance", "Constant availability guarantee"]'
+        ],
+        'conversion-catalyst' => [
+            'name' => 'Conversion Catalyst',
+            'icon_url' => '/assets/images/service-catalyst.svg',
+            'intro' => "Boost your website's conversion rate through user experience design auditing and conversion rate optimization (CRO).",
+            'features' => '["UX/UI Auditing", "A/B Testing Execution", "Conversion Funnel Optimization", "Customer Journey Tracking"]',
+            'benefits' => '["Higher conversion", "Increased marketing efficiency", "Better visitor retention"]'
+        ],
+        'back-office' => [
+            'name' => 'Back Office Support',
+            'icon_url' => '/assets/images/service-backoffice.svg',
+            'intro' => "Efficient data entry, bookkeeping, processing invoices, and document classification services for your backend teams.",
+            'features' => '["Bookkeeping & Accounting Support", "Invoice Processing & Billing", "Data Entry & Entry Auditing", "Document Processing Workflows"]',
+            'benefits' => '["Lower administration cost", "Accurate audit reporting", "Streamlined backend tasks"]'
+        ],
+        'publishing-solutions' => [
+            'name' => 'Publishing Solutions',
+            'icon_url' => '/assets/images/service-publishing.svg',
+            'intro' => "Professional formatting, layout typesetting, proofreading, and e-book conversion services.",
+            'features' => '["Layout Typesetting Solutions", "Typesetting & Proofreading", "E-Book Format Conversions", "Multilingual Publishing Auditing"]',
+            'benefits' => '["Error-free copy output", "Shorter publishing cycles", "Multi-format device readiness"]'
         ]
     ];
     if (isset($fallbacks[$slug])) {
@@ -71,6 +134,7 @@ include 'includes/page-banner.php';
           <?php if (!empty($service['icon_url'])): ?>
           <img src="<?=htmlspecialchars($service['icon_url'])?>"
                alt="<?=htmlspecialchars($service['name'])?>"
+               loading="lazy"
                style="width: 220px; height: auto; object-fit: contain;">
           <?php else: ?>
           <div style="width:220px; height:220px; display:flex; align-items:center; justify-content:center; font-size:64px; color:var(--blue);">⚙</div>

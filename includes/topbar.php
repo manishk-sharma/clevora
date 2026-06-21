@@ -66,15 +66,22 @@
     </script>
     <?php
     $socials = [
-      ['#','f','#1877f2'],['#','G','#ea4335'],
-      ['#','X','#374151'],['#','in','#0a66c2'],['#','🌳','#f97316']
+      ['https://www.facebook.com/clevora.India', '<i class="fa-brands fa-facebook-f"></i>', '#1877f2'],
+      ['https://www.xing.com/companies/clevoraglobaloutsourcingservices', '<i class="fa-brands fa-xing"></i>', '#006567'],
+      ['https://www.linkedin.com/company/74049332/admin/feed/posts', '<i class="fa-brands fa-linkedin-in"></i>', '#0a66c2'],
+      ['https://linktr.ee/clevora', '<i class="fa-solid fa-tree"></i>', '#39e09b'],
+      ['https://api.whatsapp.com/send?phone=919953310085&text=%20I%20am%20interested%20in%20your%20services', '<i class="fa-brands fa-whatsapp"></i>', '#25d366']
     ];
-    foreach($socials as [$url,$label,$bg]):
+    foreach($socials as [$url,$icon,$bg]):
     ?>
     <a href="<?=$url?>"
+       target="_blank"
+       rel="noopener"
        class="topbar__social"
-       style="background:<?=$bg?>;">
-      <?=$label?>
+       style="background:<?=$bg?>; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 6px; color: #fff; transition: opacity 0.2s;"
+       onmouseover="this.style.opacity='0.85'"
+       onmouseout="this.style.opacity='1'">
+      <?=$icon?>
     </a>
     <?php endforeach; ?>
   </div>

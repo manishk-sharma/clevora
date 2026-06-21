@@ -1,12 +1,24 @@
-<footer class="site-footer">
-  <div class="site-footer__cta">
-    <div>
-      <p class="section-kicker">Ready to scale?</p>
-      <h2>Build a smarter operations team with Clevora.</h2>
+<!-- ─── GET IN TOUCH CTA ──────────────────────────────── -->
+<section style="background:#1d4ed8; padding:80px 24px; color:#fff; text-align:center;">
+  <div style="max-width:800px; margin:0 auto;">
+    <h2 style="font-size:clamp(26px, 4.5vw, 42px); font-weight:700; color:#fff; margin-bottom:16px; font-family:'Poppins', sans-serif; letter-spacing:-0.01em;">
+      Ready to become our next success story?
+    </h2>
+    <p style="font-size:clamp(15px, 2vw, 18px); color:#bfdbfe; max-width:600px; margin:0 auto 36px auto; line-height:1.6;">
+      Tell us about your challenge. We'll build you a custom team proposal
+    </p>
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:24px;">
+      <a href="/contact.php" style="display:inline-block; background:#db6060; color:#fff; font-size:14px; font-weight:600; padding:12px 36px; border-radius:9999px; text-decoration:none; box-shadow:0 4px 14px rgba(202, 37, 37, 0.3); transition:background 0.2s;" onmouseover="this.style.background='#a20e0eff'" onmouseout="this.style.background='#b41111ff'">
+        Get a Free Quote
+      </a>
     </div>
-    <a class="btn btn--light" href="/contact.php">Start a Conversation</a>
+    <p style="font-size:12px; color:#93c5fd; margin:0; opacity:0.8;">
+      No commitment required. We respond.
+    </p>
   </div>
+</section>
 
+<footer class="site-footer">
   <div class="site-footer__grid">
     <div>
       <a class="site-footer__brand" href="/" aria-label="Clevora home">
@@ -30,9 +42,15 @@
     <div>
       <h4>Quick Links</h4>
       <?php
-      $quick = ['Home'=>'/','About Us'=>'/about-us.php',
-                'Content Moderation'=>'/Content-Moderation.php',
-                'Technology'=>'/technology.php','Contact Us'=>'/contact.php'];
+      $quick = [
+        'Home' => '/',
+        'About Us' => '/about-us.php',
+        'Services' => '/services.php',
+        'Our Clients' => '/clients.php',
+        'Technology' => '/technology.php',
+        'Careers' => '/career.php',
+        'Contact Us' => '/contact.php'
+      ];
       foreach($quick as $label => $href):
       ?>
       <a href="<?=$href?>"><?=$label?></a>
@@ -65,10 +83,16 @@
       </form>
       <div class="site-footer__socials" aria-label="Social links">
         <?php
-        $socials = [['f','#1877f2'],['X','#374151'],['in','#0a66c2'],['M','#f97316']];
-        foreach($socials as [$l,$c]):
+        $socials = [
+          ['https://www.facebook.com/clevora.India', '<i class="fa-brands fa-facebook-f"></i>', '#1877f2'],
+          ['https://www.xing.com/companies/clevoraglobaloutsourcingservices', '<i class="fa-brands fa-xing"></i>', '#006567'],
+          ['https://www.linkedin.com/company/74049332/admin/feed/posts', '<i class="fa-brands fa-linkedin-in"></i>', '#0a66c2'],
+          ['https://linktr.ee/clevora', '<i class="fa-solid fa-tree"></i>', '#39e09b'],
+          ['https://api.whatsapp.com/send?phone=919953310085&text=%20I%20am%20interested%20in%20your%20services', '<i class="fa-brands fa-whatsapp"></i>', '#25d366']
+        ];
+        foreach($socials as [$url,$icon,$bg]):
         ?>
-        <a href="#" style="background:<?=$c?>;"><?=$l?></a>
+        <a href="<?=$url?>" target="_blank" rel="noopener" style="background:<?=$bg?>; color:#fff; display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:8px; font-size:14px; text-decoration:none; margin-right:6px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'"><?=$icon?></a>
         <?php endforeach; ?>
       </div>
     </div>
@@ -76,7 +100,6 @@
 
   <div class="site-footer__bottom">
     <span>© <?=date('Y')?> Clevora. All Rights Reserved.</span>
-    <span>Total Visit: <span id="visit-count">104914</span></span>
   </div>
 </footer>
 </body>

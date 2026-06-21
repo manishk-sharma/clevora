@@ -48,12 +48,22 @@ include 'includes/page-banner.php';
     <!-- Social -->
     <div class="contact-socials">
       <?php
-      $socials = [['f','#1877f2'],['X','#374151'],['in','#0a66c2'],['🌳','#f97316']];
-      foreach($socials as [$l,$c]):
+      $socials = [
+        ['https://www.facebook.com/clevora.India', '<i class="fa-brands fa-facebook-f"></i>', '#1877f2'],
+        ['https://www.xing.com/companies/clevoraglobaloutsourcingservices', '<i class="fa-brands fa-xing"></i>', '#006567'],
+        ['https://www.linkedin.com/company/74049332/admin/feed/posts', '<i class="fa-brands fa-linkedin-in"></i>', '#0a66c2'],
+        ['https://linktr.ee/clevora', '<i class="fa-solid fa-tree"></i>', '#39e09b'],
+        ['https://api.whatsapp.com/send?phone=919953310085&text=%20I%20am%20interested%20in%20your%20services', '<i class="fa-brands fa-whatsapp"></i>', '#25d366']
+      ];
+      foreach($socials as [$url,$icon,$bg]):
       ?>
-      <a href="#"
-         style="background:<?=$c?>;">
-        <?=$l?>
+      <a href="<?=$url?>"
+         target="_blank"
+         rel="noopener"
+         style="background:<?=$bg?>; color:#fff; display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:8px; font-size:14px; text-decoration:none; margin-right:6px; transition: opacity 0.2s;"
+         onmouseover="this.style.opacity='0.85'"
+         onmouseout="this.style.opacity='1'">
+        <?=$icon?>
       </a>
       <?php endforeach; ?>
     </div>
@@ -109,10 +119,11 @@ include 'includes/page-banner.php';
         <!-- Message -->
         <div class="form-span-2">
           <label class="form-label">
-            Message
+            Message <span style="color:#ef4444">*</span>
           </label>
           <textarea name="message" rows="4"
                     placeholder="Tell us about your requirements..."
+                    required
                     class="form-textarea"></textarea>
         </div>
 

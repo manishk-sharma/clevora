@@ -98,7 +98,11 @@ if (class_exists('PHPMailer\PHPMailer\PHPMailer')) {
     $headers .= "From: <" . MAIL_USER . ">\r\n";
     $headers .= "Reply-To: <$email>\r\n";
     
-    $body = "Name: $name<br>Email: $email<br>Phone: $phone<br>Interest: $interest<br>Message: $message";
+    $body = "Name: " . htmlspecialchars($name) .
+        "<br>Email: " . htmlspecialchars($email) .
+        "<br>Phone: " . htmlspecialchars($phone) .
+        "<br>Interest: " . htmlspecialchars($interest) .
+        "<br>Message: " . nl2br(htmlspecialchars($message));
     
     // We suppress error just in case local environment lacks mail agent configuration
     $email_sent = @mail($to, $subject, $body, $headers);
@@ -107,7 +111,15 @@ if (class_exists('PHPMailer\PHPMailer\PHPMailer')) {
     }
 }
 
-// Response feedback
+if (!$db_success && !$email_sent) {
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'errors' => ['We could not process your message right now. Please try again later.']
+    ]);
+    exit;
+}
+
 echo json_encode([
     'success' => true,
     'message' => 'Thank you! Your message has been received successfully. Our team will contact you shortly.'

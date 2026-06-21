@@ -10,7 +10,9 @@ if ($pdo) {
     try {
         $stmt = $pdo->prepare("SELECT full_content FROM services WHERE slug = 'content-moderation'");
         $stmt->execute();
-        $currentContent = $stmt->fetchColumn() ?: '';
+        $dbContent = $stmt->fetchColumn();
+        $default_content = "Clevora takes its technological capabilities very seriously and has acquired all the technologies that are required for running a successful call center in this competitive market segment.\n\nOur Content Moderation services ensure your website or application remains safe, clean, and welcoming for all users. We monitor and filter user-generated text, image, and video content 24 hours a day, 7 days a week. We combine automated systems with experienced human moderators to check compliance, block toxic or illegal materials, and shield your brand from unwanted exposure.";
+        $currentContent = $dbContent !== false && $dbContent !== '' ? $dbContent : $default_content;
     } catch(Exception $e) {
         $error = 'Failed to fetch content moderation data: ' . $e->getMessage();
     }
@@ -49,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="max-w-3xl mx-auto space-y-6">
       <div>
         <h1 class="text-2xl font-bold text-gray-800 font-poppins">Edit Content Moderation Page</h1>
-        <p class="text-xs text-gray-400">Edit the detailed, long-form information text shown on the Content-Moderation.php deep-dive page.</p>
+        <p class="text-xs text-gray-400">Edit the detailed, long-form information text shown on the /detail-services.php?slug=content-moderation deep-dive page.</p>
       </div>
 
       <?php if(!empty($msg)): ?>
@@ -61,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <form method="POST" class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8 space-y-6">
         <div>
-          <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Detailed Content (Content-Moderation.php)</label>
+          <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Detailed Content (detail-services.php?slug=content-moderation)</label>
           <textarea name="content" rows="12" placeholder="Write full page HTML or body text..."
                     class="w-full bg-gray-50 border border-gray-200 focus:border-blue-500 rounded-lg px-3 py-2.5 text-xs outline-none focus:bg-white transition-all"><?= htmlspecialchars($currentContent) ?></textarea>
         </div>

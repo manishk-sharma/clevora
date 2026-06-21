@@ -38,13 +38,13 @@ $sections = [
       $isActive = ($curFile === basename($href));
     ?>
     <a href="<?=$href?>"
-       style="display:flex; align-items:center; gap:9px; padding:9px 16px;
+       style="display:flex; align-items:center; gap:9px; padding:10px 16px; margin-bottom:2px;
               font-size:12px; text-decoration:none; transition:all .15s;
               <?=$isActive
                 ? 'background:#eff6ff; color:#2563eb; font-weight:600; border-left:3px solid #2563eb;'
                 : 'color:#4b5563; border-left:3px solid transparent;'?>"
-       onmouseover="<?=$isActive?'':'this.style.background=\"#f8f9fc\";this.style.color=\"#2563eb\"'?>"
-       onmouseout="<?=$isActive?'':'this.style.background=\"\";this.style.color=\"#4b5563\"'?>">
+       onmouseover="<?=$isActive?'':'this.style.background=\'#f8f9fc\';this.style.color=\'#2563eb\''?>"
+       onmouseout="<?=$isActive?'':'this.style.background=\'\';this.style.color=\'#4b5563\''?>">
       <span style="width:20px; height:20px; border-radius:5px; background:#f0f2f8;
                    display:flex; align-items:center; justify-content:center;
                    font-size:11px; flex-shrink:0;">

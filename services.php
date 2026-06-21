@@ -19,10 +19,17 @@ if ($pdo) {
 
 if (empty($services)) {
     $services = [
-        ['slug' => 'database-management', 'name' => 'Database Management', 'icon_url' => '/assets/images/service-db.svg', 'intro' => 'Preventing Oversized Non-Standard Data Formats, Address Verification, Postal Code Correction, NCOA and Standardization.'],
-        ['slug' => 'content-moderation', 'name' => 'Content Moderation', 'icon_url' => '/assets/images/service-moderation.svg', 'intro' => 'Protect your brand reputation and build user trust with our global content moderation services.'],
+        ['slug' => 'database-management', 'name' => 'Database Management', 'icon_url' => '/assets/images/service-db.svg', 'intro' => 'Preventing Oversized Non-Standard Data Formats, Multiple Sourcing and Non-Standard Data systems, Address Verification, Postal Code Correction, NCOA and Standardization. Cleaning Databases, Address Checking, Output to Printer, E-Mailer, or Printed Mailing Catalog.'],
+        ['slug' => 'content-moderation', 'name' => 'Content Moderation', 'icon_url' => '/assets/images/service-moderation.svg', 'intro' => 'Protect your brand reputation and build user trust with our global content moderation services. We monitor and filter text, images, and videos 24/7.'],
         ['slug' => 'digital-marketing', 'name' => 'Digital Marketing', 'icon_url' => '/assets/images/service-marketing.svg', 'intro' => 'Enhance your digital footprint with SEO, PPC, and social media campaigns designed to generate high-quality leads.'],
-        ['slug' => 'software-solutions', 'name' => 'Software Solutions', 'icon_url' => '/assets/images/service-software.svg', 'intro' => 'Custom software development, web applications, and enterprise solutions built to scale with your growing business.']
+        ['slug' => 'business-outsourcing', 'name' => 'Business Outsourcing', 'icon_url' => '/assets/images/service-bpo.svg', 'intro' => 'Streamline your operations with our business process outsourcing (BPO) solutions, from front-office to back-office tasks.'],
+        ['slug' => 'mortgage-services', 'name' => 'Mortgage Services', 'icon_url' => '/assets/images/service-mortgage.svg', 'intro' => 'Accurate and fast mortgage processing support, document indexing, and validation for lenders and brokers.'],
+        ['slug' => 'foreign-language-support', 'name' => 'Foreign Language Support', 'icon_url' => '/assets/images/service-language.svg', 'intro' => 'Connect with global clients through multilingual customer support, translation, and localized services.'],
+        ['slug' => 'data-validation', 'name' => 'Data Validation', 'icon_url' => '/assets/images/service-validation.svg', 'intro' => 'Maintain a high-quality database with real-time validation, address verification, and database scrubbing.'],
+        ['slug' => 'inbound-outbound', 'name' => 'Inbound & Outbound Call Center', 'icon_url' => '/assets/images/service-callcenter.svg', 'intro' => 'Drive sales and support customers with professional inbound and outbound tele-calling services.'],
+        ['slug' => 'conversion-catalyst', 'name' => 'Conversion Catalyst', 'icon_url' => '/assets/images/service-catalyst.svg', 'intro' => 'Boost your website\'s conversion rate through user experience design auditing and conversion rate optimization (CRO).'],
+        ['slug' => 'back-office', 'name' => 'Back Office Support', 'icon_url' => '/assets/images/service-backoffice.svg', 'intro' => 'Efficient data entry, bookkeeping, processing invoices, and document classification services for your backend teams.'],
+        ['slug' => 'publishing-solutions', 'name' => 'Publishing Solutions', 'icon_url' => '/assets/images/service-publishing.svg', 'intro' => 'Professional formatting, layout typesetting, proofreading, and e-book conversion services.']
     ];
 }
 ?>
@@ -40,7 +47,7 @@ if (empty($services)) {
     <article class="card feature-card">
       <div class="feature-card__icon">
         <?php if($s['icon_url']): ?>
-        <img src="<?=htmlspecialchars($s['icon_url'])?>" alt="">
+        <img src="<?=htmlspecialchars($s['icon_url'])?>" alt="" loading="lazy">
         <?php else: ?>
         <span style="color:#2563eb; font-weight:700; font-size:18px;">*</span>
         <?php endif; ?>

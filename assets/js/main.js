@@ -30,18 +30,18 @@ document.addEventListener('DOMContentLoaded', () => {
   ['home-contact-form', 'contact-form'].forEach(id => {
     const form = document.getElementById(id);
     if (!form) return;
-    
+
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const btn = form.querySelector('[type=submit]');
       const msg = document.getElementById(id === 'home-contact-form' ? 'home-form-msg' : 'form-message');
-      
+
       if (!msg || !btn) return;
 
       btn.disabled = true;
       const originalText = btn.textContent;
       btn.textContent = 'Sending...';
-      
+
       // Extract form values
       const formData = new FormData(form);
       const jsonObject = {};
@@ -58,10 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
           },
           body: JSON.stringify(jsonObject)
         });
-        
+
         const data = await res.json();
         msg.classList.remove('hidden');
-        
+
         if (data.success) {
           msg.className = 'mt-4 text-xs font-semibold p-3 rounded bg-green-50 text-green-700 border border-green-100 block';
           msg.textContent = data.message;

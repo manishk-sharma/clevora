@@ -14,7 +14,11 @@ if(!isset($metaDesc))  $metaDesc  = 'Clevora provides BPO, content moderation, d
   <link rel="icon" type="image/png" href="/assets/images/logo.png">
   <link rel="shortcut icon" type="image/png" href="/assets/images/logo.png">
   <link rel="apple-touch-icon" href="/assets/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap">
   <link rel="stylesheet" href="/assets/css/custom.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -33,12 +37,11 @@ if(!isset($metaDesc))  $metaDesc  = 'Clevora provides BPO, content moderation, d
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script defer src="/assets/js/main.js"></script>
 </head>
-<body>
+<body x-data="{open:false}">
 
-<?php include 'topbar.php'; ?>
 
-<nav class="site-header"
-     x-data="{open:false}">
+
+<nav class="site-header">
 
   <!-- Logo -->
   <a href="/" class="site-header__brand" aria-label="Clevora home">
@@ -55,10 +58,11 @@ if(!isset($metaDesc))  $metaDesc  = 'Clevora provides BPO, content moderation, d
     $nav = [
       'HOME'               => '/',
       'ABOUT US'           => '/about-us.php',
-      'SERVICES'           => '/services.php',
-      'CONTENT MODERATION' => '/Content-Moderation.php',
+      'SERVICES'           => '/services.php',      
       'TECHNOLOGY'         => '/technology.php',
+      'OUR GALLERY'        => '/album.php',
       'CLIENTS'            => '/clients.php',
+      'CAREERS'            => '/career.php',
       'CONTACT US'         => '/contact.php',
     ];
     $cur = basename($_SERVER['PHP_SELF']);
@@ -74,9 +78,11 @@ if(!isset($metaDesc))  $metaDesc  = 'Clevora provides BPO, content moderation, d
   <!-- Mobile hamburger -->
   <button @click="open=!open" class="site-header__menu md:hidden" aria-label="Open navigation">☰</button>
 
+</nav>
+
   <!-- Mobile overlay -->
   <div x-show="open" x-transition
-       class="site-mobile-nav">
+       class="site-mobile-nav" style="display: none;">
     <button @click="open=false"
             class="site-mobile-nav__close" aria-label="Close navigation">x</button>
     <?php foreach($nav as $label => $href): ?>
@@ -85,4 +91,3 @@ if(!isset($metaDesc))  $metaDesc  = 'Clevora provides BPO, content moderation, d
     </a>
     <?php endforeach; ?>
   </div>
-</nav>
