@@ -439,6 +439,11 @@ $hero_slides = [
 <section style="background:#fff; padding:64px 24px;">
   <!-- Section header -->
   <div style="text-align:center; margin-bottom:48px;">
+    <span style="display:inline-block; background:#eff6ff; color:#2563eb;
+                 font-size:11px; font-weight:700; padding:6px 16px;
+                 border-radius:9999px; letter-spacing:1px; margin-bottom:16px; text-transform:uppercase;">
+      Our Clients
+    </span>
     <h2 style="font-size:36px; font-weight:600; color:#0f172a; margin:0;">
       What our clients say
     </h2>
@@ -501,7 +506,11 @@ $hero_slides = [
 <section class="section" style="background:#fff;">
   <div class="container">
     <div class="section-head">
-      <span class="section-kicker">Industries</span>
+      <span style="display:inline-block; background:#eff6ff; color:#2563eb;
+                   font-size:11px; font-weight:700; padding:6px 16px;
+                   border-radius:9999px; letter-spacing:1px; margin-bottom:16px; text-transform:uppercase;">
+        Industries
+      </span>
       <h2 class="section-title">Trusted across industries everywhere</h2>
       <p class="section-copy">From gaming studios to healthcare providers, we build ops teams that understand your industry.</p>
     </div>
