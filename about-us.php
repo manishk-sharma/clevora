@@ -16,42 +16,16 @@ $founder_bio  = setting('management_founder_bio', $pdo);
 
 ?>
 
-<!-- ─── HERO SECTION ─────────────────────────────────── -->
-<section style="background:#0f172a; padding:100px 24px 80px 24px; color:#fff; text-align:center; position:relative; overflow:hidden;">
-  <div style="max-width:800px; margin:0 auto; position:relative; z-index:1;">
-    <span style="display:inline-block; background:rgba(255,255,255,0.1); color:#fff;
-                 font-size:11px; font-weight:700; padding:6px 16px;
-                 border-radius:9999px; letter-spacing:1px; margin-bottom:20px; text-transform:uppercase;">
-      About Clevora
-    </span>
-    <h1 style="font-size:clamp(36px, 5.5vw, 56px); font-weight:700; color:#fff; margin-bottom:20px; font-family:'Poppins', sans-serif; letter-spacing:-0.02em;">
-      About Clevora Technologies
-    </h1>
-    <p style="font-size:clamp(16px, 2vw, 18px); color:#94a3b8; max-width:640px; margin:0 auto 32px auto; line-height:1.7;">
-      We help businesses scale operations by providing managed, India-operated teams. From data entry to accounting, we deliver precision at a fraction of the cost.
-    </p>
-    <a href="#contact" style="display:inline-block; background:#db6060; color:#fff; font-size:14px; font-weight:600; padding:12px 32px; border-radius:9999px; text-decoration:none; box-shadow:0 4px 14px rgba(219,96,96,0.3); transition:background 0.2s;" onmouseover="this.style.background='#c54f4f'" onmouseout="this.style.background='#db6060'">
-      Get in Touch
-    </a>
-  </div>
-</section>
+<?php include 'includes/page-banner.php'; ?>
 
 
 <!-- ─── OUR STORY ────────────────────────────────────── -->
 <section style="background:#fff; padding:100px 24px;">
   <div style="max-width:1200px; margin:0 auto;">
-    <div style="text-align:center; margin-bottom:64px;">
-      <span style="display:inline-block; background:#eff6ff; color:#3b82f6;
-                   font-size:11px; font-weight:700; padding:6px 16px;
-                   border-radius:9999px; letter-spacing:1px; margin-bottom:16px; text-transform:uppercase;">
-        Our Story
-      </span>
-      <h2 style="font-size:clamp(28px, 4vw, 40px); font-weight:700; color:#0f172a; margin-bottom:16px; font-family:'Poppins', sans-serif;">
-        Built to solve the operations bottleneck
-      </h2>
-      <p style="font-size:16px; color:#4b5563; max-width:800px; margin:0 auto; line-height:1.7;">
-        Clevora was founded with a simple observation: growing businesses were spending too much time and money on operational tasks that didn't need to be done in-house. Data entry, bookkeeping, admin work - critical tasks, but not core competencies.
-      </p>
+    <div class="section-head">
+      <span class="section-kicker">Our Story</span>
+      <h2 class="section-title">Built to solve the operations bottleneck</h2>
+      <p class="section-copy">Clevora was founded with a simple observation: growing businesses were spending too much time and money on operational tasks that didn't need to be done in-house. Data entry, bookkeeping, admin work - critical tasks, but not core competencies.</p>
     </div>
 
     <!-- The Problem vs Solution Cards -->
@@ -108,18 +82,10 @@ $founder_bio  = setting('management_founder_bio', $pdo);
 <!-- ─── OUR VALUES ───────────────────────────────────── -->
 <section style="background:#f8f9fc; padding:100px 24px;">
   <div style="max-width:1200px; margin:0 auto;">
-    <div style="text-align:center; margin-bottom:64px;">
-      <span style="display:inline-block; background:#eff6ff; color:#3b82f6;
-                   font-size:11px; font-weight:700; padding:6px 16px;
-                   border-radius:9999px; letter-spacing:1px; margin-bottom:16px; text-transform:uppercase;">
-        Our Values
-      </span>
-      <h2 style="font-size:clamp(28px, 4vw, 40px); font-weight:700; color:#0f172a; margin-bottom:16px; font-family:'Poppins', sans-serif;">
-        What drives us every day
-      </h2>
-      <p style="font-size:16px; color:#4b5563; max-width:800px; margin:0 auto; line-height:1.7;">
-        Our values aren't wall posters. They're the operating principles that shape how we hire, how we deliver, and how we grow.
-      </p>
+    <div class="section-head">
+      <span class="section-kicker">Our Values</span>
+      <h2 class="section-title">What drives us every day</h2>
+      <p class="section-copy">Our values aren't wall posters. They're the operating principles that shape how we hire, how we deliver, and how we grow.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -200,18 +166,10 @@ $founder_bio  = setting('management_founder_bio', $pdo);
 <!-- ─── GLOBAL PRESENCE ──────────────────────────────── -->
 <section style="background:#fff; padding:100px 24px;">
   <div style="max-width:1200px; margin:0 auto;">
-    <div style="text-align:center; margin-bottom:64px;">
-      <span style="display:inline-block; background:#eff6ff; color:#3b82f6;
-                   font-size:11px; font-weight:700; padding:6px 16px;
-                   border-radius:9999px; letter-spacing:1px; margin-bottom:16px; text-transform:uppercase;">
-        Global Presence
-      </span>
-      <h2 style="font-size:clamp(28px, 4vw, 40px); font-weight:700; color:#0f172a; margin-bottom:16px; font-family:'Poppins', sans-serif;">
-        Managed Delivery, India-operated
-      </h2>
-      <p style="font-size:16px; color:#4b5563; max-width:800px; margin:0 auto; line-height:1.7;">
-        Our hybrid model combines the best of both worlds: dedicated account management for communication and quality oversight, with India-based operations teams for cost-efficient delivery.
-      </p>
+    <div class="section-head">
+      <span class="section-kicker">Global Presence</span>
+      <h2 class="section-title">Managed Delivery, India-operated</h2>
+      <p class="section-copy">Our hybrid model combines the best of both worlds: dedicated account management for communication and quality oversight, with India-based operations teams for cost-efficient delivery.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -259,15 +217,9 @@ $founder_bio  = setting('management_founder_bio', $pdo);
 <!-- ─── FOUNDER & MANAGEMENT ────────────────────────── -->
 <section style="background:#f8f9fc; padding:100px 24px;">
   <div style="max-width:900px; margin:0 auto;">
-    <div style="text-align:center; margin-bottom:56px;">
-      <span style="display:inline-block; background:#eff6ff; color:#3b82f6;
-                   font-size:11px; font-weight:700; padding:6px 16px;
-                   border-radius:9999px; letter-spacing:1px; margin-bottom:16px; text-transform:uppercase;">
-        Founder
-      </span>
-      <h2 style="font-size:clamp(28px, 4vw, 40px); font-weight:700; color:#0f172a; margin-bottom:16px; font-family:'Poppins', sans-serif;">
-        Led by our leadership team
-      </h2>
+    <div class="section-head">
+      <span class="section-kicker">Founder</span>
+      <h2 class="section-title">Led by our leadership team</h2>
     </div>
 
     <!-- Leader Profile Card -->

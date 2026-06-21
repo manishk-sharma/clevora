@@ -5,7 +5,9 @@ $metaDesc = 'Explore Clevora\'s call center technology, secure IT systems, serve
 $pageBannerTitle = 'TECHNOLOGY';
 $pageBannerBreadcrumb = 'Technology';
 
+<?php
 require_once 'includes/header.php';
+include 'includes/page-banner.php';
 
 $infrastructure = setting('tech_infrastructure', $pdo);
 ?>
@@ -14,19 +16,13 @@ $infrastructure = setting('tech_infrastructure', $pdo);
 <section style="background:#fff; padding:80px 24px;">
   <div style="max-width:1200px; margin:0 auto; display:flex; gap:48px; align-items:center; flex-wrap:wrap;">
     
-    <!-- Left Column: Description -->
-    <div style="flex:1.2; min-width:320px;" class="space-y-6">
-      <span style="display:inline-block; background:#eff6ff; color:#3b82f6;
-                   font-size:11px; font-weight:700; padding:6px 16px;
-                   border-radius:9999px; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px;">
-        Our Capabilities
-      </span>
-      <h1 style="font-size:clamp(32px, 5vw, 48px); font-weight:700; color:#0f172a; line-height:1.2; font-family:'Poppins', sans-serif; letter-spacing:-0.02em; margin-top:0;">
-        Robust Infrastructure & Support Systems
-      </h1>
-      <p style="font-size:15px; color:#4b5563; line-height:1.9; white-space:pre-line; margin:0;">
-        Our production servers are housed in a Tier-3 secure data center in Delhi. We maintain redundant fiber-optic connectivity from multiple internet service providers, automated daily backup protocols, 
-        and UPS backup battery arrays alongside on-site diesel generators to guarantee 99.9% network availability. Physical access to our production rooms is restricted with biometric authorization.
+    <div style="flex:1.2; min-width:320px;" class="space-y-4">
+      <div style="margin-bottom:16px;">
+        <span class="section-kicker">Our Capabilities</span>
+        <h2 class="section-title" style="margin-top:8px;">Robust Infrastructure & Support Systems</h2>
+      </div>
+      <p class="section-copy" style="white-space:pre-line;">
+        Our production servers are housed in a Tier-3 secure data center in Delhi. We maintain redundant fiber-optic connectivity from multiple internet service providers, automated daily backup protocols, and UPS backup battery arrays alongside on-site diesel generators to guarantee 99.9% network availability. Physical access to our production rooms is restricted with biometric authorization.
       </p>
     </div>
 
@@ -59,18 +55,10 @@ $infrastructure = setting('tech_infrastructure', $pdo);
 <section style="background:#0f172a; padding:100px 24px; color:#fff;">
   <div style="max-width:1200px; margin:0 auto;">
     
-    <div style="text-align:center; margin-bottom:64px;">
-      <span style="display:inline-block; background:rgba(255,255,255,0.08); color:#fff;
-                   font-size:11px; font-weight:700; padding:6px 18px;
-                   border-radius:9999px; letter-spacing:1px; margin-bottom:20px; text-transform:uppercase;">
-        Redundancy & Uptime
-      </span>
-      <h2 style="font-size:clamp(32px, 4.5vw, 42px); font-weight:700; color:#fff; margin-bottom:20px; font-family:'Poppins', sans-serif;">
-        Our Technology & Security Standards
-      </h2>
-      <p style="font-size:16px; color:#94a3b8; max-width:800px; margin:0 auto; line-height:1.7;">
-        We deliver 99.9% network uptime guarantees and enterprise-grade security protocols by default.
-      </p>
+    <div class="section-head">
+      <span class="section-kicker" style="color:#60a5fa;">Redundancy & Uptime</span>
+      <h2 class="section-title" style="color:#fff;">Our Technology & Security Standards</h2>
+      <p class="section-copy" style="color:#94a3b8;">We deliver 99.9% network uptime guarantees and enterprise-grade security protocols by default.</p>
     </div>
 
     <!-- 3-Column Metrics Grid -->

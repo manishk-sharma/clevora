@@ -9,41 +9,15 @@ require_once 'includes/header.php';
 // We omit the default page banner to match the custom header hero section in the screenshot.
 ?>
 
-<!-- ─── HERO SECTION (Careers) ───────────────────────── -->
-<section style="background:#0f172a; padding:100px 24px 80px 24px; color:#fff; text-align:center; position:relative; overflow:hidden;">
-  <div style="max-width:800px; margin:0 auto; position:relative; z-index:1;">
-    <span style="display:inline-block; background:rgba(255,255,255,0.1); color:#fff;
-                 font-size:11px; font-weight:700; padding:6px 16px;
-                 border-radius:9999px; letter-spacing:1px; margin-bottom:20px; text-transform:uppercase;">
-      Join Our Team
-    </span>
-    <h1 style="font-size:clamp(36px, 5.5vw, 56px); font-weight:700; color:#fff; margin-bottom:20px; font-family:'Poppins', sans-serif; letter-spacing:-0.02em;">
-      Careers at Clevora
-    </h1>
-    <p style="font-size:clamp(16px, 2vw, 18px); color:#94a3b8; max-width:640px; margin:0 auto 32px auto; line-height:1.7;">
-      Build your career with a fast-growing outsourcing company. Work with global clients, learn new skills, and grow with us.
-    </p>
-    <a href="#open-positions" style="display:inline-block; background:#db6060; color:#fff; font-size:14px; font-weight:600; padding:12px 32px; border-radius:9999px; text-decoration:none; box-shadow:0 4px 14px rgba(219,96,96,0.3); transition:background 0.2s;" onmouseover="this.style.background='#c54f4f'" onmouseout="this.style.background='#db6060'">
-      View Open Positions
-    </a>
-  </div>
-</section>
+<?php include 'includes/page-banner.php'; ?>
 
 <!-- ─── WHY WORK WITH US ──────────────────────────────── -->
 <section style="background:#fff; padding:100px 24px;">
   <div style="max-width:1200px; margin:0 auto;">
-    <div style="text-align:center; margin-bottom:64px;">
-      <span style="display:inline-block; background:#eff6ff; color:#3b82f6;
-                   font-size:11px; font-weight:700; padding:6px 16px;
-                   border-radius:9999px; letter-spacing:1px; margin-bottom:16px; text-transform:uppercase;">
-        Why Clevora
-      </span>
-      <h2 style="font-size:clamp(28px, 4vw, 40px); font-weight:700; color:#0f172a; margin-bottom:16px; font-family:'Poppins', sans-serif;">
-        Why work with us
-      </h2>
-      <p style="font-size:16px; color:#4b5563; max-width:800px; margin:0 auto; line-height:1.7;">
-        At Clevora, you're not just filling a seat. You're joining a team that works directly with international clients, solves real business problems, and invests in your growth.
-      </p>
+    <div class="section-head">
+      <span class="section-kicker">Why Clevora</span>
+      <h2 class="section-title">Why work with us</h2>
+      <p class="section-copy">At Clevora, you're not just filling a seat. You're joining a team that works directly with international clients, solves real business problems, and invests in your growth.</p>
     </div>
 
     <!-- 2x2 Grid -->
@@ -124,18 +98,10 @@ require_once 'includes/header.php';
 <!-- ─── CURRENT OPENINGS ──────────────────────────────── -->
 <section id="open-positions" style="background:#f8f9fc; padding:100px 24px;">
   <div style="max-width:1200px; margin:0 auto;">
-    <div style="text-align:center; margin-bottom:64px;">
-      <span style="display:inline-block; background:#eff6ff; color:#3b82f6;
-                   font-size:11px; font-weight:700; padding:6px 16px;
-                   border-radius:9999px; letter-spacing:1px; margin-bottom:16px; text-transform:uppercase;">
-        Open Positions
-      </span>
-      <h2 style="font-size:clamp(28px, 4vw, 40px); font-weight:700; color:#0f172a; margin-bottom:16px; font-family:'Poppins', sans-serif;">
-        Current openings
-      </h2>
-      <p style="font-size:16px; color:#4b5563; max-width:800px; margin:0 auto; line-height:1.7;">
-        We're growing fast and looking for talented people to join our team. See if there's a role that fits you.
-      </p>
+    <div class="section-head">
+      <span class="section-kicker">Open Positions</span>
+      <h2 class="section-title">Current openings</h2>
+      <p class="section-copy">We're growing fast and looking for talented people to join our team. See if there's a role that fits you.</p>
     </div>
 
     <!-- 2x2 Grid for Jobs -->
@@ -211,18 +177,12 @@ require_once 'includes/header.php';
 
 <!-- ─── READY TO JOIN US ──────────────────────────────── -->
 <section style="background:#fff; padding:100px 24px;">
-  <div style="max-width:800px; margin:0 auto; text-align:center;">
-    <span style="display:inline-block; background:#eff6ff; color:#3b82f6;
-                 font-size:11px; font-weight:700; padding:6px 16px;
-                 border-radius:9999px; letter-spacing:1px; margin-bottom:16px; text-transform:uppercase;">
-      How to Apply
-    </span>
-    <h2 style="font-size:clamp(28px, 4vw, 40px); font-weight:700; color:#0f172a; margin-bottom:24px; font-family:'Poppins', sans-serif;">
-      Ready to join us?
-    </h2>
-    <p style="font-size:16px; color:#4b5563; line-height:1.8; margin:0;">
-      Send your resume and a brief cover letter to <a href="mailto:careers@clevora.com" style="color:#2563eb; font-weight:600; text-decoration:none; border-bottom:1px solid #bfdbfe;">careers@clevora.com</a>. Include the role you're applying for in the subject line. We'll get back to you within 3 business days.
-    </p>
+  <div style="max-width:800px; margin:0 auto;">
+    <div class="section-head">
+      <span class="section-kicker">How to Apply</span>
+      <h2 class="section-title">Ready to join us?</h2>
+      <p class="section-copy">Send your resume and a brief cover letter to <a href="mailto:careers@clevora.com" style="color:#2563eb; font-weight:600; text-decoration:none; border-bottom:1px solid #bfdbfe;">careers@clevora.com</a>. Include the role you're applying for in the subject line. We'll get back to you within 3 business days.</p>
+    </div>
   </div>
 </section>
 
