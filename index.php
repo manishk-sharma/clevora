@@ -11,12 +11,14 @@ $about_text    = setting('about_home_text', $pdo);
 $services = [];
 $gallery = [];
 $testimonials = [];
+$clients = [];
 
 if ($pdo) {
     try {
         $services = $pdo->query("SELECT * FROM services WHERE is_active=1 ORDER BY sort_order LIMIT 9")->fetchAll();
         $gallery  = $pdo->query("SELECT * FROM gallery ORDER BY sort_order LIMIT 6")->fetchAll();
         $testimonials = $pdo->query("SELECT * FROM testimonials WHERE is_active=1")->fetchAll();
+        $clients  = $pdo->query("SELECT * FROM clients")->fetchAll();
     } catch(Exception $e) {
         error_log('Homepage fetch error: ' . $e->getMessage());
     }
@@ -52,6 +54,17 @@ if (empty($testimonials)) {
         ['name' => 'Rahul Kumar Gupta', 'location' => 'Karnal, India', 'photo_url' => '/assets/images/testimonial-1.jpg', 'quote' => 'This is very satisfied that Clevora provides us with great satisfaction and we are extremely happy with their operations.'],
         ['name' => 'Patrick John', 'location' => 'California, USA', 'photo_url' => '/assets/images/testimonial-2.jpg', 'quote' => 'I am most satisfied customer after working with clevora. Their round-the-clock availability is amazing.'],
         ['name' => 'John Andrea', 'location' => 'Berlin, Germany', 'photo_url' => '/assets/images/testimonial-3.jpg', 'quote' => 'We have been running outsourcing through Clevora for some time now. Their professional multilingual team handles our tickets efficiently.']
+    ];
+}
+
+if (empty($clients)) {
+    $clients = [
+        ['logo_url' => '/assets/images/client-1.png', 'name' => 'Client One'],
+        ['logo_url' => '/assets/images/client-2.png', 'name' => 'Client Two'],
+        ['logo_url' => '/assets/images/client-3.png', 'name' => 'Client Three'],
+        ['logo_url' => '/assets/images/client-4.png', 'name' => 'Client Four'],
+        ['logo_url' => '/assets/images/client-5.png', 'name' => 'Client Five'],
+        ['logo_url' => '/assets/images/client-6.png', 'name' => 'Client Six']
     ];
 }
 
@@ -212,6 +225,50 @@ $hero_slides = [
     <div style="flex:1; min-width:300px; display:flex; justify-content:center;">
       <img src="/assets/images/about-home.jpg" alt="About Clevora" loading="lazy" style="border-radius:14px; border:1px solid #e8eaf0; max-height:360px; object-fit:cover; width:100%;">
     </div>
+  </div>
+</section>
+
+<!-- ─── PARTNERS / CLIENTS GRID (Partnerships Marquee) ── -->
+<section style="background:#fff; padding:64px 24px; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9;">
+  <div style="max-width:1200px; margin:0 auto;" class="space-y-12">
+    <!-- Header -->
+    <div style="text-align:center; margin-bottom:40px;">
+      <span style="display:inline-block; background:#eff6ff; color:#2563eb;
+                   font-size:11px; font-weight:700; padding:6px 16px;
+                   border-radius:9999px; letter-spacing:1px; margin-bottom:16px; text-transform:uppercase;">
+        Partnerships
+      </span>
+      <h2 style="font-size:26px; font-weight:700; color:#0f172a; margin-bottom:8px; font-family:'Poppins', sans-serif;">
+        Trusted By Organizations Globally
+      </h2>
+      <p style="font-size:14px; color:#6b7280; max-width:500px; margin:0 auto; line-height:1.6;">
+        We provide backend processes and calling solutions to industry leaders.
+      </p>
+    </div>
+
+    <!-- Logos Infinite Marquee -->
+    <div style="width:100%; overflow:hidden; position:relative; padding:10px 0;">
+      <div class="marquee-track" style="display:flex; gap:24px; width:max-content;" onmouseover="this.style.animationPlayState='paused'" onmouseout="this.style.animationPlayState='running'">
+        <?php 
+        // Duplicate the logo list to create a seamless looping effect
+        $marquee_items = array_merge($clients, $clients);
+        foreach($marquee_items as $c): 
+        ?>
+        <div style="background:#fff; border:1px solid #e8eaf0; border-radius:16px; padding:24px;
+                    display:flex; align-items:center; justify-content:center; height:100px; width:180px; flex-shrink:0;
+                    box-shadow:0 4px 20px rgba(0,0,0,0.01); transition:all 0.3s;"
+             onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.05)';this.style.transform='translateY(-2px)'"
+             onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.01)';this.style.transform='none'">
+          <?php if (!empty($c['logo_url'])): ?>
+            <img src="<?= htmlspecialchars($c['logo_url']) ?>" alt="<?= htmlspecialchars($c['name'] ?? 'Client') ?>" loading="lazy" style="max-height:100%; max-width:100%; object-fit:contain; filter:grayscale(100%); transition:filter .2s;" onmouseover="this.style.filter='none'" onmouseout="this.style.filter='grayscale(100%)'">
+          <?php else: ?>
+            <span style="color:#6b7280; font-weight:600; font-size:11px; text-transform:uppercase;"><?= htmlspecialchars($c['name'] ?? 'Client') ?></span>
+          <?php endif; ?>
+        </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -503,7 +560,7 @@ $hero_slides = [
 
 
 <!-- ─── INDUSTRIES SECTION ───────────────────────────── -->
-<section class="section" style="background:#f8f9fc; padding:100px 24px;">
+<section class="section" style="background:#f8f9fc; padding:64px 24px;">
   <div class="container">
     <div class="section-head">
       <span style="display:inline-block; background:#eff6ff; color:#2563eb;
@@ -624,7 +681,7 @@ $hero_slides = [
 </section>
 
 <!-- ─── FAQ SECTION ──────────────────────────────────── -->
-<section style="background:#f4f5f7; padding:100px 24px;">
+<section style="background:#f4f5f7; padding:64px 24px;">
   <div style="max-width:800px; margin:0 auto;">
     <h2 style="font-size:clamp(36px, 5vw, 48px); font-weight:500; color:#111827; text-align:center; margin-bottom:56px; letter-spacing:-0.02em;">
       Frequently Asked Questions
