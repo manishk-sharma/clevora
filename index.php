@@ -258,130 +258,6 @@ $hero_slides = [
   </div>
 </section>
 
-<!-- ─── INDUSTRIES SECTION ───────────────────────────── -->
-<section style="background:#fff; padding:80px 24px;">
-  <div style="text-align:center; margin-bottom:56px;">
-    <span style="display:inline-block; background:#eff6ff; color:#3b82f6;
-                 font-size:12px; font-weight:700; padding:6px 16px;
-                 border-radius:9999px; letter-spacing:0.5px; margin-bottom:16px; text-transform:uppercase;">
-      Industries
-    </span>
-    <h2 style="font-size:clamp(32px, 4vw, 44px); font-weight:600; color:#0f172a; margin-bottom:16px; line-height:1.2; font-family:'Poppins', sans-serif;">
-      Trusted across industries everywhere
-    </h2>
-    <p style="font-size:18px; color:#4b5563; max-width:700px; margin:0 auto; line-height:1.6;">
-      From gaming studios to healthcare providers, we build ops teams that understand your industry.
-    </p>
-  </div>
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-    <!-- Gaming & Entertainment -->
-    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.02); transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-      <div style="width:48px; height:48px; border-radius:12px; background:rgba(37,99,235,0.1); display:flex; align-items:center; justify-content:center; color:#2563eb; font-size:20px; margin-bottom:24px;">
-        <i class="fa-solid fa-gamepad"></i>
-      </div>
-      <h3 style="font-size:16px; font-weight:600; color:#0f172a; margin-bottom:8px;">
-        Gaming & Entertainment
-      </h3>
-      <p style="font-size:13.5px; color:#64748b; line-height:1.6;">
-        Content moderation, QA testing, player support
-      </p>
-    </div>
-
-    <!-- Education -->
-    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.02); transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-      <div style="width:48px; height:48px; border-radius:12px; background:rgba(239,68,68,0.1); display:flex; align-items:center; justify-content:center; color:#ef4444; font-size:20px; margin-bottom:24px;">
-        <i class="fa-solid fa-graduation-cap"></i>
-      </div>
-      <h3 style="font-size:16px; font-weight:600; color:#0f172a; margin-bottom:8px;">
-        Education
-      </h3>
-      <p style="font-size:13.5px; color:#64748b; line-height:1.6;">
-        Admissions processing, student records, LMS data
-      </p>
-    </div>
-
-    <!-- Retail & E-commerce -->
-    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.02); transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-      <div style="width:48px; height:48px; border-radius:12px; background:rgba(6,182,212,0.1); display:flex; align-items:center; justify-content:center; color:#06b6d4; font-size:20px; margin-bottom:24px;">
-        <i class="fa-solid fa-cart-shopping"></i>
-      </div>
-      <h3 style="font-size:16px; font-weight:600; color:#0f172a; margin-bottom:8px;">
-        Retail & E-commerce
-      </h3>
-      <p style="font-size:13.5px; color:#64748b; line-height:1.6;">
-        Product listings, order processing, catalog ops
-      </p>
-    </div>
-
-    <!-- Hospitality -->
-    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.02); transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-      <div style="width:48px; height:48px; border-radius:12px; background:rgba(59,130,246,0.1); display:flex; align-items:center; justify-content:center; color:#3b82f6; font-size:20px; margin-bottom:24px;">
-        <i class="fa-solid fa-hotel"></i>
-      </div>
-      <h3 style="font-size:16px; font-weight:600; color:#0f172a; margin-bottom:8px;">
-        Hospitality
-      </h3>
-      <p style="font-size:13.5px; color:#64748b; line-height:1.6;">
-        Reservations, guest data, multi-property ops
-      </p>
-    </div>
-
-    <!-- Staffing & HR -->
-    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.02); transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-      <div style="width:48px; height:48px; border-radius:12px; background:rgba(236,72,153,0.1); display:flex; align-items:center; justify-content:center; color:#ec4899; font-size:20px; margin-bottom:24px;">
-        <i class="fa-solid fa-address-card"></i>
-      </div>
-      <h3 style="font-size:16px; font-weight:600; color:#0f172a; margin-bottom:8px;">
-        Staffing & HR
-      </h3>
-      <p style="font-size:13.5px; color:#64748b; line-height:1.6;">
-        Resume screening, ATS management, onboarding
-      </p>
-    </div>
-
-    <!-- Healthcare -->
-    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.02); transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-      <div style="width:48px; height:48px; border-radius:12px; background:rgba(20,184,166,0.1); display:flex; align-items:center; justify-content:center; color:#14b8a6; font-size:20px; margin-bottom:24px;">
-        <i class="fa-solid fa-briefcase-medical"></i>
-      </div>
-      <h3 style="font-size:16px; font-weight:600; color:#0f172a; margin-bottom:8px;">
-        Healthcare
-      </h3>
-      <p style="font-size:13.5px; color:#64748b; line-height:1.6;">
-        Claims processing, patient records, compliance
-      </p>
-    </div>
-
-    <!-- Real Estate -->
-    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.02); transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-      <div style="width:48px; height:48px; border-radius:12px; background:rgba(79,70,229,0.1); display:flex; align-items:center; justify-content:center; color:#4f46e5; font-size:20px; margin-bottom:24px;">
-        <i class="fa-solid fa-house"></i>
-      </div>
-      <h3 style="font-size:16px; font-weight:600; color:#0f172a; margin-bottom:8px;">
-        Real Estate
-      </h3>
-      <p style="font-size:13.5px; color:#64748b; line-height:1.6;">
-        Listings management, lead processing, CRM data
-      </p>
-    </div>
-
-    <!-- Financial Services -->
-    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.02); transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-      <div style="width:48px; height:48px; border-radius:12px; background:rgba(245,158,11,0.1); display:flex; align-items:center; justify-content:center; color:#f59e0b; font-size:20px; margin-bottom:24px;">
-        <i class="fa-solid fa-coins"></i>
-      </div>
-      <h3 style="font-size:16px; font-weight:600; color:#0f172a; margin-bottom:8px;">
-        Financial Services
-      </h3>
-      <p style="font-size:13.5px; color:#64748b; line-height:1.6;">
-        Transaction processing, reconciliation, reporting
-      </p>
-    </div>
-  </div>
-</section>
-
-
 <!-- ─── HOW IT WORKS ──────────────────────────────────── -->
 <section style="background:#fff; padding:80px 24px; position:relative; overflow:hidden;">
   <div style="max-width:1200px; margin:0 auto; position:relative; z-index:1;">
@@ -617,6 +493,124 @@ $hero_slides = [
     <a href="/clients.php" style="color:#2563eb; font-size:14px; font-weight:600; text-decoration:none;">
       Read all client testimonials &rarr;
     </a>
+  </div>
+</section>
+
+
+<!-- ─── INDUSTRIES SECTION ───────────────────────────── -->
+<section class="section" style="background:#fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-kicker">Industries</span>
+      <h2 class="section-title">Trusted across industries everywhere</h2>
+      <p class="section-copy">From gaming studios to healthcare providers, we build ops teams that understand your industry.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Gaming & Entertainment -->
+      <article class="card feature-card">
+        <div class="feature-card__icon" style="background:rgba(37,99,235,0.1); color:#2563eb; font-size:20px;">
+          <i class="fa-solid fa-gamepad"></i>
+        </div>
+        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
+          Gaming & Entertainment
+        </h3>
+        <p>
+          Content moderation, QA testing, player support
+        </p>
+      </article>
+
+      <!-- Education -->
+      <article class="card feature-card">
+        <div class="feature-card__icon" style="background:rgba(239,68,68,0.1); color:#ef4444; font-size:20px;">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
+          Education
+        </h3>
+        <p>
+          Admissions processing, student records, LMS data
+        </p>
+      </article>
+
+      <!-- Retail & E-commerce -->
+      <article class="card feature-card">
+        <div class="feature-card__icon" style="background:rgba(6,182,212,0.1); color:#06b6d4; font-size:20px;">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
+          Retail & E-commerce
+        </h3>
+        <p>
+          Product listings, order processing, catalog ops
+        </p>
+      </article>
+
+      <!-- Hospitality -->
+      <article class="card feature-card">
+        <div class="feature-card__icon" style="background:rgba(59,130,246,0.1); color:#3b82f6; font-size:20px;">
+          <i class="fa-solid fa-hotel"></i>
+        </div>
+        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
+          Hospitality
+        </h3>
+        <p>
+          Reservations, guest data, multi-property ops
+        </p>
+      </article>
+
+      <!-- Staffing & HR -->
+      <article class="card feature-card">
+        <div class="feature-card__icon" style="background:rgba(236,72,153,0.1); color:#ec4899; font-size:20px;">
+          <i class="fa-solid fa-address-card"></i>
+        </div>
+        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
+          Staffing & HR
+        </h3>
+        <p>
+          Resume screening, ATS management, onboarding
+        </p>
+      </article>
+
+      <!-- Healthcare -->
+      <article class="card feature-card">
+        <div class="feature-card__icon" style="background:rgba(20,184,166,0.1); color:#14b8a6; font-size:20px;">
+          <i class="fa-solid fa-briefcase-medical"></i>
+        </div>
+        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
+          Healthcare
+        </h3>
+        <p>
+          Claims processing, patient records, compliance
+        </p>
+      </article>
+
+      <!-- Real Estate -->
+      <article class="card feature-card">
+        <div class="feature-card__icon" style="background:rgba(79,70,229,0.1); color:#4f46e5; font-size:20px;">
+          <i class="fa-solid fa-house"></i>
+        </div>
+        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
+          Real Estate
+        </h3>
+        <p>
+          Listings management, lead processing, CRM data
+        </p>
+      </article>
+
+      <!-- Financial Services -->
+      <article class="card feature-card">
+        <div class="feature-card__icon" style="background:rgba(245,158,11,0.1); color:#f59e0b; font-size:20px;">
+          <i class="fa-solid fa-coins"></i>
+        </div>
+        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
+          Financial Services
+        </h3>
+        <p>
+          Transaction processing, reconciliation, reporting
+        </p>
+      </article>
+    </div>
   </div>
 </section>
 
