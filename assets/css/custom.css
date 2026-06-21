@@ -1031,7 +1031,8 @@ img {
   max-width: 650px;
   margin-bottom: 34px;
   padding: 0;
-  list-style: none;
+  list-style: none !important;
+  list-style-type: none !important;
 }
 
 .hero-slide__list li {
@@ -1040,6 +1041,8 @@ img {
   color: rgba(255, 255, 255, .92);
   font-size: clamp(14px, 1.5vw, 18px);
   font-weight: 600;
+  list-style: none !important;
+  list-style-type: none !important;
 }
 
 .hero-slide__list li::before {
