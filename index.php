@@ -503,7 +503,7 @@ $hero_slides = [
 
 
 <!-- ─── INDUSTRIES SECTION ───────────────────────────── -->
-<section class="section" style="background:#fff;">
+<section class="section" style="background:#f8f9fc; padding:100px 24px;">
   <div class="container">
     <div class="section-head">
       <span style="display:inline-block; background:#eff6ff; color:#2563eb;
