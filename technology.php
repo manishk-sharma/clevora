@@ -32,7 +32,7 @@ $infrastructure = setting('tech_infrastructure', $pdo);
         
         <div style="position:relative; z-index:1; text-align:center;" class="space-y-6">
           <div style="width:72px; height:72px; border-radius:50%; background:rgba(37,99,235,0.1); display:flex; align-items:center; justify-content:center; margin:0 auto; color:#2563eb; font-size:32px;">
-            
+            <i class="fa-solid fa-shield-halved"></i>
           </div>
           <h3 style="font-size:20px; font-weight:700; color:#0f172a; font-family:'Poppins', sans-serif; margin-bottom:8px;">Information Security</h3>
           <p style="font-size:13.5px; color:#64748b; line-height:1.7; margin:0 auto; max-width:340px;">
