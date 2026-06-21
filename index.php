@@ -187,29 +187,24 @@ $hero_slides = [
 
     <!-- Logos Infinite Marquee -->
     <div style="width:100%; overflow:hidden; position:relative; padding:10px 0;">
-      <div class="marquee-track" onmouseover="this.querySelectorAll('.marquee-group').forEach(el => el.style.animationPlayState='paused')" onmouseout="this.querySelectorAll('.marquee-group').forEach(el => el.style.animationPlayState='running')">
-        <div class="marquee-group">
-          <?php foreach($clients as $c): ?>
-          <div class="marquee-item">
-            <?php if (!empty($c['logo_url'])): ?>
-              <img src="<?= htmlspecialchars($c['logo_url']) ?>" alt="<?= htmlspecialchars($c['name'] ?? 'Client') ?>" loading="lazy">
-            <?php else: ?>
-              <span><?= htmlspecialchars($c['name'] ?? 'Client') ?></span>
-            <?php endif; ?>
-          </div>
-          <?php endforeach; ?>
+      <div class="marquee-track" style="display:flex; gap:24px; width:max-content;" onmouseover="this.style.animationPlayState='paused'" onmouseout="this.style.animationPlayState='running'">
+        <?php 
+        // Duplicate the logo list to create a seamless looping effect
+        $marquee_items = array_merge($clients, $clients);
+        foreach($marquee_items as $c): 
+        ?>
+        <div style="background:#fff; border:1px solid #e8eaf0; border-radius:16px; padding:24px;
+                    display:flex; align-items:center; justify-content:center; height:100px; width:180px; flex-shrink:0;
+                    box-shadow:0 4px 20px rgba(0,0,0,0.01); transition:all 0.3s;"
+             onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.05)';this.style.transform='translateY(-2px)'"
+             onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.01)';this.style.transform='none'">
+          <?php if (!empty($c['logo_url'])): ?>
+            <img src="<?= htmlspecialchars($c['logo_url']) ?>" alt="<?= htmlspecialchars($c['name'] ?? 'Client') ?>" loading="lazy" style="max-height:100%; max-width:100%; object-fit:contain; filter:grayscale(100%); transition:filter .2s;" onmouseover="this.style.filter='none'" onmouseout="this.style.filter='grayscale(100%)'">
+          <?php else: ?>
+            <span style="color:#6b7280; font-weight:600; font-size:11px; text-transform:uppercase;"><?= htmlspecialchars($c['name'] ?? 'Client') ?></span>
+          <?php endif; ?>
         </div>
-        <div class="marquee-group" aria-hidden="true">
-          <?php foreach($clients as $c): ?>
-          <div class="marquee-item">
-            <?php if (!empty($c['logo_url'])): ?>
-              <img src="<?= htmlspecialchars($c['logo_url']) ?>" alt="<?= htmlspecialchars($c['name'] ?? 'Client') ?>" loading="lazy">
-            <?php else: ?>
-              <span><?= htmlspecialchars($c['name'] ?? 'Client') ?></span>
-            <?php endif; ?>
-          </div>
-          <?php endforeach; ?>
-        </div>
+        <?php endforeach; ?>
       </div>
     </div>
 
