@@ -4,8 +4,6 @@ $metaDesc = 'Explore Clevora\'s call center technology, secure IT systems, serve
 
 $pageBannerTitle = 'TECHNOLOGY';
 $pageBannerBreadcrumb = 'Technology';
-
-<?php
 require_once 'includes/header.php';
 include 'includes/page-banner.php';
 
