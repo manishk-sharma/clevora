@@ -3,10 +3,10 @@ header('Content-Type: application/json');
 
 require_once __DIR__ . '/../includes/db.php';
 
-// Try to autoload composer libraries for PHPMailer if present
-if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
-    require_once __DIR__ . '/../vendor/autoload.php';
-}
+// Include PHPMailer manually
+require_once __DIR__ . '/../PHPMailer/src/Exception.php';
+require_once __DIR__ . '/../PHPMailer/src/PHPMailer.php';
+require_once __DIR__ . '/../PHPMailer/src/SMTP.php';
 
 $input = json_decode(file_get_contents('php://input'), true);
 if (!$input) {

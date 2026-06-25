@@ -61,18 +61,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const data = await res.json();
         msg.classList.remove('hidden');
+        msg.style.display = 'block';
 
         if (data.success) {
           msg.className = 'mt-4 text-xs font-semibold p-3 rounded bg-green-50 text-green-700 border border-green-100 block';
+          msg.style.display = 'block';
           msg.textContent = data.message;
           form.reset();
         } else {
           msg.className = 'mt-4 text-xs font-semibold p-3 rounded bg-red-50 text-red-700 border border-red-100 block';
+          msg.style.display = 'block';
           msg.textContent = (data.errors || ['Error']).join(' ');
         }
       } catch (err) {
         msg.classList.remove('hidden');
         msg.className = 'mt-4 text-xs font-semibold p-3 rounded bg-red-50 text-red-700 border border-red-100 block';
+        msg.style.display = 'block';
         msg.textContent = 'Network or server connection failed. Please try again.';
       } finally {
         btn.disabled = false;
