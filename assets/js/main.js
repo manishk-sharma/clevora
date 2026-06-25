@@ -60,14 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const data = await res.json();
-        msg.classList.remove('hidden');
-        msg.style.display = 'block';
 
         if (data.success) {
-          msg.className = 'mt-4 text-xs font-semibold p-3 rounded bg-green-50 text-green-700 border border-green-100 block';
-          msg.style.display = 'block';
-          msg.textContent = data.message;
+          msg.classList.add('hidden');
+          msg.style.display = 'none';
           form.reset();
+          showSuccessModal(data.message);
         } else {
           msg.className = 'mt-4 text-xs font-semibold p-3 rounded bg-red-50 text-red-700 border border-red-100 block';
           msg.style.display = 'block';
@@ -250,3 +248,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
   revealItems.forEach(item => observer.observe(item));
 });
+
+// Helper function to show a premium success modal popup
+function showSuccessModal(message) {
+  const existingBackdrop = document.querySelector('.success-modal-backdrop');
+  if (existingBackdrop) {
+    existingBackdrop.remove();
+  }
+
+  const backdrop = document.createElement('div');
+  backdrop.className = 'success-modal-backdrop';
+
+  const card = document.createElement('div');
+  card.className = 'success-modal-card';
+
+  const iconWrapper = document.createElement('div');
+  iconWrapper.className = 'success-modal-icon-wrapper';
+  iconWrapper.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" class="success-modal-checkmark" />
+    </svg>
+  `;
+
+  const title = document.createElement('h3');
+  title.className = 'success-modal-title';
+  title.textContent = 'Message Sent!';
+
+  const text = document.createElement('p');
+  text.className = 'success-modal-text';
+  text.textContent = message || 'Thank you for reaching out. We will get back to you shortly.';
+
+  const btn = document.createElement('button');
+  btn.className = 'success-modal-btn';
+  btn.textContent = 'Got it';
+
+  card.appendChild(iconWrapper);
+  card.appendChild(title);
+  card.appendChild(text);
+  card.appendChild(btn);
+  backdrop.appendChild(card);
+  document.body.appendChild(backdrop);
+
+  setTimeout(() => {
+    backdrop.classList.add('is-active');
+  }, 10);
+
+  const closeModal = () => {
+    backdrop.classList.remove('is-active');
+    setTimeout(() => {
+      backdrop.remove();
+    }, 350);
+  };
+
+  btn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', (e) => {
+    if (e.target === backdrop) {
+      closeModal();
+    }
+  });
+
+  const keyHandler = (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+      document.removeEventListener('keydown', keyHandler);
+    }
+  };
+  document.addEventListener('keydown', keyHandler);
+}

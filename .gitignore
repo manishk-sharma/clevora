@@ -1,2 +1,5 @@
 config1.php
 schema1.sql
+config.php
+schema.sql
+composer.json
