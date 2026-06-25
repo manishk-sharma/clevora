@@ -1,3 +1,4 @@
+<?php if (!isset($hide_footer_cta) || !$hide_footer_cta): ?>
 <!-- ─── GET IN TOUCH CTA ──────────────────────────────── -->
 <section style="background:#1d4ed8; padding:80px 24px; color:#fff; text-align:center;">
   <div style="max-width:800px; margin:0 auto;">
@@ -17,6 +18,7 @@
     </p>
   </div>
 </section>
+<?php endif; ?>
 
 <footer class="site-footer">
   <div class="site-footer__grid">

@@ -150,4 +150,7 @@ include 'includes/page-banner.php';
 </div>
 </section>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php 
+$hide_footer_cta = true;
+require_once 'includes/footer.php'; 
+?>
