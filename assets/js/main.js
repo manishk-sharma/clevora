@@ -80,8 +80,60 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.disabled = false;
         btn.textContent = originalText;
       }
-    });
   });
+
+  // Newsletter Form Handler
+  const newsForm = document.getElementById('newsletter-form');
+  if (newsForm) {
+    newsForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = newsForm.querySelector('[type=submit]');
+      const msg = document.getElementById('newsletter-form-msg');
+      if (!btn) return;
+
+      btn.disabled = true;
+      const originalText = btn.textContent;
+      btn.textContent = '...';
+
+      const email = newsForm.querySelector('[name=email]').value;
+
+      try {
+        const res = await fetch('/api/subscribe.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ email })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          if (msg) {
+            msg.style.display = 'none';
+          }
+          newsForm.reset();
+          showSuccessModal(data.message);
+        } else {
+          if (msg) {
+            msg.style.display = 'block';
+            msg.style.color = '#f87171'; // light red for dark footer
+            msg.textContent = (data.errors || ['Error']).join(' ');
+          }
+        }
+      } catch (err) {
+        if (msg) {
+          msg.style.display = 'block';
+          msg.style.color = '#f87171';
+          msg.textContent = 'Subscription failed. Please try again.';
+        }
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    });
+  }
 });
 
 // 3. Homepage hero slider

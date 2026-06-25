@@ -72,10 +72,11 @@
     <div>
       <h4>Subscribe</h4>
       <p><?= htmlspecialchars(setting('footer_subscribe_text',$pdo)) ?></p>
-      <form class="site-footer__form">
-        <input type="email" placeholder="Your email" aria-label="Email address">
+      <form id="newsletter-form" class="site-footer__form">
+        <input type="email" name="email" placeholder="Your email" aria-label="Email address" required>
         <button type="submit">Go</button>
       </form>
+      <div id="newsletter-form-msg" class="form-message" style="display:none; font-size:12px; margin-top:8px; color:rgba(255,255,255,0.7);"></div>
       <div class="site-footer__socials" aria-label="Social links">
         <?php
         $socials = [
