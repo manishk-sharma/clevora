@@ -1,6 +1,6 @@
 <?php
-$pageTitle = 'Our Clients & Reviews | Clevora | Global Outsourcing Services';
-$metaDesc = 'Read reviews and testimonies from the companies that trust Clevora. Explore our partner clients and client success stories.';
+$pageTitle = 'Client Success Stories & Reviews | Clevora';
+$metaDesc = 'Read reviews from global teams we support across customer experience, e-commerce, data management, and back-office operations.';
 
 $pageBannerTitle = 'OUR CLIENTS';
 $pageBannerBreadcrumb = 'Clients';
@@ -34,18 +34,18 @@ $testimonials = [
         'name' => 'Eric Martindale',
         'role' => 'Founder',
         'company' => 'Elite Commerce Group',
-        'category' => 'E-Commerce',
+        'category' => 'E-Commerce Support',
         'rating' => '5.0',
-        'quote' => 'I have been working with Clevora for several months now. My account rep is super sharp and very easy to work with. They\'ve done a fantastic job with complex account reconciliations, listings, and various other tasks. I\'m with these guys for the long haul.',
+        'quote' => 'Clevora helped us organize our support operations with a professional team and structured approach.',
         'photo' => '/assets/images/testimonial-1.jpg'
     ],
     [
         'name' => 'Carol Swan',
         'role' => 'Marketing Manager',
         'company' => 'On Air Dining',
-        'category' => 'Hospitality',
+        'category' => 'Data Management',
         'rating' => '5.0',
-        'quote' => 'Clevora is outstanding to work with. Our contact and team are responsive and have great attention to detail. We will continue to use Clevora for data projects and would highly recommend them for data outsourcing.',
+        'quote' => 'Their ability to understand our workflow and scale resources made them a valuable operations partner.',
         'photo' => '/assets/images/testimonial-2.jpg'
     ],
     [
@@ -54,35 +54,8 @@ $testimonials = [
         'company' => 'Karnal Logistics',
         'category' => 'BPO Services',
         'rating' => '5.0',
-        'quote' => 'This is very satisfied that Clevora provides us with great satisfaction and we are extremely happy with their operations. Their response time is exceptional.',
+        'quote' => 'We appreciate their communication, reliability and commitment toward quality delivery.',
         'photo' => '/assets/images/testimonial-1.jpg'
-    ],
-    [
-        'name' => 'Patrick John',
-        'role' => 'CTO',
-        'company' => 'SaaS Logic Inc',
-        'category' => 'Data Operations',
-        'rating' => '5.0',
-        'quote' => 'I am most satisfied customer after working with Clevora. Their round-the-clock availability is amazing, and their accuracy rate is always above SLA specifications.',
-        'photo' => '/assets/images/testimonial-2.jpg'
-    ],
-    [
-        'name' => 'John Andrea',
-        'role' => 'Director of Support',
-        'company' => 'MultiLingual Solutions',
-        'category' => 'Foreign Language',
-        'rating' => '5.0',
-        'quote' => 'We have been running outsourcing through Clevora for some time now. Their professional multilingual team handles our tickets efficiently and integrates seamlessly into our CRM.',
-        'photo' => '/assets/images/testimonial-3.jpg'
-    ],
-    [
-        'name' => 'Sarah Jenkins',
-        'role' => 'COO',
-        'company' => 'TechSphere Systems',
-        'category' => 'Content Moderation',
-        'rating' => '5.0',
-        'quote' => 'Clevora\'s moderation team watches over our community platforms with extreme consistency. Safe community environment and brand protection are standard results.',
-        'photo' => '/assets/images/testimonial-3.jpg'
     ]
 ];
 ?>
@@ -101,7 +74,7 @@ $testimonials = [
         Trusted By Organizations Globally
       </h2>
       <p style="font-size:13px; color:#6b7280; max-width:500px; margin:0 auto;">
-        We provide backend processes and calling solutions to industry leaders.
+        Businesses choose Clevora for reliable teams, structured processes and consistent operational support.
       </p>
     </div>
 

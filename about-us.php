@@ -1,6 +1,6 @@
 <?php
-$pageTitle = 'About Us | Clevora | Global Outsourcing Services';
-$metaDesc = 'Learn about Clevora Global Outsourcing Services, established in 2011. Discover our mission, vision, history, and founder.';
+$pageTitle = 'About Clevora | Trusted Outsourcing Partner Since 2011';
+$metaDesc = 'Learn about Clevora, a Delhi-based global outsourcing company helping businesses scale operations with skilled teams, secure processes and technology-driven solutions.';
 
 $pageBannerTitle = 'ABOUT US';
 $pageBannerBreadcrumb = 'About Us';

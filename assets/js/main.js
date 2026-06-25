@@ -139,3 +139,110 @@ document.addEventListener('DOMContentLoaded', () => {
   showSlide(0);
   startAutoPlay();
 });
+
+// 4. Scroll reveal animations across site pages
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const revealItems = [];
+  const revealSet = new Set();
+  const addReveal = (el, delay = 0, variant = '') => {
+    if (!el || revealSet.has(el)) return;
+    revealSet.add(el);
+    el.classList.add('reveal-on-scroll');
+    if (variant) el.classList.add(variant);
+    el.style.setProperty('--reveal-delay', `${delay}ms`);
+    revealItems.push(el);
+  };
+
+  const sectionByTitle = title => {
+    const headings = Array.from(document.querySelectorAll('h2'));
+    const heading = headings.find(h => h.textContent.trim().toLowerCase() === title.toLowerCase());
+    return heading?.closest('section') || null;
+  };
+
+  addReveal(document.querySelector('.page-banner__inner'), 0);
+
+  document.querySelectorAll('section').forEach(section => {
+    const sectionHeader = section.querySelector('.section-head, h1, h2');
+    addReveal(sectionHeader?.closest('.section-head') || sectionHeader, 0);
+
+    const directContent = Array.from(section.children).filter(child => {
+      return !child.matches('.page-banner__inner') && !child.querySelector('.section-head');
+    });
+    directContent.forEach((child, index) => addReveal(child, 80 + index * 80));
+  });
+
+  document.querySelectorAll([
+    'body > div[style*="max-width"]',
+    'main > div',
+    '.card',
+    '.feature-card',
+    '.benefit-card',
+    '.feature-item-card',
+    '.sidebar-service-card',
+    '.contact-item',
+    '.service-image-card',
+    '.service-details',
+    '.leadership-card',
+    '.contact-panel',
+    '.content-grid > *',
+    '.card-grid > *',
+    '.benefits-grid > *',
+    '.features-grid > *',
+    '.grid > *'
+  ].join(',')).forEach((el, index) => {
+    addReveal(el, Math.min(420, 80 + (index % 6) * 80));
+  });
+
+  const howItWorks = sectionByTitle('Go live in 3 simple steps');
+  if (howItWorks) {
+    addReveal(howItWorks.querySelector('div[style*="text-align:center"]'), 0);
+    const line = howItWorks.querySelector('.hidden.md\\:block');
+    if (line) {
+      line.classList.add('reveal-line');
+      line.style.setProperty('--reveal-delay', '250ms');
+      revealItems.push(line);
+    }
+    howItWorks.querySelectorAll('.grid > div').forEach((step, index) => {
+      addReveal(step, 180 + index * 140);
+      addReveal(step.firstElementChild, 260 + index * 140, 'reveal-pop');
+    });
+  }
+
+  const apart = sectionByTitle('What Sets Clevora Apart');
+  if (apart) {
+    addReveal(apart.querySelector('div[style*="text-align:center"]'), 0);
+    apart.querySelectorAll('.grid > div').forEach((card, index) => {
+      addReveal(card, 120 + index * 90);
+    });
+  }
+
+  const testimonials = sectionByTitle('What our clients say');
+  if (testimonials) {
+    addReveal(testimonials.querySelector('div[style*="text-align:center"]'), 0);
+    testimonials.querySelectorAll('.grid > div').forEach((card, index) => {
+      addReveal(card, 140 + index * 120);
+    });
+  }
+
+  if (!revealItems.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    revealItems.forEach(item => item.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.16,
+    rootMargin: '0px 0px -8% 0px'
+  });
+
+  revealItems.forEach(item => observer.observe(item));
+});

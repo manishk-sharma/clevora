@@ -3,6 +3,7 @@ $curFile = basename($_SERVER['PHP_SELF']);
 $sections = [
   'HOME'    => [['Dashboard','/admin/dashboard.php','📊']],
   'CONTENT' => [
+    ['Service Categories','/admin/sections/service-categories.php','📁'],
     ['Add Service','/admin/sections/add-service.php','➕'],
     ['Services','/admin/sections/services.php','⚙'],
     ['About Us','/admin/sections/about.php','ℹ'],

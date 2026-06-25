@@ -1,6 +1,6 @@
 <?php
-$pageTitle = 'Clevora | Global BPO & Outsourcing Solutions | Delhi, India';
-$metaDesc  = 'Clevora provides content moderation, BPO, digital marketing, and outsourcing services from Delhi, India.';
+$pageTitle = 'Clevora | Global BPO, Customer Experience & Digital Operations Partner';
+$metaDesc  = 'Clevora provides secure outsourcing solutions including customer support, content operations, data management, HR, finance, e-commerce support and BPO services worldwide.';
 require_once 'includes/header.php';
 
 $hero_headline = setting('hero_headline', $pdo);
@@ -15,30 +15,12 @@ $clients = [];
 
 if ($pdo) {
     try {
-        $services = $pdo->query("SELECT * FROM services WHERE is_active=1 ORDER BY sort_order LIMIT 9")->fetchAll();
         $gallery  = $pdo->query("SELECT * FROM gallery ORDER BY sort_order LIMIT 6")->fetchAll();
         $testimonials = $pdo->query("SELECT * FROM testimonials WHERE is_active=1")->fetchAll();
         $clients  = $pdo->query("SELECT * FROM clients")->fetchAll();
     } catch(Exception $e) {
         error_log('Homepage fetch error: ' . $e->getMessage());
     }
-}
-
-// Fallbacks if DB empty
-if (empty($services)) {
-    $services = [
-        ['slug' => 'database-management', 'name' => 'Database Management', 'icon_url' => '/assets/images/service-db.svg', 'intro' => 'Preventing Oversized Non-Standard Data Formats, Multiple Sourcing and Non-Standard Data systems, Address Verification, Postal Code Correction, NCOA and Standardization. Cleaning Databases, Address Checking, Output to Printer, E-Mailer, or Printed Mailing Catalog.'],
-        ['slug' => 'content-moderation', 'name' => 'Content Moderation', 'icon_url' => '/assets/images/service-moderation.svg', 'intro' => 'Protect your brand reputation and build user trust with our global content moderation services. We monitor and filter text, images, and videos 24/7.'],
-        ['slug' => 'digital-marketing', 'name' => 'Digital Marketing', 'icon_url' => '/assets/images/service-marketing.svg', 'intro' => 'Enhance your digital footprint with SEO, PPC, and social media campaigns designed to generate high-quality leads.'],
-        ['slug' => 'business-outsourcing', 'name' => 'Business Outsourcing', 'icon_url' => '/assets/images/service-bpo.svg', 'intro' => 'Streamline your operations with our business process outsourcing (BPO) solutions, from front-office to back-office tasks.'],
-        ['slug' => 'mortgage-services', 'name' => 'Mortgage Services', 'icon_url' => '/assets/images/service-mortgage.svg', 'intro' => 'Accurate and fast mortgage processing support, document indexing, and validation for lenders and brokers.'],
-        ['slug' => 'foreign-language-support', 'name' => 'Foreign Language Support', 'icon_url' => '/assets/images/service-language.svg', 'intro' => 'Connect with global clients through multilingual customer support, translation, and localized services.'],
-        ['slug' => 'data-validation', 'name' => 'Data Validation', 'icon_url' => '/assets/images/service-validation.svg', 'intro' => 'Maintain a high-quality database with real-time validation, address verification, and database scrubbing.'],
-        ['slug' => 'inbound-outbound', 'name' => 'Inbound & Outbound Call Center', 'icon_url' => '/assets/images/service-callcenter.svg', 'intro' => 'Drive sales and support customers with professional inbound and outbound tele-calling services.'],
-        ['slug' => 'conversion-catalyst', 'name' => 'Conversion Catalyst', 'icon_url' => '/assets/images/service-catalyst.svg', 'intro' => 'Boost your website\'s conversion rate through user experience design auditing and conversion rate optimization (CRO).'],
-        ['slug' => 'back-office', 'name' => 'Back Office Support', 'icon_url' => '/assets/images/service-backoffice.svg', 'intro' => 'Efficient data entry, bookkeeping, processing invoices, and document classification services for your backend teams.'],
-        ['slug' => 'publishing-solutions', 'name' => 'Publishing Solutions', 'icon_url' => '/assets/images/service-publishing.svg', 'intro' => 'Professional formatting, layout typesetting, proofreading, and e-book conversion services.']
-    ];
 }
 
 if (empty($gallery)) {
@@ -69,10 +51,10 @@ if (empty($clients)) {
 }
 
 $stats = [
-  ['value'=>setting('stats_projects',$pdo),   'label'=>'Projects Delivered'],
-  ['value'=>setting('stats_industries',$pdo), 'label'=>'Industries Served'],
-  ['value'=>setting('stats_resumes',$pdo),    'label'=>'Resumes Revised'],
-  ['value'=>setting('stats_clients',$pdo),    'label'=>'Happy Clients'],
+  ['value'=>setting('stats_projects',$pdo),   'label'=>'Projects Completed'],
+  ['value'=>setting('stats_industries',$pdo), 'label'=>'Industries Supported'],
+  ['value'=>setting('stats_resumes',$pdo),    'label'=>'Processes Managed'],
+  ['value'=>setting('stats_clients',$pdo),    'label'=>'Client Experiences Delivered'],
 ];
 ?>
 
@@ -80,51 +62,51 @@ $stats = [
 <?php
 $hero_slides = [
   [
-    'eyebrow' => 'GLOBAL BPO SOLUTIONS',
-    'title' => 'Business Outsourcing',
-    'quote' => 'In your goals,<br>we find our mission.',
+    'eyebrow' => 'SCALABLE OUTSOURCING SOLUTIONS',
+    'title' => 'Customer Experience (CX)',
+    'quote' => 'Proactive 24/7 customer engagement<br>across channels.',
     'image' => '/assets/images/hero-bg.jpg',
     'bullets' => [
-      'Customer care and live chat support',
-      'Multi-language communication support',
-      'Order management and fulfilment services',
-      'Data analysis, online filing, forms and claims',
+      'Inbound and outbound customer care support',
+      'Fluent multilingual support agents',
+      'SLA-backed email and live chat support',
+      'Technical helpdesk and troubleshooting support',
     ],
   ],
   [
-    'eyebrow' => 'TRUST & SAFETY OPERATIONS',
-    'title' => 'Content Moderation',
-    'quote' => 'Protect communities with<br>fast, consistent review.',
+    'eyebrow' => 'TRUST & SAFETY SOLUTIONS',
+    'title' => 'Content Moderation & Operations',
+    'quote' => 'Protecting your brand and users<br>round the clock.',
     'image' => '/assets/images/content-mod.jpg',
     'bullets' => [
-      'Web content moderation',
-      'Social media content moderation',
-      'User-generated content review',
-      'Discussion board and marketplace moderation',
+      'Live streaming content moderation',
+      'Video and image review services',
+      'Social media review and comments moderation',
+      'Compliance and policy enforcement',
     ],
   ],
   [
-    'eyebrow' => 'DATA OPERATIONS',
-    'title' => 'Database Management',
-    'quote' => 'Reliable service for<br>clean, usable data.',
+    'eyebrow' => 'SECURE PROCESS MANAGEMENT',
+    'title' => 'Data Operations & Back Office',
+    'quote' => 'Highly accurate and secure database<br>processing.',
     'image' => '/assets/images/service-banner.jpg',
     'bullets' => [
-      'Processing standard and non-standard data formats',
-      'Database consolidation and duplicate elimination',
-      'Address verification and postal code correction',
-      'List management, segmentation and response analysis',
+      'Data entry and transcription services',
+      'Database standardisation and cleaning',
+      'Bookkeeping and accounts support',
+      'Administrative process management',
     ],
   ],
   [
-    'eyebrow' => 'GROWTH SERVICES',
-    'title' => 'Digital Marketing',
-    'quote' => 'Make contact. Build relationships.<br>Get results.',
+    'eyebrow' => 'GLOBAL SUPPORT OPERATIONS',
+    'title' => 'E-Commerce Support Operations',
+    'quote' => 'Powering your storefront operations<br>seamlessly.',
     'image' => '/assets/images/hero-office.jpg',
     'bullets' => [
-      'Social media management',
-      'Search, paid media and performance campaigns',
-      'Influencer and viral marketing',
-      'Brand content for web, radio and mobile channels',
+      'Order processing and shipment tracking support',
+      'Product listing and catalog uploads',
+      'Returns, refunds and exchange management',
+      'Multi-marketplace store support',
     ],
   ],
 ];
@@ -146,7 +128,7 @@ $hero_slides = [
         </ul>
         <div class="hero-slide__actions">
           <a class="hero-btn hero-btn--primary" href="/contact.php">Contact Us</a>
-          <a class="hero-btn hero-btn--ghost" href="/services.php">Explore Services</a>
+          <a class="hero-btn hero-btn--ghost" href="/services.php">Explore Solutions</a>
         </div>
       </div>
     </article>
@@ -258,7 +240,7 @@ $hero_slides = [
           WHO WE ARE
         </span>
         <h2 style="font-size:32px; font-weight:700; color:#0f172a; margin-bottom:8px;">
-          Global BPO Operations Since 2011
+          Global Outsourcing Excellence Since 2011
         </h2>
         <div style="width:48px; height:3px; background:#2563eb; border-radius:2px; margin-top:10px;"></div>
       </div>
@@ -281,39 +263,91 @@ $hero_slides = [
     <span style="display:inline-block; background:#eff6ff; color:#3b82f6;
                  font-size:12px; font-weight:700; padding:6px 16px;
                  border-radius:9999px; letter-spacing:0.5px; margin-bottom:16px; text-transform:uppercase;">
-      Services
+      Core Solutions
     </span>
     <h2 style="font-size:clamp(32px, 4vw, 44px); font-weight:600; color:#0f172a; margin-bottom:16px; line-height:1.2;">
       Everything your business needs to scale operations
     </h2>
     <p style="font-size:18px; color:#4b5563; max-width:700px; margin:0 auto; line-height:1.6;">
-      One partner for back office outsourcing — data,<br>
-      finance, e-commerce, and admin — so you can focus<br>
-      on growth.
+      Outsource operational overhead to Clevora. We manage front-office customer engagement and back-office pipelines with accuracy and data security.
     </p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
-    <?php foreach($services as $s): ?>
+    <!-- Highlight 1: Customer Support -->
     <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.03); transition:box-shadow .2s; cursor:pointer;" onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.03)'">
-      <div style="margin-bottom:20px;">
-        <?php if($s['icon_url']): ?>
-        <img src="<?=htmlspecialchars($s['icon_url'])?>" loading="lazy" style="height:44px; width:auto; object-fit:contain;">
-        <?php else: ?>
-        <span style="color:#3b82f6; font-weight:700; font-size:24px;">⚙</span>
-        <?php endif; ?>
-      </div>
-      <h3 style="font-size:18px; font-weight:500; color:#0f172a; margin-bottom:12px;">
-        <?=htmlspecialchars($s['name'])?>
-      </h3>
-      <p style="font-size:14px; color:#4b5563; line-height:1.6; margin-bottom:24px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;">
-        <?=htmlspecialchars($s['intro'])?>
+      <div style="margin-bottom:20px; font-size: 32px;">💬</div>
+      <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px;">Customer Support</h3>
+      <p style="font-size:14px; color:#4b5563; line-height:1.6; margin-bottom:24px; height: 72px; overflow: hidden;">
+        Multilingual inbound/outbound support, email and live chat operations with SLAs tailored to keep customer satisfaction high.
       </p>
-      <a href="/detail-services.php?slug=<?=urlencode($s['slug'])?>" style="font-size:13px; color:#3b82f6; font-weight:600; text-decoration:none;">
-        <?=htmlspecialchars($s['name'])?> &rarr;
-      </a>
+      <a href="/services.php?category=customer-support-services" style="font-size:13px; color:#3b82f6; font-weight:600; text-decoration:none;">Explore Solutions &rarr;</a>
     </div>
-    <?php endforeach; ?>
+
+    <!-- Highlight 2: Content Moderation -->
+    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.03); transition:box-shadow .2s; cursor:pointer;" onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.03)'">
+      <div style="margin-bottom:20px; font-size: 32px;">🛡️</div>
+      <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px;">Content Moderation</h3>
+      <p style="font-size:14px; color:#4b5563; line-height:1.6; margin-bottom:24px; height: 72px; overflow: hidden;">
+        24/7 video, audio, image and social media review moderation. Keep your application community and brand reputation safe.
+      </p>
+      <a href="/services.php?category=content-moderation-services" style="font-size:13px; color:#3b82f6; font-weight:600; text-decoration:none;">Explore Solutions &rarr;</a>
+    </div>
+
+    <!-- Highlight 3: Data Management -->
+    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.03); transition:box-shadow .2s; cursor:pointer;" onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.03)'">
+      <div style="margin-bottom:20px; font-size: 32px;">📂</div>
+      <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px;">Data Management</h3>
+      <p style="font-size:14px; color:#4b5563; line-height:1.6; margin-bottom:24px; height: 72px; overflow: hidden;">
+        High speed data entry, processing, and standardisation solutions to keep corporate records accurate and accessible.
+      </p>
+      <a href="/services.php?category=back-office-data-management" style="font-size:13px; color:#3b82f6; font-weight:600; text-decoration:none;">Explore Solutions &rarr;</a>
+    </div>
+
+    <!-- Highlight 4: E-Commerce Support -->
+    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.03); transition:box-shadow .2s; cursor:pointer;" onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.03)'">
+      <div style="margin-bottom:20px; font-size: 32px;">🛒</div>
+      <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px;">E-Commerce Support</h3>
+      <p style="font-size:14px; color:#4b5563; line-height:1.6; margin-bottom:24px; height: 72px; overflow: hidden;">
+        Optimize store operations: catalog product uploads, order tracking coordination, returns and marketplace support.
+      </p>
+      <a href="/services.php?category=e-commerce-support" style="font-size:13px; color:#3b82f6; font-weight:600; text-decoration:none;">Explore Solutions &rarr;</a>
+    </div>
+
+    <!-- Highlight 5: Finance Operations -->
+    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.03); transition:box-shadow .2s; cursor:pointer;" onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.03)'">
+      <div style="margin-bottom:20px; font-size: 32px;">💳</div>
+      <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px;">Finance Operations</h3>
+      <p style="font-size:14px; color:#4b5563; line-height:1.6; margin-bottom:24px; height: 72px; overflow: hidden;">
+        Automate billing support, accounts receivable/payable, expense reconciliations and payroll auditing.
+      </p>
+      <a href="/services.php?category=finance-accounting" style="font-size:13px; color:#3b82f6; font-weight:600; text-decoration:none;">Explore Solutions &rarr;</a>
+    </div>
+
+    <!-- Highlight 6: HR Solutions -->
+    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.03); transition:box-shadow .2s; cursor:pointer;" onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.03)'">
+      <div style="margin-bottom:20px; font-size: 32px;">👥</div>
+      <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px;">HR Solutions</h3>
+      <p style="font-size:14px; color:#4b5563; line-height:1.6; margin-bottom:24px; height: 72px; overflow: hidden;">
+        Recruitment process outsourcing (RPO), resume screening, talent sourcing and HR operations administration.
+      </p>
+      <a href="/services.php?category=hr-solutions" style="font-size:13px; color:#3b82f6; font-weight:600; text-decoration:none;">Explore Solutions &rarr;</a>
+    </div><!-- end HR card -->
+  </div><!-- end grid -->
+
+  <!-- Centered CTA -->
+  <div style="text-align:center; margin-top:48px;">
+    <a href="/services.php"
+       style="display:inline-flex; align-items:center; gap:8px;
+              background:#2563eb; color:#fff;
+              font-size:13px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase;
+              padding:14px 36px; border-radius:9999px; text-decoration:none;
+              box-shadow:0 4px 18px rgba(37,99,235,0.25);
+              transition:background 0.2s, transform 0.2s;"
+       onmouseover="this.style.background='#1d4ed8'; this.style.transform='translateY(-2px)'"
+       onmouseout="this.style.background='#2563eb'; this.style.transform='translateY(0)'">
+      Explore All Services &rarr;
+    </a>
   </div>
 </section>
 
@@ -692,14 +726,12 @@ $hero_slides = [
     <div style="display:flex; flex-direction:column; border-top:1px solid #e5e7eb;">
       <?php
       $faqs = [
-        ['q' => 'What outsourcing services does Clevora offer?', 'a' => 'We offer a comprehensive range of outsourcing services including customer support, back-office operations, content moderation, data entry, digital marketing, and more.'],
-        ['q' => 'How quickly can you deploy a team?', 'a' => 'Our agile deployment process allows us to assemble, train, and deploy a fully functional team within 2 to 4 weeks depending on the complexity of the project.'],
-        ['q' => 'How much can I save by outsourcing?', 'a' => 'On average, our clients save between 40% to 60% on operational costs without sacrificing quality or performance.'],
-        ['q' => 'How do you ensure data security?', 'a' => 'We adhere to strict international data security standards, including GDPR compliance, encrypted communications, and secure physical facilities.'],
-        ['q' => 'What if I need to scale up or down?', 'a' => 'Our flexible staffing models allow you to scale resources up or down quickly based on seasonal demands or business growth.'],
-        ['q' => 'How does billing work?', 'a' => 'We offer transparent, fixed hourly rates or dedicated monthly models depending on your preference. Invoices are typically generated monthly.'],
-        ['q' => 'What industries do you serve?', 'a' => 'We serve a wide variety of industries including e-commerce, healthcare, finance, telecommunications, and SaaS technologies.'],
-        ['q' => 'Where are your teams located?', 'a' => 'Our primary delivery centers are located in state-of-the-art facilities in Delhi, India, enabling us to provide 24/7/365 global coverage.']
+        ['q' => 'What outsourcing services does Clevora offer?', 'a' => 'Clevora provides customer support, call center operations, content moderation, e-commerce support, finance, HR, data management and KPO solutions.'],
+        ['q' => 'How quickly can you deploy a team?', 'a' => 'Deployment depends on requirements, team size and process complexity. Clevora builds flexible teams designed around client needs.'],
+        ['q' => 'How much can outsourcing save?', 'a' => 'Savings vary by operation type, but outsourcing helps reduce hiring, infrastructure and management costs.'],
+        ['q' => 'How do you ensure data security?', 'a' => 'We follow controlled access practices, secure workflows and confidentiality-focused operational processes.'],
+        ['q' => 'Can I scale services?', 'a' => 'Yes. Teams and processes can expand or adjust according to changing business requirements.'],
+        ['q' => 'Where are your teams located?', 'a' => 'Our operations are based in Delhi, India, supporting clients globally.']
       ];
       foreach($faqs as $faq):
       ?>

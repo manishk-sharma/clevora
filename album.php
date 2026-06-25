@@ -1,9 +1,9 @@
 <?php
-$pageTitle = 'Our Album & Management | Clevora | Global Outsourcing Services';
-$metaDesc = 'View our work gallery, corporate training workshops, call center facilities, and learn about the leadership driving Clevora.';
+$pageTitle = 'Our Workplace Facilities & Gallery | Clevora';
+$metaDesc = 'Explore the professional environment supporting Clevora\'s global BPO and secure operations infrastructure.';
 
-$pageBannerTitle = 'OUR ALBUM';
-$pageBannerBreadcrumb = 'Album';
+$pageBannerTitle = 'OUR GALLERY';
+$pageBannerBreadcrumb = 'Gallery';
 
 require_once 'includes/header.php';
 include 'includes/page-banner.php';
@@ -23,18 +23,16 @@ if ($pdo) {
 
 if (empty($gallery)) {
     $gallery = [
-        ['image_url' => '/assets/images/gallery-1.jpg', 'caption' => 'Our Modern Workspace'],
+        ['image_url' => '/assets/images/gallery-1.jpg', 'caption' => 'Modern Operations Workspace'],
         ['image_url' => '/assets/images/gallery-2.jpg', 'caption' => 'Server Room & Infrastructure'],
-        ['image_url' => '/assets/images/gallery-3.jpg', 'caption' => 'Team Collaboration Session'],
-        ['image_url' => '/assets/images/gallery-4.jpg', 'caption' => 'Modern Operations Workspace'],
-        ['image_url' => '/assets/images/gallery-5.jpg', 'caption' => 'Corporate Team Training'],
-        ['image_url' => '/assets/images/gallery-6.jpg', 'caption' => 'Network Infrastructure & IT Support']
+        ['image_url' => '/assets/images/gallery-3.jpg', 'caption' => 'Team Collaboration'],
+        ['image_url' => '/assets/images/gallery-4.jpg', 'caption' => 'Corporate Training'],
+        ['image_url' => '/assets/images/gallery-5.jpg', 'caption' => 'Network Infrastructure']
     ];
 }
 ?>
 
 <div style="max-width:1200px; margin:0 auto; padding:48px 24px;" class="space-y-16">
-
 
   <!-- Gallery Grid -->
   <div class="space-y-8">
@@ -49,7 +47,7 @@ if (empty($gallery)) {
         Our Workplace Facilities
       </h2>
       <p style="font-size:13px; color:#6b7280; max-width:500px; margin:0 auto;">
-        Have a look at our operations floors and data server rooms.
+        Explore the professional environment supporting Clevora’s global operations.
       </p>
       <div style="width:48px; height:3px; background:#2563eb;
                   border-radius:2px; margin:12px auto 0;"></div>
@@ -63,13 +61,19 @@ if (empty($gallery)) {
         
         if (stripos($g['caption'], 'workspace') !== false) {
             $tag = 'Workspace';
-            $desc = 'Explore our state-of-the-art office layout built for high productivity and employee collaboration.';
-        } elseif (stripos($g['caption'], 'server') !== false || stripos($g['caption'], 'infrastructure') !== false) {
+            $desc = 'Collaborative spaces designed for productivity.';
+        } elseif (stripos($g['caption'], 'server') !== false) {
+            $tag = 'Technology';
+            $desc = 'Technology environment supporting secure operations.';
+        } elseif (stripos($g['caption'], 'collaboration') !== false) {
+            $tag = 'Team';
+            $desc = 'Employees working together to solve client challenges.';
+        } elseif (stripos($g['caption'], 'training') !== false) {
+            $tag = 'Training';
+            $desc = 'Continuous learning and skill improvement sessions.';
+        } elseif (stripos($g['caption'], 'network') !== false || stripos($g['caption'], 'infrastructure') !== false) {
             $tag = 'Infrastructure';
-            $desc = 'Equipped with high-speed backup connections, clean server racks, and advanced failover systems.';
-        } elseif (stripos($g['caption'], 'collaboration') !== false || stripos($g['caption'], 'team') !== false) {
-            $tag = 'Collaboration';
-            $desc = 'Our regular training modules and collaborative team sessions in action.';
+            $desc = 'Reliable systems supporting business continuity.';
         }
         
         // Mock a date based on index for a realistic blog-roll feel

@@ -1,18 +1,24 @@
 <?php
 require_once 'middleware/auth.php';
 
+$count_categories = 0;
 $count_services = 0;
+$count_active_services = 0;
 $count_gallery = 0;
 $count_testimonials = 0;
 $count_leads = 0;
+$count_clients = 0;
 $recent_leads = [];
 
 if ($pdo) {
     try {
+        $count_categories = $pdo->query("SELECT COUNT(*) FROM service_categories")->fetchColumn();
         $count_services = $pdo->query("SELECT COUNT(*) FROM services")->fetchColumn();
+        $count_active_services = $pdo->query("SELECT COUNT(*) FROM services WHERE is_active = 1")->fetchColumn();
         $count_gallery = $pdo->query("SELECT COUNT(*) FROM gallery")->fetchColumn();
         $count_testimonials = $pdo->query("SELECT COUNT(*) FROM testimonials")->fetchColumn();
         $count_leads = $pdo->query("SELECT COUNT(*) FROM leads")->fetchColumn();
+        $count_clients = $pdo->query("SELECT COUNT(*) FROM clients")->fetchColumn();
         $recent_leads = $pdo->query("SELECT * FROM leads ORDER BY id DESC LIMIT 5")->fetchAll();
     } catch(Exception $e) {
         error_log('Dashboard stats error: ' . $e->getMessage());
@@ -64,8 +70,8 @@ if ($pdo) {
                 <?php foreach($recent_leads as $rl): ?>
                   <a href="/admin/sections/contact-settings.php" style="display:block; text-decoration:none; color:inherit; padding:8px; border-radius:6px; background:#f8fafc; border:1px solid #f1f5f9; transition:all 0.2s;" onmouseover="this.style.background='#eff6ff';this.style.borderColor='#dbeafe'" onmouseout="this.style.background='#f8fafc';this.style.borderColor='#f1f5f9'">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
-                      <span style="font-size:11px; font-weight:700; color:#1e293b;"><?= htmlspecialchars($rl['name']) ?></span>
-                      <span style="font-size:9px; color:#94a3b8;"><?= htmlspecialchars(substr($rl['created_at'], 5, 11)) ?></span>
+                       <span style="font-size:11px; font-weight:700; color:#1e293b;"><?= htmlspecialchars($rl['name']) ?></span>
+                       <span style="font-size:9px; color:#94a3b8;"><?= htmlspecialchars(substr($rl['created_at'], 5, 11)) ?></span>
                     </div>
                     <p style="font-size:10px; color:#64748b; margin:0; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><?= htmlspecialchars($rl['message']) ?></p>
                   </a>
@@ -85,22 +91,34 @@ if ($pdo) {
     </div>
 
     <!-- Stat cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-7">
-      <div style="background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:20px; box-shadow:var(--shadow-card);">
-        <p style="font-size:11px; font-weight:600; color:#6b7280; text-transform:uppercase;">Services</p>
-        <p style="font-size:24px; font-weight:700; color:#2563eb; margin-top:4px;"><?= $count_services ?></p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3 mb-7">
+      <div style="background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:16px; box-shadow:var(--shadow-card);">
+        <p style="font-size:10px; font-weight:600; color:#6b7280; text-transform:uppercase;">Categories</p>
+        <p style="font-size:20px; font-weight:700; color:#4f46e5; margin-top:4px;"><?= $count_categories ?></p>
       </div>
-      <div style="background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:20px; box-shadow:var(--shadow-card);">
-        <p style="font-size:11px; font-weight:600; color:#6b7280; text-transform:uppercase;">Gallery Images</p>
-        <p style="font-size:24px; font-weight:700; color:#f97316; margin-top:4px;"><?= $count_gallery ?></p>
+      <div style="background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:16px; box-shadow:var(--shadow-card);">
+        <p style="font-size:10px; font-weight:600; color:#6b7280; text-transform:uppercase;">Total Services</p>
+        <p style="font-size:20px; font-weight:700; color:#2563eb; margin-top:4px;"><?= $count_services ?></p>
       </div>
-      <div style="background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:20px; box-shadow:var(--shadow-card);">
-        <p style="font-size:11px; font-weight:600; color:#6b7280; text-transform:uppercase;">Testimonials</p>
-        <p style="font-size:24px; font-weight:700; color:#10b981; margin-top:4px;"><?= $count_testimonials ?></p>
+      <div style="background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:16px; box-shadow:var(--shadow-card);">
+        <p style="font-size:10px; font-weight:600; color:#6b7280; text-transform:uppercase;">Active Services</p>
+        <p style="font-size:20px; font-weight:700; color:#10b981; margin-top:4px;"><?= $count_active_services ?></p>
       </div>
-      <div style="background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:20px; box-shadow:var(--shadow-card);">
-        <p style="font-size:11px; font-weight:600; color:#6b7280; text-transform:uppercase;">Prospect Leads</p>
-        <p style="font-size:24px; font-weight:700; color:#6366f1; margin-top:4px;"><?= $count_leads ?></p>
+      <div style="background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:16px; box-shadow:var(--shadow-card);">
+        <p style="font-size:10px; font-weight:600; color:#6b7280; text-transform:uppercase;">Leads</p>
+        <p style="font-size:20px; font-weight:700; color:#6366f1; margin-top:4px;"><?= $count_leads ?></p>
+      </div>
+      <div style="background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:16px; box-shadow:var(--shadow-card);">
+        <p style="font-size:10px; font-weight:600; color:#6b7280; text-transform:uppercase;">Testimonials</p>
+        <p style="font-size:20px; font-weight:700; color:#f59e0b; margin-top:4px;"><?= $count_testimonials ?></p>
+      </div>
+      <div style="background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:16px; box-shadow:var(--shadow-card);">
+        <p style="font-size:10px; font-weight:600; color:#6b7280; text-transform:uppercase;">Clients</p>
+        <p style="font-size:20px; font-weight:700; color:#ec4899; margin-top:4px;"><?= $count_clients ?></p>
+      </div>
+      <div style="background:#fff; border:1px solid #e8eaf0; border-radius:12px; padding:16px; box-shadow:var(--shadow-card);">
+        <p style="font-size:10px; font-weight:600; color:#6b7280; text-transform:uppercase;">Gallery</p>
+        <p style="font-size:20px; font-weight:700; color:#14b8a6; margin-top:4px;"><?= $count_gallery ?></p>
       </div>
     </div>
 

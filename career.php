@@ -1,6 +1,6 @@
 <?php
-$pageTitle = 'Careers | Clevora | Global Outsourcing Services';
-$metaDesc = 'Join the Clevora team. We are looking for talented individuals to help us build the future of global outsourcing and business process operations.';
+$pageTitle = 'Careers at Clevora | Build Your Future With Global Operations';
+$metaDesc = 'Join Clevora and work with global clients across outsourcing, customer support, operations and digital services.';
 
 $pageBannerTitle = 'CAREERS';
 $pageBannerBreadcrumb = 'Careers';
@@ -16,8 +16,8 @@ require_once 'includes/header.php';
   <div style="max-width:1200px; margin:0 auto;">
     <div class="section-head">
       <span class="section-kicker">Why Clevora</span>
-      <h2 class="section-title">Why work with us</h2>
-      <p class="section-copy">At Clevora, you're not just filling a seat. You're joining a team that works directly with international clients, solves real business problems, and invests in your growth.</p>
+      <h2 class="section-title">Build Your Career With Clevora</h2>
+      <p class="section-copy">Join a growing outsourcing company where talented people work with global businesses and develop professional skills.</p>
     </div>
 
     <!-- 2x2 Grid -->
@@ -111,14 +111,14 @@ require_once 'includes/header.php';
       <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.01); display:flex; flex-direction:column; justify-content:between; height:100%;">
         <div>
           <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px; font-family:'Poppins', sans-serif;">
-            Business Development Associate / Sr. Associate
+            Business Development Associate / Sr Associate
           </h3>
           <div style="display:flex; gap:8px; margin-bottom:16px;">
             <span style="font-size:10px; font-weight:700; color:#2563eb; background:#eff6ff; padding:2px 8px; border-radius:4px; letter-spacing:0.5px; text-transform:uppercase;">India</span>
             <span style="font-size:10px; font-weight:700; color:#4b5563; background:#f1f5f9; padding:2px 8px; border-radius:4px; letter-spacing:0.5px; text-transform:uppercase;">Full-Time</span>
           </div>
           <p style="font-size:13.5px; color:#4b5563; line-height:1.6; margin:0;">
-            Drive client acquisition and partnership growth. Identify new business opportunities, manage outreach campaigns, and build relationships with prospective clients across the US market.
+            Responsible for identifying opportunities, managing client communication and supporting business growth.
           </p>
         </div>
       </div>
@@ -134,7 +134,7 @@ require_once 'includes/header.php';
             <span style="font-size:10px; font-weight:700; color:#4b5563; background:#f1f5f9; padding:2px 8px; border-radius:4px; letter-spacing:0.5px; text-transform:uppercase;">Full-Time</span>
           </div>
           <p style="font-size:13.5px; color:#4b5563; line-height:1.6; margin:0;">
-            Manage product listings, catalog operations, and marketplace optimization for our e-commerce clients. Experience with Amazon, Shopify, or WooCommerce is a plus.
+            Manage marketplace operations, listings, orders and online business workflows.
           </p>
         </div>
       </div>
@@ -150,7 +150,7 @@ require_once 'includes/header.php';
             <span style="font-size:10px; font-weight:700; color:#4b5563; background:#f1f5f9; padding:2px 8px; border-radius:4px; letter-spacing:0.5px; text-transform:uppercase;">Full-Time</span>
           </div>
           <p style="font-size:13.5px; color:#4b5563; line-height:1.6; margin:0;">
-            Lead recruitment, onboarding, employee engagement, and HR operations. Help us build and retain a world-class team that delivers exceptional results for our clients.
+            Handle recruitment, employee processes and HR operations.
           </p>
         </div>
       </div>
@@ -166,7 +166,7 @@ require_once 'includes/header.php';
             <span style="font-size:10px; font-weight:700; color:#4b5563; background:#f1f5f9; padding:2px 8px; border-radius:4px; letter-spacing:0.5px; text-transform:uppercase;">Full-Time</span>
           </div>
           <p style="font-size:13.5px; color:#4b5563; line-height:1.6; margin:0;">
-            Provide dedicated administrative support to US-based clients. Tasks include email management, scheduling, research, data entry, and CRM updates. Strong English communication required.
+            Provide remote administrative and operational support.
           </p>
         </div>
       </div>
@@ -181,7 +181,7 @@ require_once 'includes/header.php';
     <div class="section-head">
       <span class="section-kicker">How to Apply</span>
       <h2 class="section-title">Ready to join us?</h2>
-      <p class="section-copy">Send your resume and a brief cover letter to <a href="mailto:careers@clevora.com" style="color:#2563eb; font-weight:600; text-decoration:none; border-bottom:1px solid #bfdbfe;">careers@clevora.com</a>. Include the role you're applying for in the subject line. We'll get back to you within 3 business days.</p>
+      <p class="section-copy">Send your resume and a brief cover letter to <a href="mailto:info@clevora.in" style="color:#2563eb; font-weight:600; text-decoration:none; border-bottom:1px solid #bfdbfe;">info@clevora.in</a>. Include the role you're applying for in the subject line. We'll get back to you within 3 business days.</p>
     </div>
   </div>
 </section>

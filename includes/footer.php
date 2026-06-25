@@ -5,7 +5,7 @@
       Ready to become our next success story?
     </h2>
     <p style="font-size:clamp(15px, 2vw, 18px); color:#bfdbfe; max-width:600px; margin:0 auto 36px auto; line-height:1.6;">
-      Tell us about your challenge. We'll build you a custom team proposal
+      Tell us about your operational challenge. We will help you build a scalable outsourcing solution.
     </p>
     <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:24px;">
       <a href="/contact.php" style="display:inline-block; background:#db6060; color:#fff; font-size:14px; font-weight:600; padding:12px 36px; border-radius:9999px; text-decoration:none; box-shadow:0 4px 14px rgba(202, 37, 37, 0.3); transition:background 0.2s;" onmouseover="this.style.background='#a20e0eff'" onmouseout="this.style.background='#b41111ff'">
@@ -23,14 +23,9 @@
     <div>
       <a class="site-footer__brand" href="/" aria-label="Clevora home">
         <img class="site-footer__logo" src="/assets/images/logo.png" alt="Clevora">
-        <span>
-          <strong>Clevora</strong>
-          <small>Global Outsourcing</small>
-        </span>
       </a>
       <p>
-        A privately held BPO organization incorporated in 2011, providing
-        outsourcing, support, data, marketing, and moderation solutions.
+        Clevora is a Delhi-based global outsourcing partner providing customer experience, content operations, data management, finance, HR and digital business solutions since 2011.
       </p>
       <div class="site-footer__contact">
         <span><?= htmlspecialchars(setting('contact_phone',$pdo)) ?></span>

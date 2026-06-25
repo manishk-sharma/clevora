@@ -10,7 +10,7 @@ if(!isset($metaDesc))  $metaDesc  = 'Clevora provides BPO, content moderation, d
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= htmlspecialchars($pageTitle) ?></title>
   <meta name="description" content="<?= htmlspecialchars($metaDesc) ?>">
-  <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.png">
   <link rel="icon" type="image/png" href="/assets/images/logo.png">
   <link rel="shortcut icon" type="image/png" href="/assets/images/logo.png">
   <link rel="apple-touch-icon" href="/assets/images/logo.png">
@@ -46,10 +46,6 @@ if(!isset($metaDesc))  $metaDesc  = 'Clevora provides BPO, content moderation, d
   <!-- Logo -->
   <a href="/" class="site-header__brand" aria-label="Clevora home">
     <img src="/assets/images/logo.png" alt="Clevora">
-    <span>
-      <strong>Clevora</strong>
-      <small>Global Outsourcing</small>
-    </span>
   </a>
 
   <!-- Desktop links -->

@@ -16,6 +16,16 @@ if ($id && $pdo) {
     }
 }
 
+// Fetch categories for the select dropdown
+$categories = [];
+if ($pdo) {
+    try {
+        $categories = $pdo->query("SELECT id, name FROM service_categories WHERE is_active=1 ORDER BY sort_order ASC, name ASC")->fetchAll();
+    } catch(Exception $e) {
+        $error = 'Error fetching categories: ' . $e->getMessage();
+    }
+}
+
 // Convert features and benefits JSON back to text lists for the textarea fields
 $features_text = '';
 $benefits_text = '';
@@ -31,18 +41,20 @@ if ($service) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $category_id = (int)($_POST['category_id'] ?? 0);
     $slug    = trim($_POST['slug'] ?? '');
     $name    = trim($_POST['name'] ?? '');
     $intro   = trim($_POST['intro'] ?? '');
-    $full    = trim($_POST['full_content'] ?? '');
+    $detailed_description = trim($_POST['detailed_description'] ?? '');
+    $challenge_solved = trim($_POST['challenge_solved'] ?? '');
     $feats   = json_encode(array_values(array_filter(array_map('trim', explode("\n", $_POST['features'] ?? '')))));
     $bens    = json_encode(array_values(array_filter(array_map('trim', explode("\n", $_POST['benefits'] ?? '')))));
     $active  = isset($_POST['is_active']) ? 1 : 0;
     $order   = (int)($_POST['sort_order'] ?? 0);
 
     // Validate inputs
-    if (empty($name) || empty($slug)) {
-        $error = 'Name and slug are required.';
+    if (empty($name) || empty($slug) || empty($category_id)) {
+        $error = 'Category, name, and slug are required.';
     } else {
         // Handle icon upload
         $icon_url = $service['icon_url'] ?? '';
@@ -68,8 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($error)) {
             if ($id) {
                 try {
-                    $stmt = $pdo->prepare("UPDATE services SET slug=?, name=?, intro=?, full_content=?, features=?, benefits=?, icon_url=?, is_active=?, sort_order=? WHERE id=?");
-                    $stmt->execute([$slug, $name, $intro, $full, $feats, $bens, $icon_url, $active, $order, $id]);
+                    $stmt = $pdo->prepare("UPDATE services SET category_id=?, slug=?, name=?, intro=?, detailed_description=?, challenge_solved=?, full_content=?, features=?, benefits=?, icon_url=?, is_active=?, sort_order=? WHERE id=?");
+                    $stmt->execute([$category_id, $slug, $name, $intro, $detailed_description, $challenge_solved, $detailed_description, $feats, $bens, $icon_url, $active, $order, $id]);
                     $msg = 'Service updated successfully.';
                     // Refresh data
                     $stmt = $pdo->prepare("SELECT * FROM services WHERE id = ?");
@@ -80,8 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             } else {
                 try {
-                    $stmt = $pdo->prepare("INSERT INTO services (slug, name, intro, full_content, features, benefits, icon_url, is_active, sort_order) VALUES(?,?,?,?,?,?,?,?,?)");
-                    $stmt->execute([$slug, $name, $intro, $full, $feats, $bens, $icon_url, $active, $order]);
+                    $stmt = $pdo->prepare("INSERT INTO services (category_id, slug, name, intro, detailed_description, challenge_solved, full_content, features, benefits, icon_url, is_active, sort_order) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+                    $stmt->execute([$category_id, $slug, $name, $intro, $detailed_description, $challenge_solved, $detailed_description, $feats, $bens, $icon_url, $active, $order]);
                     header('Location: services.php?success=Service added successfully');
                     exit;
                 } catch(Exception $e) {
@@ -129,7 +141,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <?php endif; ?>
 
       <form method="POST" enctype="multipart/form-data" class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8 space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Service Category *</label>
+            <select name="category_id" required class="w-full bg-gray-50 border border-gray-200 focus:border-blue-500 rounded-lg px-3 py-2.5 text-xs outline-none focus:bg-white transition-all">
+              <option value="">-- Select Category --</option>
+              <?php foreach($categories as $cat): ?>
+                <option value="<?= $cat['id'] ?>" <?= (isset($service['category_id']) && $service['category_id'] == $cat['id']) ? 'selected' : '' ?>>
+                  <?= htmlspecialchars($cat['name']) ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+          </div>
           <div>
             <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Service Name *</label>
             <input type="text" name="name" id="service-name" required value="<?= htmlspecialchars($service['name'] ?? '') ?>" placeholder="e.g. Content Moderation"
@@ -149,9 +172,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Long Content (For Deep-Dive Page)</label>
-          <textarea name="full_content" rows="6" placeholder="Detailed page body content (used on full-layout service pages like Content Moderation)..."
-                    class="w-full bg-gray-50 border border-gray-200 focus:border-blue-500 rounded-lg px-3 py-2.5 text-xs outline-none focus:bg-white transition-all"><?= htmlspecialchars($service['full_content'] ?? '') ?></textarea>
+          <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Detailed Description (For Deep-Dive Page)</label>
+          <textarea name="detailed_description" rows="6" placeholder="Detailed page body content explaining the service solutions..."
+                    class="w-full bg-gray-50 border border-gray-200 focus:border-blue-500 rounded-lg px-3 py-2.5 text-xs outline-none focus:bg-white transition-all"><?= htmlspecialchars($service['detailed_description'] ?? $service['full_content'] ?? '') ?></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Business Challenge Solved (For Deep-Dive Page)</label>
+          <textarea name="challenge_solved" rows="4" placeholder="Describe the business challenge this service solves..."
+                    class="w-full bg-gray-50 border border-gray-200 focus:border-blue-500 rounded-lg px-3 py-2.5 text-xs outline-none focus:bg-white transition-all"><?= htmlspecialchars($service['challenge_solved'] ?? '') ?></textarea>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

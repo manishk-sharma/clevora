@@ -1,5 +1,5 @@
 <?php
-$pageTitle         = 'Contact Clevora | Get a Free BPO Quote';
+$pageTitle         = 'Contact Clevora | Outsourcing Consultation';
 $pageBannerTitle   = 'CONTACT US';
 $pageBannerBreadcrumb = 'Contact Us';
 require_once 'includes/header.php';
@@ -13,8 +13,8 @@ include 'includes/page-banner.php';
   <!-- LEFT: dark contact info panel -->
   <div class="contact-panel__info">
     <span class="section-kicker">Contact Clevora</span>
-    <h2>Get in Touch</h2>
-    <p>Tell us what you need to outsource, improve, moderate, or support. Our team will help you shape the right operating plan.</p>
+    <h2>Let's Build Your Next Operations Team</h2>
+    <p>Tell us what you need to outsource, improve, moderate or support. Our team will help create the right operational solution.</p>
 
     <?php
     $info = [
@@ -103,15 +103,22 @@ include 'includes/page-banner.php';
           <select name="interest" required class="form-select">
             <option value="">Select a service...</option>
             <?php
-            $interests = ['Content Moderation','Digital Marketing',
-                          'Foreign Language Support','Data Validation',
-                          'Mortgage Services','Inbound / Outbound',
-                          'Business Process Outsourcing','Back Office Support',
-                          'Publishing Solutions','Software Solutions',
-                          'Database Management','Conversion Catalyst'];
+            $selected_interest = $_GET['interest'] ?? '';
+            $interests = [
+              'Customer Support Services',
+              'Content Moderation',
+              'E-Commerce Support',
+              'Data Management',
+              'Finance & Accounting',
+              'HR Services',
+              'KPO Services',
+              'Call Center Services',
+              'General Inquiry'
+            ];
             foreach($interests as $opt):
+              $selected = (strtolower(trim($opt)) === strtolower(trim($selected_interest))) ? 'selected' : '';
             ?>
-            <option><?=htmlspecialchars($opt)?></option>
+            <option <?= $selected ?>><?=htmlspecialchars($opt)?></option>
             <?php endforeach; ?>
           </select>
         </div>

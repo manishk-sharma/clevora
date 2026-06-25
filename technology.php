@@ -1,6 +1,6 @@
 <?php
-$pageTitle = 'Technology & Infrastructure | Clevora | Global Outsourcing Services';
-$metaDesc = 'Explore Clevora\'s call center technology, secure IT systems, server redundancy protocols, and digital security standards.';
+$pageTitle = 'Technology & Secure Operations Infrastructure | Clevora';
+$metaDesc = 'Discover Clevora’s secure infrastructure, workflow systems, quality monitoring and scalable outsourcing technology.';
 
 $pageBannerTitle = 'TECHNOLOGY';
 $pageBannerBreadcrumb = 'Technology';
@@ -17,10 +17,10 @@ $infrastructure = setting('tech_infrastructure', $pdo);
     <div style="flex:1.2; min-width:320px;" class="space-y-4">
       <div style="margin-bottom:16px;">
         <span class="section-kicker">Our Capabilities</span>
-        <h2 class="section-title" style="margin-top:8px;">Robust Infrastructure & Support Systems</h2>
+        <h2 class="section-title" style="margin-top:8px;">Secure Operations & Technology Infrastructure</h2>
       </div>
       <p class="section-copy" style="white-space:pre-line;">
-        Our production servers are housed in a Tier-3 secure data center in Delhi. We maintain redundant fiber-optic connectivity from multiple internet service providers, automated daily backup protocols, and UPS backup battery arrays alongside on-site diesel generators to guarantee 99.9% network availability. Physical access to our production rooms is restricted with biometric authorization.
+        Clevora utilizes enterprise-grade infrastructure to host and manage BPO pipelines. Our operations are housed in secure facilities featuring redundant fiber-optic lines, automated failover load balancers, and backup power grids. We deploy workflow management systems and multi-tier quality monitoring channels to ensure high compliance, performance security, and zero downtime for our clients.
       </p>
     </div>
 
@@ -32,15 +32,15 @@ $infrastructure = setting('tech_infrastructure', $pdo);
         
         <div style="position:relative; z-index:1; text-align:center;" class="space-y-6">
           <div style="width:72px; height:72px; border-radius:50%; background:rgba(37,99,235,0.1); display:flex; align-items:center; justify-content:center; margin:0 auto; color:#2563eb; font-size:32px;">
-            <i class="fa-solid fa-shield-halved"></i>
+            <i class="fa-solid fa-lock"></i>
           </div>
-          <h3 style="font-size:20px; font-weight:700; color:#0f172a; font-family:'Poppins', sans-serif; margin-bottom:8px;">Information Security</h3>
+          <h3 style="font-size:20px; font-weight:700; color:#0f172a; font-family:'Poppins', sans-serif; margin-bottom:8px;">Data Protection & Security</h3>
           <p style="font-size:13.5px; color:#64748b; line-height:1.7; margin:0 auto; max-width:340px;">
-            We deploy enterprise firewalls, end-to-end data encryption, and secure local area networks to safeguard client data.
+            We implement database encryption, isolated network segments, strict access controls, and non-disclosure protocols to protect customer info.
           </p>
           <div style="display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px solid #e2e8f0; padding:8px 16px; border-radius:9999px; font-size:12px; color:#10b981; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.02);">
             <span style="width:8px; height:8px; border-radius:50%; background:#10b981; display:inline-block; animation:pulse 2s infinite;"></span>
-            Security Standard Certified
+            Security & Compliance Assured
           </div>
         </div>
       </div>
@@ -54,9 +54,9 @@ $infrastructure = setting('tech_infrastructure', $pdo);
   <div style="max-width:1200px; margin:0 auto;">
     
     <div class="section-head">
-      <span class="section-kicker" style="color:#60a5fa;">Redundancy & Uptime</span>
-      <h2 class="section-title" style="color:#fff;">Our Technology & Security Standards</h2>
-      <p class="section-copy" style="color:#94a3b8;">We deliver 99.9% network uptime guarantees and enterprise-grade security protocols by default.</p>
+      <span class="section-kicker" style="color:#60a5fa;">Quality & Operations</span>
+      <h2 class="section-title" style="color:#fff;">Operational Technology Standards</h2>
+      <p class="section-copy" style="color:#94a3b8;">Integrating secure networks, structured workflows, and quality monitoring channels for enterprise delivery.</p>
     </div>
 
     <!-- 3-Column Metrics Grid -->
@@ -66,10 +66,10 @@ $infrastructure = setting('tech_infrastructure', $pdo);
       <div style="background:#1e293b; border:1px solid #334155; border-radius:24px; padding:48px 32px; display:flex; flex-direction:column; gap:20px;">
         <div>
           <h4 style="font-size:16px; font-weight:600; color:#cbd5e1; margin-bottom:8px; font-family:'Poppins', sans-serif;">
-            Uptime SLA Guarantee
+            Scalable Support Infrastructure
           </h4>
           <p style="font-size:13.5px; color:#94a3b8; line-height:1.6; margin:0;">
-            Dual online UPS systems coupled with dynamic diesel generators ensure zero operating downtime during power grid fluctuations.
+            Features cloud dialer configurations, ticket queues (Zendesk, Freshdesk), 24/7 timezone coverage, and scalable seat deployments.
           </p>
         </div>
       </div>
@@ -78,10 +78,10 @@ $infrastructure = setting('tech_infrastructure', $pdo);
       <div style="background:#1e293b; border:1px solid #334155; border-radius:24px; padding:48px 32px; display:flex; flex-direction:column; gap:20px;">
         <div>
           <h4 style="font-size:16px; font-weight:600; color:#cbd5e1; margin-bottom:8px; font-family:'Poppins', sans-serif;">
-            Data Encryption Standard
+            Quality Monitoring & Audits
           </h4>
           <p style="font-size:13.5px; color:#94a3b8; line-height:1.6; margin:0;">
-            Multiple redundant gigabit fiber pipelines from distinct ISPs, routed through automated failover network load balancers.
+            Features dual-stage QA check systems, agent call recording audits, file verification logs, and weekly performance reviews.
           </p>
         </div>
       </div>
@@ -90,10 +90,10 @@ $infrastructure = setting('tech_infrastructure', $pdo);
       <div style="background:#1e293b; border:1px solid #334155; border-radius:24px; padding:48px 32px; display:flex; flex-direction:column; gap:20px;">
         <div>
           <h4 style="font-size:16px; font-weight:600; color:#cbd5e1; margin-bottom:8px; font-family:'Poppins', sans-serif;">
-            Secure Facility Operations
+            Workflow Management Systems
           </h4>
           <p style="font-size:13.5px; color:#94a3b8; line-height:1.6; margin:0;">
-            Biometric door lock systems, continuous 24/7 internal CCTV surveillance, and strict NDA-compliant production floor layouts.
+            Features automated task trackers, secure dashboard logging, SLA alert triggers, and real-time operations status reports.
           </p>
         </div>
       </div>

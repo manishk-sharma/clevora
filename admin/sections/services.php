@@ -26,7 +26,7 @@ if (isset($_GET['success'])) {
 $services = [];
 if ($pdo) {
     try {
-        $services = $pdo->query("SELECT * FROM services ORDER BY sort_order")->fetchAll();
+        $services = $pdo->query("SELECT s.*, c.name AS category_name FROM services s LEFT JOIN service_categories c ON s.category_id = c.id ORDER BY s.sort_order")->fetchAll();
     } catch(Exception $e) {
         $error = 'Error fetching services: ' . $e->getMessage();
     }
@@ -71,6 +71,7 @@ if ($pdo) {
             <tr>
               <th class="px-6 py-4">Sort</th>
               <th class="px-6 py-4">Service Name</th>
+              <th class="px-6 py-4">Category</th>
               <th class="px-6 py-4">Slug</th>
               <th class="px-6 py-4">Status</th>
               <th class="px-6 py-4 text-right">Actions</th>
@@ -79,13 +80,14 @@ if ($pdo) {
           <tbody class="divide-y divide-gray-50">
             <?php if(empty($services)): ?>
             <tr>
-              <td colspan="5" class="px-6 py-8 text-center text-xs text-gray-400">No services found in database.</td>
+              <td colspan="6" class="px-6 py-8 text-center text-xs text-gray-400">No services found in database.</td>
             </tr>
             <?php else: ?>
               <?php foreach($services as $s): ?>
               <tr class="hover:bg-gray-50/50 transition-colors">
                 <td class="px-6 py-4 text-xs font-semibold text-gray-400">#<?= htmlspecialchars($s['sort_order']) ?></td>
                 <td class="px-6 py-4 font-semibold text-gray-800 text-xs uppercase"><?= htmlspecialchars($s['name']) ?></td>
+                <td class="px-6 py-4 text-xs text-gray-500 uppercase font-semibold"><?= htmlspecialchars($s['category_name'] ?? 'Unassigned') ?></td>
                 <td class="px-6 py-4 text-xs text-gray-400 font-mono"><?= htmlspecialchars($s['slug']) ?></td>
                 <td class="px-6 py-4">
                   <span class="px-2.5 py-1 text-[10px] font-bold uppercase rounded-full <?= $s['is_active'] ? 'bg-green-50 text-green-700 border border-green-100' : 'bg-gray-100 text-gray-500 border border-gray-200' ?>">

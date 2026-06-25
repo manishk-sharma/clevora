@@ -1,90 +1,82 @@
 <?php
-$all_services = [];
+$related_services = [];
+$other_categories = [];
+$current_category_id = $service['category_id'] ?? 0;
+$current_service_slug = $service['slug'] ?? '';
+
 if (isset($pdo) && $pdo) {
     try {
-        $all_services = $pdo->query(
-          "SELECT slug, name FROM services WHERE is_active=1 ORDER BY sort_order"
-        )->fetchAll();
+        // Fetch related services in same category
+        if ($current_category_id > 0) {
+            $stmt_rel = $pdo->prepare("SELECT slug, name, icon_url FROM services WHERE category_id = ? AND is_active = 1 AND slug != ? ORDER BY sort_order ASC, name ASC");
+            $stmt_rel->execute([$current_category_id, $current_service_slug]);
+            $related_services = $stmt_rel->fetchAll();
+        }
+        
+        // Fetch other active categories with service count
+        $other_categories = $pdo->query("
+            SELECT c.name, c.slug, c.icon,
+            (SELECT COUNT(*) FROM services s WHERE s.category_id = c.id AND s.is_active = 1) AS service_count
+            FROM service_categories c
+            WHERE c.is_active = 1 AND c.id != " . (int)$current_category_id . "
+            ORDER BY c.sort_order ASC, c.name ASC
+        ")->fetchAll();
     } catch(Exception $e) {
         error_log('Sidebar query failed: ' . $e->getMessage());
     }
 }
-if (empty($all_services)) {
-    $all_services = [
-        ['slug' => 'database-management', 'name' => 'Database Management'],
-        ['slug' => 'content-moderation', 'name' => 'Content Moderation'],
-        ['slug' => 'digital-marketing', 'name' => 'Digital Marketing'],
-        ['slug' => 'business-outsourcing', 'name' => 'Business Outsourcing'],
-        ['slug' => 'mortgage-services', 'name' => 'Mortgage Services'],
-        ['slug' => 'foreign-language-support', 'name' => 'Foreign Language Support'],
-        ['slug' => 'data-validation', 'name' => 'Data Validation'],
-        ['slug' => 'inbound-outbound', 'name' => 'Inbound & Outbound Call Center'],
-        ['slug' => 'conversion-catalyst', 'name' => 'Conversion Catalyst'],
-        ['slug' => 'back-office', 'name' => 'Back Office Support'],
-        ['slug' => 'publishing-solutions', 'name' => 'Publishing Solutions']
-    ];
-}
-
-if (!function_exists('getServiceIcon')) {
-    function getServiceIcon($slug) {
-        $mapping = [
-            'database-management' => 'service-db.svg',
-            'content-moderation' => 'service-moderation.svg',
-            'digital-marketing' => 'service-marketing.svg',
-            'business-outsourcing' => 'service-bpo.svg',
-            'mortgage-services' => 'service-mortgage.svg',
-            'foreign-language-support' => 'service-language.svg',
-            'data-validation' => 'service-validation.svg',
-            'inbound-outbound' => 'service-callcenter.svg',
-            'conversion-catalyst' => 'service-catalyst.svg',
-            'back-office' => 'service-backoffice.svg',
-            'publishing-solutions' => 'service-publishing.svg'
-        ];
-        return '/assets/images/' . ($mapping[$slug] ?? 'service-db.svg');
-    }
-}
 ?>
 
-<aside style="width:100%;">
-  <!-- Services box -->
-  <h3 class="sidebar-header">OUR SERVICES</h3>
-  <div style="display: flex; flex-direction: column; gap: 2px;">
-    <?php
-    foreach($all_services as $s):
-      $isActive = ($s['slug'] === ($currentSlug ?? ''));
-      $iconUrl = getServiceIcon($s['slug']);
-    ?>
-    <a href="/detail-services.php?slug=<?=urlencode($s['slug'])?>"
-       class="sidebar-service-card <?= $isActive ? 'active' : '' ?>">
-       <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
-         <div style="display:flex; align-items:center; gap:12px;">
-           <img src="<?=$iconUrl?>" style="width:18px; height:18px; object-fit:contain; transition: filter 0.2s;" alt="">
-           <span><?=htmlspecialchars($s['name'])?></span>
+<aside style="width:100%;" class="space-y-8">
+  
+  <!-- Related Services Box -->
+  <?php if (!empty($related_services)): ?>
+  <div>
+    <h3 class="sidebar-header uppercase tracking-wider text-xs font-bold text-gray-400 mb-3">Related Solutions</h3>
+    <div style="display: flex; flex-direction: column; gap: 2px;">
+      <?php foreach($related_services as $s): ?>
+      <a href="/detail-services.php?slug=<?=urlencode($s['slug'])?>"
+         class="sidebar-service-card hover:bg-gray-50 flex items-center justify-between p-3 border border-gray-100 rounded-lg bg-white transition duration-200">
+         <div style="display:flex; align-items:center; gap:10px;">
+           <?php if (!empty($s['icon_url'])): ?>
+             <img src="<?=$s['icon_url']?>" style="width:16px; height:16px; object-fit:contain;" alt="">
+           <?php else: ?>
+             <span style="font-size: 14px;">⚙</span>
+           <?php endif; ?>
+           <span class="text-xs font-semibold text-gray-700"><?=htmlspecialchars($s['name'])?></span>
          </div>
-         <span style="font-size:12px;">➔</span>
-       </div>
-    </a>
-    <?php endforeach; ?>
-  </div>
-
-  <!-- Follow Us box -->
-  <h3 class="sidebar-header" style="margin-top: 32px;">FOLLOW US</h3>
-  <div style="border:1px solid #e8eaf0; border-radius:12px; padding:18px; background:#fff; box-shadow: 0 2px 4px rgba(0,0,0,.02);">
-    <div style="display:flex; gap:8px;">
-      <?php
-      $socials = [['f','#1877f2'],['X','#374151'],['in','#0a66c2'],['🌳','#f97316']];
-      foreach($socials as [$l,$c]):
-      ?>
-      <a href="#"
-         style="width:34px; height:34px; border-radius:8px; background:<?=$c?>;
-                display:flex; align-items:center; justify-content:center;
-                color:#fff; font-size:12px; font-weight:700; text-decoration:none;
-                transition: transform 0.2s;"
-         onmouseover="this.style.transform='translateY(-2px)'"
-         onmouseout="this.style.transform='none'">
-        <?=$l?>
+         <span style="font-size:10px; color:#9ca3af;">➔</span>
       </a>
       <?php endforeach; ?>
     </div>
+  </div>
+  <?php endif; ?>
+
+  <!-- Categories Box -->
+  <div>
+    <h3 class="sidebar-header uppercase tracking-wider text-xs font-bold text-gray-400 mb-3">Other Service Areas</h3>
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <?php foreach($other_categories as $cat): ?>
+      <a href="/services.php?category=<?=urlencode($cat['slug'])?>"
+         class="flex items-center justify-between p-3 border border-gray-100 rounded-lg bg-white hover:bg-blue-50/30 transition duration-200 group">
+         <div style="display:flex; align-items:center; gap:10px;">
+           <span class="text-lg"><?=htmlspecialchars($cat['icon'])?></span>
+           <span class="text-xs font-semibold text-gray-700 group-hover:text-brandBlue transition-colors"><?=htmlspecialchars($cat['name'])?></span>
+         </div>
+         <span class="text-[9px] font-bold text-gray-400 bg-gray-50 group-hover:bg-blue-50 group-hover:text-brandBlue px-2 py-0.5 rounded-full transition-colors">
+           <?= (int)$cat['service_count'] ?>
+         </span>
+      </a>
+      <?php endforeach; ?>
+    </div>
+  </div>
+
+  <!-- Contact Widget -->
+  <div style="border:1px solid #e8eaf0; border-radius:12px; padding:20px; background:#1a1a2e; color:#fff;" class="shadow-sm">
+    <h4 class="font-poppins font-bold text-sm mb-2 text-white">Need Consultation?</h4>
+    <p class="text-[11px] text-gray-300 leading-relaxed mb-4">Our project managers are available 24/7 to structure operations for your corporate teams.</p>
+    <a href="/contact.php" class="block text-center bg-brandBlue text-white hover:bg-blue-500 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors">
+      Contact Us
+    </a>
   </div>
 </aside>
