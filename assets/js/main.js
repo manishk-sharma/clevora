@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.disabled = false;
         btn.textContent = originalText;
       }
+    });
   });
 
   // Newsletter Form Handler

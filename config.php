@@ -6,9 +6,9 @@ define('DB_PASS', '');
 
 define('MAIL_HOST',   'smtp.gmail.com');
 define('MAIL_PORT',   587);
-define('MAIL_USER',   'your@gmail.com');
-define('MAIL_PASS',   'app_password');
-define('MAIL_TO',     'info@clevora.in');
+define('MAIL_USER',   'manish.work118@gmail.com');
+define('MAIL_PASS',   'janwxiimiwgjqwtg');
+define('MAIL_TO',     'manish.work118@gmail.com');
 
 define('SITE_NAME',   'Clevora');
 
