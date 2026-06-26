@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS `gallery_albums` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `title` VARCHAR(255) NOT NULL,
+    `slug` VARCHAR(255) NOT NULL UNIQUE,
+    `description` TEXT,
+    `cover_image` VARCHAR(255),
+    `sort_order` INT DEFAULT 0,
+    `is_active` TINYINT DEFAULT 1,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `gallery_images` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `album_id` INT NOT NULL,
+    `image` VARCHAR(255) NOT NULL,
+    `caption` VARCHAR(255),
+    `sort_order` INT DEFAULT 0,
+    `is_active` TINYINT DEFAULT 1,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (`album_id`) REFERENCES `gallery_albums`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

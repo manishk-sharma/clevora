@@ -1,17 +1,38 @@
 <?php
 require_once '../middleware/auth.php';
-
+$adminPageTitle = 'Manage Services | Clevora Admin';
 $msg = '';
 $error = '';
+
+if (isset($_GET['success'])) {
+    $msg = $_GET['success'];
+}
 
 // Handle delete
 if (isset($_GET['delete'])) {
     $id = (int)$_GET['delete'];
     if ($pdo) {
         try {
+            // First fetch the icon url to delete it
+            $stmt = $pdo->prepare("SELECT icon_url FROM services WHERE id=?");
+            $stmt->execute([$id]);
+            $row = $stmt->fetch();
+            if ($row && $row['icon_url']) {
+                $p = __DIR__ . '/../../' . ltrim($row['icon_url'], '/');
+                if (file_exists($p)) {
+                    @unlink($p);
+                }
+            }
+
+            // Also delete repeatable items from other tables
+            $pdo->prepare("DELETE FROM service_features WHERE service_id=?")->execute([$id]);
+            $pdo->prepare("DELETE FROM service_benefits WHERE service_id=?")->execute([$id]);
+            $pdo->prepare("DELETE FROM service_process WHERE service_id=?")->execute([$id]);
+            $pdo->prepare("DELETE FROM service_industries WHERE service_id=?")->execute([$id]);
+
             $stmt = $pdo->prepare("DELETE FROM services WHERE id=?");
             $stmt->execute([$id]);
-            header('Location: services.php?success=Service deleted successfully');
+            header('Location: services.php?success=Service deleted successfully.');
             exit;
         } catch(Exception $e) {
             $error = 'Failed to delete service: ' . $e->getMessage();
@@ -19,50 +40,36 @@ if (isset($_GET['delete'])) {
     }
 }
 
-if (isset($_GET['success'])) {
-    $msg = $_GET['success'];
-}
-
 $services = [];
 if ($pdo) {
     try {
-        $services = $pdo->query("SELECT s.*, c.name AS category_name FROM services s LEFT JOIN service_categories c ON s.category_id = c.id ORDER BY s.sort_order")->fetchAll();
+        $services = $pdo->query("SELECT s.*, c.name AS category_name FROM services s LEFT JOIN service_categories c ON s.category_id = c.id ORDER BY s.sort_order, s.name ASC")->fetchAll();
     } catch(Exception $e) {
         $error = 'Error fetching services: ' . $e->getMessage();
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Manage Services | Clevora Admin</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-</head>
-<body class="flex bg-gray-50 min-h-screen font-sans">
-
-  <!-- SIDEBAR -->
-  <?php include '../includes/sidebar.php'; ?>
+<?php include '../includes/admin-header.php'; ?>
+<?php include '../includes/sidebar.php'; ?>
 
   <!-- MAIN -->
-  <main class="flex-1 p-8 md:p-12">
-    <div class="max-w-5xl mx-auto space-y-6">
+  <main class="flex-1 p-6 md:p-10 overflow-auto">
+    <div class="max-w-6xl mx-auto space-y-6">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 class="text-2xl font-bold text-gray-800 font-poppins">Manage Services</h1>
-          <p class="text-xs text-gray-400">Add, edit, or remove services from the homepage and sidebar.</p>
+          <h1 class="text-2xl font-bold text-gray-800 font-poppins">Services List</h1>
+          <p class="text-xs text-gray-400 mt-1">Configure your BPO and content operations services, complete with SEO features and repeatable details.</p>
         </div>
-        <a href="add-service.php" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg text-xs tracking-wider uppercase transition">
+        <a href="add-service.php" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2.5 rounded-lg text-[10px] tracking-wider uppercase transition">
           + Add New Service
         </a>
       </div>
 
       <?php if(!empty($msg)): ?>
-      <p class="bg-green-50 text-green-700 text-xs px-3 py-2 rounded-lg border border-green-100"><?= htmlspecialchars($msg) ?></p>
+      <div class="toast bg-green-50 text-green-700 text-xs px-4 py-3 rounded-lg border border-green-100 font-semibold"><?= htmlspecialchars($msg) ?></div>
       <?php endif; ?>
       <?php if(!empty($error)): ?>
-      <p class="bg-red-50 text-red-700 text-xs px-3 py-2 rounded-lg border border-red-100"><?= htmlspecialchars($error) ?></p>
+      <div class="toast bg-red-50 text-red-700 text-xs px-4 py-3 rounded-lg border border-red-100 font-semibold"><?= htmlspecialchars($error) ?></div>
       <?php endif; ?>
 
       <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -70,6 +77,7 @@ if ($pdo) {
           <thead class="bg-gray-50 text-gray-400 uppercase text-[10px] font-bold tracking-wider border-b border-gray-100">
             <tr>
               <th class="px-6 py-4">Sort</th>
+              <th class="px-6 py-4">Icon</th>
               <th class="px-6 py-4">Service Name</th>
               <th class="px-6 py-4">Category</th>
               <th class="px-6 py-4">Slug</th>
@@ -80,12 +88,19 @@ if ($pdo) {
           <tbody class="divide-y divide-gray-50">
             <?php if(empty($services)): ?>
             <tr>
-              <td colspan="6" class="px-6 py-8 text-center text-xs text-gray-400">No services found in database.</td>
+              <td colspan="7" class="px-6 py-8 text-center text-xs text-gray-400">No services found in database.</td>
             </tr>
             <?php else: ?>
               <?php foreach($services as $s): ?>
               <tr class="hover:bg-gray-50/50 transition-colors">
                 <td class="px-6 py-4 text-xs font-semibold text-gray-400">#<?= htmlspecialchars($s['sort_order']) ?></td>
+                <td class="px-6 py-4">
+                  <?php if($s['icon_url']): ?>
+                    <img src="<?= htmlspecialchars($s['icon_url']) ?>" class="w-8 h-8 object-contain rounded border bg-gray-50 p-1">
+                  <?php else: ?>
+                    <span class="text-gray-300">N/A</span>
+                  <?php endif; ?>
+                </td>
                 <td class="px-6 py-4 font-semibold text-gray-800 text-xs uppercase"><?= htmlspecialchars($s['name']) ?></td>
                 <td class="px-6 py-4 text-xs text-gray-500 uppercase font-semibold"><?= htmlspecialchars($s['category_name'] ?? 'Unassigned') ?></td>
                 <td class="px-6 py-4 text-xs text-gray-400 font-mono"><?= htmlspecialchars($s['slug']) ?></td>
@@ -96,8 +111,7 @@ if ($pdo) {
                 </td>
                 <td class="px-6 py-4 text-right flex justify-end gap-3 text-xs">
                   <a href="add-service.php?id=<?= $s['id'] ?>" class="text-blue-600 hover:text-blue-700 font-semibold">Edit</a>
-                  <a href="?delete=<?= $s['id'] ?>" class="text-red-500 hover:text-red-600 font-semibold"
-                     onclick="return confirm('Are you sure you want to delete this service?')">Delete</a>
+                  <a href="?delete=<?= $s['id'] ?>" class="text-red-500 hover:text-red-600 font-semibold" data-confirm="Are you sure you want to delete this service? All related repeaters will be removed.">Delete</a>
                 </td>
               </tr>
               <?php endforeach; ?>
@@ -108,5 +122,4 @@ if ($pdo) {
     </div>
   </main>
 
-</body>
-</html>
+<?php include '../includes/admin-footer.php'; ?>

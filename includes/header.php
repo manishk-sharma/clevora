@@ -1,15 +1,51 @@
 <?php
 require_once __DIR__ . '/../includes/db.php';
-if(!isset($pageTitle)) $pageTitle = 'Clevora | Global BPO & Outsourcing Solutions';
-if(!isset($metaDesc))  $metaDesc  = 'Clevora provides BPO, content moderation, digital marketing and outsourcing services from Delhi, India.';
+
+// Detect current page slug
+$cur_file = basename($_SERVER['PHP_SELF']);
+$slug_map = [
+    'index.php' => 'home',
+    'about-us.php' => 'about',
+    'services.php' => 'services',
+    'detail-services.php' => 'services',
+    'technology.php' => 'technology',
+    'album.php' => 'gallery',
+    'clients.php' => 'clients',
+    'career.php' => 'careers',
+    'contact.php' => 'contact'
+];
+$detected_slug = $slug_map[$cur_file] ?? '';
+
+$db_seo = null;
+if ($detected_slug && $pdo) {
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM seo_settings WHERE page_slug = ?");
+        $stmt->execute([$detected_slug]);
+        $db_seo = $stmt->fetch();
+    } catch (Exception $e) {
+        error_log('SEO fetch failed: ' . $e->getMessage());
+    }
+}
+
+// Fallback logic
+$title_val = !empty($db_seo['meta_title']) ? $db_seo['meta_title'] : ($pageTitle ?? 'Clevora | Global BPO & Outsourcing Solutions');
+$desc_val = !empty($db_seo['meta_description']) ? $db_seo['meta_description'] : ($metaDesc ?? 'Clevora provides BPO, content moderation, digital marketing and outsourcing services from Delhi, India.');
+$keywords_val = !empty($db_seo['keywords']) ? $db_seo['keywords'] : ($metaKeywords ?? '');
+$og_image_val = !empty($db_seo['og_image']) ? $db_seo['og_image'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= htmlspecialchars($pageTitle) ?></title>
-  <meta name="description" content="<?= htmlspecialchars($metaDesc) ?>">
+  <title><?= htmlspecialchars($title_val) ?></title>
+  <meta name="description" content="<?= htmlspecialchars($desc_val) ?>">
+  <?php if ($keywords_val): ?>
+  <meta name="keywords" content="<?= htmlspecialchars($keywords_val) ?>">
+  <?php endif; ?>
+  <?php if ($og_image_val): ?>
+  <meta property="og:image" content="<?= htmlspecialchars(SITE_URL . $og_image_val) ?>">
+  <?php endif; ?>
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.png">
   <link rel="icon" type="image/png" href="/assets/images/logo.png">
   <link rel="shortcut icon" type="image/png" href="/assets/images/logo.png">

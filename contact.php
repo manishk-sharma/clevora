@@ -21,7 +21,7 @@ include 'includes/page-banner.php';
       ['📞','Phone',   setting('contact_phone',$pdo)],
       ['✉', 'Email',   setting('contact_email',$pdo)],
       ['📍','Address', setting('contact_address',$pdo)],
-      ['🕐','Hours',   '24 / 7 / 365'],
+      ['🕐','Hours',   setting('contact_hours',$pdo) ?: '24 / 7 / 365'],
     ];
     foreach($info as [$icon,$label,$val]):
     ?>
@@ -38,8 +38,14 @@ include 'includes/page-banner.php';
 
     <!-- Map placeholder -->
     <div class="contact-map">
+      <?php
+      $map_src = setting('contact_map_embed', $pdo);
+      if (empty($map_src)) {
+          $map_src = "https://maps.google.com/maps?q=" . urlencode(setting('contact_address', $pdo)) . "&output=embed";
+      }
+      ?>
       <iframe
-        src="https://maps.google.com/maps?q=<?= urlencode(setting('contact_address', $pdo)) ?>&output=embed"
+        src="<?= htmlspecialchars($map_src) ?>"
         style="width:100%; height:100%; border:none; border-radius:10px;"
         loading="lazy" allowfullscreen>
       </iframe>
@@ -48,12 +54,24 @@ include 'includes/page-banner.php';
     <!-- Social -->
     <div class="contact-socials">
       <?php
+      $fb = setting('social_facebook', $pdo) ?: 'https://www.facebook.com/clevora.India';
+      $xing = setting('social_xing', $pdo) ?: 'https://www.xing.com/companies/clevoraglobaloutsourcingservices';
+      $linkedin = setting('social_linkedin', $pdo) ?: 'https://www.linkedin.com/company/74049332/admin/feed/posts';
+      $linktree = setting('social_linktree', $pdo) ?: 'https://linktr.ee/clevora';
+      
+      $whatsapp_num = setting('contact_whatsapp', $pdo) ?: '919953310085';
+      if (str_starts_with($whatsapp_num, 'http://') || str_starts_with($whatsapp_num, 'https://')) {
+          $whatsapp_url = $whatsapp_num;
+      } else {
+          $whatsapp_url = 'https://api.whatsapp.com/send?phone=' . urlencode(preg_replace('/[^0-9]/', '', $whatsapp_num)) . '&text=I%20am%20interested%20in%20your%20services';
+      }
+
       $socials = [
-        ['https://www.facebook.com/clevora.India', '<i class="fa-brands fa-facebook-f"></i>', '#1877f2'],
-        ['https://www.xing.com/companies/clevoraglobaloutsourcingservices', '<i class="fa-brands fa-xing"></i>', '#006567'],
-        ['https://www.linkedin.com/company/74049332/admin/feed/posts', '<i class="fa-brands fa-linkedin-in"></i>', '#0a66c2'],
-        ['https://linktr.ee/clevora', '<i class="fa-solid fa-tree"></i>', '#39e09b'],
-        ['https://api.whatsapp.com/send?phone=919953310085&text=%20I%20am%20interested%20in%20your%20services', '<i class="fa-brands fa-whatsapp"></i>', '#25d366']
+        [$fb, '<i class="fa-brands fa-facebook-f"></i>', '#1877f2'],
+        [$xing, '<i class="fa-brands fa-xing"></i>', '#006567'],
+        [$linkedin, '<i class="fa-brands fa-linkedin-in"></i>', '#0a66c2'],
+        [$linktree, '<i class="fa-solid fa-tree"></i>', '#39e09b'],
+        [$whatsapp_url, '<i class="fa-brands fa-whatsapp"></i>', '#25d366']
       ];
       foreach($socials as [$url,$icon,$bg]):
       ?>

@@ -1,16 +1,21 @@
-<?php if (!isset($hide_footer_cta) || !$hide_footer_cta): ?>
+<?php if (!isset($hide_footer_cta) || !$hide_footer_cta): 
+  $cta_heading = setting('cta_heading', $pdo) ?: 'Ready to become our next success story?';
+  $cta_text = setting('cta_text', $pdo) ?: 'Tell us about your operational challenge. We will help build a scalable outsourcing solution.';
+  $cta_btn_text = setting('cta_button_text', $pdo) ?: 'Get a Free Quote';
+  $cta_btn_url = setting('cta_button_url', $pdo) ?: 'contact.php';
+?>
 <!-- ─── GET IN TOUCH CTA ──────────────────────────────── -->
 <section style="background:#1d4ed8; padding:80px 24px; color:#fff; text-align:center;">
   <div style="max-width:800px; margin:0 auto;">
     <h2 style="font-size:clamp(26px, 4.5vw, 42px); font-weight:700; color:#fff; margin-bottom:16px; font-family:'Poppins', sans-serif; letter-spacing:-0.01em;">
-      Ready to become our next success story?
+      <?= htmlspecialchars($cta_heading) ?>
     </h2>
     <p style="font-size:clamp(15px, 2vw, 18px); color:#bfdbfe; max-width:600px; margin:0 auto 36px auto; line-height:1.6;">
-      Tell us about your operational challenge. We will help you build a scalable outsourcing solution.
+      <?= htmlspecialchars($cta_text) ?>
     </p>
     <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:24px;">
-      <a href="/contact.php" style="display:inline-block; background:#db6060; color:#fff; font-size:14px; font-weight:600; padding:12px 36px; border-radius:9999px; text-decoration:none; box-shadow:0 4px 14px rgba(202, 37, 37, 0.3); transition:background 0.2s;" onmouseover="this.style.background='#a20e0eff'" onmouseout="this.style.background='#b41111ff'">
-        Get a Free Quote
+      <a href="<?= htmlspecialchars((str_starts_with($cta_btn_url, '/') || str_starts_with($cta_btn_url, 'http')) ? $cta_btn_url : '/' . $cta_btn_url) ?>" style="display:inline-block; background:#db6060; color:#fff; font-size:14px; font-weight:600; padding:12px 36px; border-radius:9999px; text-decoration:none; box-shadow:0 4px 14px rgba(202, 37, 37, 0.3); transition:background 0.2s;" onmouseover="this.style.background='#a20e0eff'" onmouseout="this.style.background='#b41111ff'">
+        <?= htmlspecialchars($cta_btn_text) ?>
       </a>
     </div>
     <p style="font-size:12px; color:#93c5fd; margin:0; opacity:0.8;">
@@ -81,12 +86,24 @@
       <div id="newsletter-form-msg" class="form-message" style="display:none; font-size:12px; margin-top:8px; color:rgba(255,255,255,0.7);"></div>
       <div class="site-footer__socials" aria-label="Social links">
         <?php
+        $fb = setting('social_facebook', $pdo) ?: 'https://www.facebook.com/clevora.India';
+        $xing = setting('social_xing', $pdo) ?: 'https://www.xing.com/companies/clevoraglobaloutsourcingservices';
+        $linkedin = setting('social_linkedin', $pdo) ?: 'https://www.linkedin.com/company/74049332/admin/feed/posts';
+        $linktree = setting('social_linktree', $pdo) ?: 'https://linktr.ee/clevora';
+        
+        $whatsapp_num = setting('contact_whatsapp', $pdo) ?: '919953310085';
+        if (str_starts_with($whatsapp_num, 'http://') || str_starts_with($whatsapp_num, 'https://')) {
+            $whatsapp_url = $whatsapp_num;
+        } else {
+            $whatsapp_url = 'https://api.whatsapp.com/send?phone=' . urlencode(preg_replace('/[^0-9]/', '', $whatsapp_num)) . '&text=I%20am%20interested%20in%20your%20services';
+        }
+
         $socials = [
-          ['https://www.facebook.com/clevora.India', '<i class="fa-brands fa-facebook-f"></i>', '#1877f2'],
-          ['https://www.xing.com/companies/clevoraglobaloutsourcingservices', '<i class="fa-brands fa-xing"></i>', '#006567'],
-          ['https://www.linkedin.com/company/74049332/admin/feed/posts', '<i class="fa-brands fa-linkedin-in"></i>', '#0a66c2'],
-          ['https://linktr.ee/clevora', '<i class="fa-solid fa-tree"></i>', '#39e09b'],
-          ['https://api.whatsapp.com/send?phone=919953310085&text=%20I%20am%20interested%20in%20your%20services', '<i class="fa-brands fa-whatsapp"></i>', '#25d366']
+          [$fb, '<i class="fa-brands fa-facebook-f"></i>', '#1877f2'],
+          [$xing, '<i class="fa-brands fa-xing"></i>', '#006567'],
+          [$linkedin, '<i class="fa-brands fa-linkedin-in"></i>', '#0a66c2'],
+          [$linktree, '<i class="fa-solid fa-tree"></i>', '#39e09b'],
+          [$whatsapp_url, '<i class="fa-brands fa-whatsapp"></i>', '#25d366']
         ];
         foreach($socials as [$url,$icon,$bg]):
         ?>

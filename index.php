@@ -12,12 +12,18 @@ $services = [];
 $gallery = [];
 $testimonials = [];
 $clients = [];
+$partners_list = [];
+$solutions_list = [];
+$steps_list = [];
 
 if ($pdo) {
     try {
         $gallery  = $pdo->query("SELECT * FROM gallery ORDER BY sort_order LIMIT 6")->fetchAll();
         $testimonials = $pdo->query("SELECT * FROM testimonials WHERE is_active=1")->fetchAll();
-        $clients  = $pdo->query("SELECT * FROM clients")->fetchAll();
+        $clients  = $pdo->query("SELECT * FROM clients WHERE status=1 ORDER BY sort_order ASC, id DESC")->fetchAll();
+        $partners_list = $pdo->query("SELECT * FROM home_partners WHERE is_active=1 ORDER BY sort_order ASC, id ASC")->fetchAll();
+        $solutions_list = $pdo->query("SELECT * FROM home_solutions WHERE is_active=1 ORDER BY sort_order ASC, id ASC")->fetchAll();
+        $steps_list = $pdo->query("SELECT * FROM home_process_steps WHERE is_active=1 ORDER BY sort_order ASC, id ASC")->fetchAll();
     } catch(Exception $e) {
         error_log('Homepage fetch error: ' . $e->getMessage());
     }
@@ -56,66 +62,236 @@ $stats = [
   ['value'=>setting('stats_resumes',$pdo),    'label'=>'Processes Managed'],
   ['value'=>setting('stats_clients',$pdo),    'label'=>'Client Experiences Delivered'],
 ];
-?>
 
-<!-- ─── HERO ─────────────────────────────────────────── -->
-<?php
-$hero_slides = [
-  [
-    'eyebrow' => 'SCALABLE OUTSOURCING SOLUTIONS',
-    'title' => 'Customer Experience (CX)',
-    'quote' => 'Proactive 24/7 customer engagement<br>across channels.',
-    'image' => '/assets/images/hero-bg.jpg',
-    'bullets' => [
-      'Inbound and outbound customer care support',
-      'Fluent multilingual support agents',
-      'SLA-backed email and live chat support',
-      'Technical helpdesk and troubleshooting support',
-    ],
-  ],
-  [
-    'eyebrow' => 'TRUST & SAFETY SOLUTIONS',
-    'title' => 'Content Moderation & Operations',
-    'quote' => 'Protecting your brand and users<br>round the clock.',
-    'image' => '/assets/images/content-mod.jpg',
-    'bullets' => [
-      'Live streaming content moderation',
-      'Video and image review services',
-      'Social media review and comments moderation',
-      'Compliance and policy enforcement',
-    ],
-  ],
-  [
-    'eyebrow' => 'SECURE PROCESS MANAGEMENT',
-    'title' => 'Data Operations & Back Office',
-    'quote' => 'Highly accurate and secure database<br>processing.',
-    'image' => '/assets/images/service-banner.jpg',
-    'bullets' => [
-      'Data entry and transcription services',
-      'Database standardisation and cleaning',
-      'Bookkeeping and accounts support',
-      'Administrative process management',
-    ],
-  ],
-  [
-    'eyebrow' => 'GLOBAL SUPPORT OPERATIONS',
-    'title' => 'E-Commerce Support Operations',
-    'quote' => 'Powering your storefront operations<br>seamlessly.',
-    'image' => '/assets/images/hero-office.jpg',
-    'bullets' => [
-      'Order processing and shipment tracking support',
-      'Product listing and catalog uploads',
-      'Returns, refunds and exchange management',
-      'Multi-marketplace store support',
-    ],
-  ],
-];
+// Fetch hero sliders dynamically
+$hero_slides = [];
+if ($pdo) {
+    try {
+        $db_slides = $pdo->query("SELECT * FROM hero_sliders WHERE status=1 ORDER BY sort_order ASC, id DESC")->fetchAll();
+        foreach ($db_slides as $s) {
+            $bullets = json_decode($s['bullets'] ?? '[]', true);
+            if (!is_array($bullets)) {
+                $bullets = [];
+            }
+            $hero_slides[] = [
+                'eyebrow' => $s['small_heading'],
+                'title' => $s['main_heading'],
+                'quote' => $s['description'],
+                'image' => $s['image'],
+                'bullets' => $bullets,
+                'cta_text' => $s['cta_text'],
+                'cta_link' => $s['cta_link'],
+                'media_type' => $s['media_type'] ?? 'image',
+                'media_file' => $s['media_file'] ?? $s['image'],
+                'video_poster' => $s['video_poster'] ?? ''
+            ];
+        }
+    } catch (Exception $e) {
+        error_log('Hero slides fetch failed: ' . $e->getMessage());
+    }
+}
+
+if (empty($hero_slides)) {
+    $hero_slides = [
+      [
+        'eyebrow' => 'SCALABLE OUTSOURCING SOLUTIONS',
+        'title' => 'Customer Experience (CX)',
+        'quote' => 'Proactive 24/7 customer engagement<br>across channels.',
+        'image' => '/assets/images/hero-bg.jpg',
+        'bullets' => [
+          'Inbound and outbound customer care support',
+          'Fluent multilingual support agents',
+          'SLA-backed email and live chat support',
+          'Technical helpdesk and troubleshooting support',
+        ],
+        'cta_text' => 'Contact Us',
+        'cta_link' => '/contact.php'
+      ],
+      [
+        'eyebrow' => 'TRUST & SAFETY SOLUTIONS',
+        'title' => 'Content Moderation & Operations',
+        'quote' => 'Protecting your brand and users<br>round the clock.',
+        'image' => '/assets/images/content-mod.jpg',
+        'bullets' => [
+          'Live streaming content moderation',
+          'Video and image review services',
+          'Social media review and comments moderation',
+          'Compliance and policy enforcement',
+        ],
+        'cta_text' => 'Contact Us',
+        'cta_link' => '/contact.php'
+      ],
+      [
+        'eyebrow' => 'SECURE PROCESS MANAGEMENT',
+        'title' => 'Data Operations & Back Office',
+        'quote' => 'Highly accurate and secure database<br>processing.',
+        'image' => '/assets/images/service-banner.jpg',
+        'bullets' => [
+          'Data entry and transcription services',
+          'Database standardisation and cleaning',
+          'Bookkeeping and accounts support',
+          'Administrative process management',
+        ],
+        'cta_text' => 'Contact Us',
+        'cta_link' => '/contact.php'
+      ],
+      [
+        'eyebrow' => 'GLOBAL SUPPORT OPERATIONS',
+        'title' => 'E-Commerce Support Operations',
+        'quote' => 'Powering your storefront operations<br>seamlessly.',
+        'image' => '/assets/images/hero-office.jpg',
+        'bullets' => [
+          'Order processing and shipment tracking support',
+          'Product listing and catalog uploads',
+          'Returns, refunds and exchange management',
+          'Multi-marketplace store support',
+        ],
+        'cta_text' => 'Contact Us',
+        'cta_link' => '/contact.php'
+      ],
+    ];
+}
+
+if (empty($partners_list)) {
+    $partners_list = [
+        ['logo' => '/assets/images/client-1.png', 'company_name' => 'Client One'],
+        ['logo' => '/assets/images/client-2.png', 'company_name' => 'Client Two'],
+        ['logo' => '/assets/images/client-3.png', 'company_name' => 'Client Three'],
+        ['logo' => '/assets/images/client-4.png', 'company_name' => 'Client Four'],
+        ['logo' => '/assets/images/client-5.png', 'company_name' => 'Client Five'],
+        ['logo' => '/assets/images/client-6.png', 'company_name' => 'Client Six']
+    ];
+}
+
+if (empty($solutions_list)) {
+    $solutions_list = [
+        ['title' => 'Customer Support Services', 'description' => 'Multilingual inbound/outbound support, email and live chat operations with SLAs tailored to keep customer satisfaction high.', 'icon' => '💬', 'button_text' => 'Explore Solutions', 'button_link' => '/services.php?category=customer-support-services'],
+        ['title' => 'Content & Moderation Services', 'description' => '24/7 video, audio, image and social media review moderation. Keep your application community and brand reputation safe.', 'icon' => '🛡️', 'button_text' => 'Explore Solutions', 'button_link' => '/services.php?category=content-moderation-services'],
+        ['title' => 'E-Commerce Support', 'description' => 'Optimize store operations: catalog product uploads, order tracking coordination, returns and marketplace support.', 'icon' => '🛒', 'button_text' => 'Explore Solutions', 'button_link' => '/services.php?category=e-commerce-support'],
+        ['title' => 'Back Office & Data Management', 'description' => 'High speed data entry, processing, and standardisation solutions to keep corporate records accurate and accessible.', 'icon' => '📂', 'button_text' => 'Explore Solutions', 'button_link' => '/services.php?category=back-office-data-management'],
+        ['title' => 'Finance & Accounting', 'description' => 'Automate billing support, accounts receivable/payable, expense reconciliations and payroll auditing.', 'icon' => '💳', 'button_text' => 'Explore Solutions', 'button_link' => '/services.php?category=finance-accounting'],
+        ['title' => 'Recruitment & HR Services', 'description' => 'Recruitment process outsourcing (RPO), resume screening, talent sourcing and HR operations administration.', 'icon' => '👥', 'button_text' => 'Explore Solutions', 'button_link' => '/services.php?category=hr-solutions']
+    ];
+}
+
+if (empty($steps_list)) {
+    $steps_list = [
+        ['step_number' => 1, 'title' => 'Tell Us What You Need', 'description' => "Share your business challenges, goals and outsourcing requirements."],
+        ['step_number' => 2, 'title' => 'We Deploy Your Team', 'description' => "Our experts create a customized support process for your company."],
+        ['step_number' => 3, 'title' => 'Scale & Grow', 'description' => "Focus on growth while Clevora manages your operations."]
+    ];
+}
+
+// Fetch active service categories
+$categories_list = [];
+if ($pdo) {
+    try {
+        $categories_list = $pdo->query("SELECT * FROM service_categories WHERE is_active=1 ORDER BY sort_order ASC, name ASC LIMIT 6")->fetchAll();
+    } catch (Exception $e) {
+        error_log('Frontend categories fetch failed: ' . $e->getMessage());
+    }
+}
+if (empty($categories_list)) {
+    $categories_list = [
+        ['name' => 'Customer Support', 'slug' => 'customer-support-services', 'description' => 'Multilingual inbound/outbound support, email and live chat operations with SLAs tailored to keep customer satisfaction high.', 'icon' => '💬'],
+        ['name' => 'Content Moderation', 'slug' => 'content-moderation-services', 'description' => '24/7 video, audio, image and social media review moderation. Keep your application community and brand reputation safe.', 'icon' => '🛡️'],
+        ['name' => 'Data Management', 'slug' => 'back-office-data-management', 'description' => 'High speed data entry, processing, and standardisation solutions to keep corporate records accurate and accessible.', 'icon' => '📂'],
+        ['name' => 'E-Commerce Support', 'slug' => 'e-commerce-support', 'description' => 'Optimize store operations: catalog product uploads, order tracking coordination, returns and marketplace support.', 'icon' => '🛒'],
+        ['name' => 'Finance Operations', 'slug' => 'finance-accounting', 'description' => 'Automate billing support, accounts receivable/payable, expense reconciliations and payroll auditing.', 'icon' => '💳'],
+        ['name' => 'HR Solutions', 'slug' => 'hr-solutions', 'description' => 'Recruitment process outsourcing (RPO), resume screening, talent sourcing and HR operations administration.', 'icon' => '👥']
+    ];
+}
+
+// Fetch Why Choose Us
+$why_choose = [];
+if ($pdo) {
+    try {
+        $db_why = $pdo->query("SELECT * FROM homepage_sections WHERE section_type='why_choose' AND status=1 ORDER BY sort_order ASC, id ASC")->fetchAll();
+        foreach ($db_why as $w) {
+            $why_choose[] = [
+                'title' => $w['title'],
+                'description' => $w['description'],
+                'icon' => $w['icon']
+            ];
+        }
+    } catch (Exception $e) {
+        error_log('Why Choose fetch failed: ' . $e->getMessage());
+    }
+}
+if (empty($why_choose)) {
+    $why_choose = [
+        ['title' => 'QUALIFIED EXPERTS', 'description' => 'Certified professionals with domain-specific training across every service vertical.', 'icon' => 'fa-graduation-cap'],
+        ['title' => 'WORKMANSHIP QUALITY', 'description' => 'Multi-tier QA ensures output with less than 0.5% error rate on every delivery.', 'icon' => 'fa-certificate'],
+        ['title' => 'FLEXIBLE SCHEDULE', 'description' => '24/7/365 operations adapted to your time zone and business requirements.', 'icon' => 'fa-clock'],
+        ['title' => 'AFFORDABLE PACKAGES', 'description' => 'Enterprise-grade output at SME-friendly pricing with transparent SLAs.', 'icon' => 'fa-coins'],
+        ['title' => 'DATA SECURITY', 'description' => 'ISO-aligned protocols, NDAs, and GDPR-aware data handling by default.', 'icon' => 'fa-shield-halved'],
+        ['title' => 'WORK ETHICS', 'description' => 'Dedicated account managers and a customer-first culture in everything we do.', 'icon' => 'fa-users']
+    ];
+}
+
+// Fetch Industries
+$industries_sec = [];
+if ($pdo) {
+    try {
+        $db_ind = $pdo->query("SELECT * FROM homepage_sections WHERE section_type='industry' AND status=1 ORDER BY sort_order ASC, id ASC")->fetchAll();
+        foreach ($db_ind as $ind) {
+            $industries_sec[] = [
+                'title' => $ind['title'],
+                'description' => $ind['description'],
+                'icon' => $ind['icon']
+            ];
+        }
+    } catch (Exception $e) {
+        error_log('Industries fetch failed: ' . $e->getMessage());
+    }
+}
+if (empty($industries_sec)) {
+    $industries_sec = [
+        ['title' => 'Gaming & Entertainment', 'description' => 'Content moderation, QA testing, player support', 'icon' => 'fa-gamepad', 'bg' => 'rgba(37,99,235,0.1)', 'color' => '#2563eb'],
+        ['title' => 'Education', 'description' => 'Admissions processing, student records, LMS data', 'icon' => 'fa-graduation-cap', 'bg' => 'rgba(239,68,68,0.1)', 'color' => '#ef4444'],
+        ['title' => 'Retail & E-commerce', 'description' => 'Product listings, order processing, catalog ops', 'icon' => 'fa-cart-shopping', 'bg' => 'rgba(6,182,212,0.1)', 'color' => '#06b6d4'],
+        ['title' => 'Hospitality', 'description' => 'Reservations, guest data, multi-property ops', 'icon' => 'fa-hotel', 'bg' => 'rgba(59,130,246,0.1)', 'color' => '#3b82f6'],
+        ['title' => 'Staffing & HR', 'description' => 'Resume screening, ATS management, onboarding', 'icon' => 'fa-address-card', 'bg' => 'rgba(236,72,153,0.1)', 'color' => '#ec4899'],
+        ['title' => 'Healthcare', 'description' => 'Claims processing, patient records, compliance', 'icon' => 'fa-briefcase-medical', 'bg' => 'rgba(20,184,166,0.1)', 'color' => '#14b8a6'],
+        ['title' => 'Real Estate', 'description' => 'Listings management, lead processing, CRM data', 'icon' => 'fa-house', 'bg' => 'rgba(79,70,229,0.1)', 'color' => '#4f46e5'],
+        ['title' => 'Financial Services', 'description' => 'Transaction processing, reconciliation, reporting', 'icon' => 'fa-coins', 'bg' => 'rgba(245,158,11,0.1)', 'color' => '#f59e0b']
+    ];
+}
+
+// Fetch FAQs
+$faqs = [];
+if ($pdo) {
+    try {
+        $db_faqs = $pdo->query("SELECT * FROM homepage_sections WHERE section_type='faq' AND status=1 ORDER BY sort_order ASC, id ASC")->fetchAll();
+        foreach ($db_faqs as $f) {
+            $faqs[] = ['q' => $f['title'], 'a' => $f['description']];
+        }
+    } catch (Exception $e) {
+        error_log('FAQ fetch failed: ' . $e->getMessage());
+    }
+}
+if (empty($faqs)) {
+    $faqs = [
+        ['q' => 'What outsourcing services does Clevora offer?', 'a' => 'Clevora provides customer support, call center operations, content moderation, e-commerce support, finance, HR, data management and KPO solutions.'],
+        ['q' => 'How quickly can you deploy a team?', 'a' => 'Deployment depends on requirements, team size and process complexity. Clevora builds flexible teams designed around client needs.'],
+        ['q' => 'How much can outsourcing save?', 'a' => 'Savings vary by operation type, but outsourcing helps reduce hiring, infrastructure and management costs.'],
+        ['q' => 'How do you ensure data security?', 'a' => 'We follow controlled access practices, secure workflows and confidentiality-focused operational processes.'],
+        ['q' => 'Can I scale services?', 'a' => 'Yes. Teams and processes can expand or adjust according to changing business requirements.'],
+        ['q' => 'Where are your teams located?', 'a' => 'Our operations are based in Delhi, India, supporting clients globally.']
+    ];
+}
 ?>
 <section class="hero-slider" aria-labelo="Clevora services">
   <div class="hero-slider__viewport">
     <?php foreach($hero_slides as $idx => $slide): ?>
     <article class="hero-slide <?= $idx === 0 ? 'is-active' : '' ?>" data-hero-slide>
-      <img class="hero-slide__image" src="<?= htmlspecialchars($slide['image']) ?>" alt="" aria-hidden="true">
+      <?php if (($slide['media_type'] ?? 'image') === 'video'): ?>
+        <video class="hero-slide__image" autoplay muted loop playsinline preload="metadata" poster="<?= htmlspecialchars($slide['video_poster'] ?? '') ?>">
+          <source src="<?= htmlspecialchars($slide['media_file'] ?? '') ?>" type="video/<?= htmlspecialchars(pathinfo($slide['media_file'] ?? '', PATHINFO_EXTENSION)) ?>">
+        </video>
+      <?php else: ?>
+        <img class="hero-slide__image" src="<?= htmlspecialchars($slide['image']) ?>" alt="" aria-hidden="true">
+      <?php endif; ?>
       <div class="hero-slide__overlay"></div>
       <div class="hero-slide__content">
         <span class="hero-slide__eyebrow"><?= htmlspecialchars($slide['eyebrow']) ?></span>
@@ -127,8 +303,8 @@ $hero_slides = [
           <?php endforeach; ?>
         </ul>
         <div class="hero-slide__actions">
-          <a class="hero-btn hero-btn--primary" href="/contact.php">Contact Us</a>
-          <a class="hero-btn hero-btn--ghost" href="/services.php">Explore Solutions</a>
+          <a class="hero-btn hero-btn--primary" href="<?= htmlspecialchars($slide['cta_link'] ?: '/contact.php') ?>"><?= htmlspecialchars($slide['cta_text'] ?: 'Contact Us') ?></a>
+          <a class="hero-btn hero-btn--ghost" href="<?= htmlspecialchars(($slide['secondary_cta_link'] ?? '') ?: '/services.php') ?>"><?= htmlspecialchars(($slide['secondary_cta_text'] ?? '') ?: 'Explore Solutions') ?></a>
         </div>
       </div>
     </article>
@@ -172,18 +348,18 @@ $hero_slides = [
       <div class="marquee-track" style="display:flex; gap:24px; width:max-content;" onmouseover="this.style.animationPlayState='paused'" onmouseout="this.style.animationPlayState='running'">
         <?php 
         // Duplicate the logo list to create a seamless looping effect
-        $marquee_items = array_merge($clients, $clients);
-        foreach($marquee_items as $c): 
+        $marquee_items = array_merge($partners_list, $partners_list);
+        foreach($marquee_items as $p): 
         ?>
         <div style="background:#fff; border:1px solid #e8eaf0; border-radius:16px; padding:24px;
                     display:flex; align-items:center; justify-content:center; height:100px; width:180px; flex-shrink:0;
                     box-shadow:0 4px 20px rgba(0,0,0,0.01); transition:all 0.3s;"
              onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.05)';this.style.transform='translateY(-2px)'"
              onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.01)';this.style.transform='none'">
-          <?php if (!empty($c['logo_url'])): ?>
-            <img src="<?= htmlspecialchars($c['logo_url']) ?>" alt="<?= htmlspecialchars($c['name'] ?? 'Client') ?>" loading="lazy" style="max-height:100%; max-width:100%; object-fit:contain; filter:grayscale(100%); transition:filter .2s;" onmouseover="this.style.filter='none'" onmouseout="this.style.filter='grayscale(100%)'">
+          <?php if (!empty($p['logo'])): ?>
+            <img src="<?= htmlspecialchars($p['logo']) ?>" alt="<?= htmlspecialchars($p['company_name'] ?? 'Client') ?>" loading="lazy" style="max-height:100%; max-width:100%; object-fit:contain; filter:grayscale(100%); transition:filter .2s;" onmouseover="this.style.filter='none'" onmouseout="this.style.filter='grayscale(100%)'">
           <?php else: ?>
-            <span style="color:#6b7280; font-weight:600; font-size:11px; text-transform:uppercase;"><?= htmlspecialchars($c['name'] ?? 'Client') ?></span>
+            <span style="color:#6b7280; font-weight:600; font-size:11px; text-transform:uppercase;"><?= htmlspecialchars($p['company_name'] ?? 'Client') ?></span>
           <?php endif; ?>
         </div>
         <?php endforeach; ?>
@@ -274,65 +450,16 @@ $hero_slides = [
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
-    <!-- Highlight 1: Customer Support -->
-    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.03); transition:box-shadow .2s; cursor:pointer;" onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.03)'">
-      <div style="margin-bottom:20px; font-size: 32px;">💬</div>
-      <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px;">Customer Support</h3>
+    <?php foreach($solutions_list as $sol): ?>
+    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.03); transition:box-shadow .2s; cursor:pointer;" onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.03)'" onclick="window.location.href='<?= htmlspecialchars($sol['button_link']) ?>'">
+      <div style="margin-bottom:20px; font-size: 32px;"><?= htmlspecialchars($sol['icon'] ?: '💬') ?></div>
+      <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px;"><?= htmlspecialchars($sol['title']) ?></h3>
       <p style="font-size:14px; color:#4b5563; line-height:1.6; margin-bottom:24px; height: 72px; overflow: hidden;">
-        Multilingual inbound/outbound support, email and live chat operations with SLAs tailored to keep customer satisfaction high.
+        <?= htmlspecialchars($sol['description']) ?>
       </p>
-      <a href="/services.php?category=customer-support-services" style="font-size:13px; color:#3b82f6; font-weight:600; text-decoration:none;">Explore Solutions &rarr;</a>
+      <a href="<?= htmlspecialchars($sol['button_link']) ?>" style="font-size:13px; color:#3b82f6; font-weight:600; text-decoration:none;"><?= htmlspecialchars($sol['button_text'] ?: 'Explore Solutions') ?> &rarr;</a>
     </div>
-
-    <!-- Highlight 2: Content Moderation -->
-    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.03); transition:box-shadow .2s; cursor:pointer;" onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.03)'">
-      <div style="margin-bottom:20px; font-size: 32px;">🛡️</div>
-      <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px;">Content Moderation</h3>
-      <p style="font-size:14px; color:#4b5563; line-height:1.6; margin-bottom:24px; height: 72px; overflow: hidden;">
-        24/7 video, audio, image and social media review moderation. Keep your application community and brand reputation safe.
-      </p>
-      <a href="/services.php?category=content-moderation-services" style="font-size:13px; color:#3b82f6; font-weight:600; text-decoration:none;">Explore Solutions &rarr;</a>
-    </div>
-
-    <!-- Highlight 3: Data Management -->
-    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.03); transition:box-shadow .2s; cursor:pointer;" onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.03)'">
-      <div style="margin-bottom:20px; font-size: 32px;">📂</div>
-      <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px;">Data Management</h3>
-      <p style="font-size:14px; color:#4b5563; line-height:1.6; margin-bottom:24px; height: 72px; overflow: hidden;">
-        High speed data entry, processing, and standardisation solutions to keep corporate records accurate and accessible.
-      </p>
-      <a href="/services.php?category=back-office-data-management" style="font-size:13px; color:#3b82f6; font-weight:600; text-decoration:none;">Explore Solutions &rarr;</a>
-    </div>
-
-    <!-- Highlight 4: E-Commerce Support -->
-    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.03); transition:box-shadow .2s; cursor:pointer;" onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.03)'">
-      <div style="margin-bottom:20px; font-size: 32px;">🛒</div>
-      <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px;">E-Commerce Support</h3>
-      <p style="font-size:14px; color:#4b5563; line-height:1.6; margin-bottom:24px; height: 72px; overflow: hidden;">
-        Optimize store operations: catalog product uploads, order tracking coordination, returns and marketplace support.
-      </p>
-      <a href="/services.php?category=e-commerce-support" style="font-size:13px; color:#3b82f6; font-weight:600; text-decoration:none;">Explore Solutions &rarr;</a>
-    </div>
-
-    <!-- Highlight 5: Finance Operations -->
-    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.03); transition:box-shadow .2s; cursor:pointer;" onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.03)'">
-      <div style="margin-bottom:20px; font-size: 32px;">💳</div>
-      <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px;">Finance Operations</h3>
-      <p style="font-size:14px; color:#4b5563; line-height:1.6; margin-bottom:24px; height: 72px; overflow: hidden;">
-        Automate billing support, accounts receivable/payable, expense reconciliations and payroll auditing.
-      </p>
-      <a href="/services.php?category=finance-accounting" style="font-size:13px; color:#3b82f6; font-weight:600; text-decoration:none;">Explore Solutions &rarr;</a>
-    </div>
-
-    <!-- Highlight 6: HR Solutions -->
-    <div style="background:#fff; border:1px solid #f3f4f6; border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,0.03); transition:box-shadow .2s; cursor:pointer;" onmouseover="this.style.boxShadow='0 10px 30px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.03)'">
-      <div style="margin-bottom:20px; font-size: 32px;">👥</div>
-      <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px;">HR Solutions</h3>
-      <p style="font-size:14px; color:#4b5563; line-height:1.6; margin-bottom:24px; height: 72px; overflow: hidden;">
-        Recruitment process outsourcing (RPO), resume screening, talent sourcing and HR operations administration.
-      </p>
-      <a href="/services.php?category=hr-solutions" style="font-size:13px; color:#3b82f6; font-weight:600; text-decoration:none;">Explore Solutions &rarr;</a>
-    </div><!-- end HR card -->
+    <?php endforeach; ?>
   </div><!-- end grid -->
 
   <!-- Centered CTA -->
@@ -371,43 +498,19 @@ $hero_slides = [
       <div class="hidden md:block" style="position:absolute; top:28px; left:16.66%; right:16.66%; height:2px; background:#dbeafe; z-index:0;"></div>
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8" style="position:relative; z-index:1;">
-        <!-- Step 1 -->
+        <?php foreach ($steps_list as $step): ?>
         <div style="text-align:center;">
           <div style="width:56px; height:56px; border-radius:50%; background:#1d4ed8; color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; margin:0 auto 24px auto; box-shadow:0 4px 10px rgba(29,78,216,0.2);">
-            1
+            <?= htmlspecialchars($step['step_number']) ?>
           </div>
           <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px; font-family:'Poppins', sans-serif;">
-            Tell Us What You Need
+            <?= htmlspecialchars($step['title']) ?>
           </h3>
           <p style="font-size:14px; color:#4b5563; line-height:1.6; max-width:280px; margin:0 auto;">
-            Share your requirements, and we'll match you with a pre-trained team within 24 hours.
+            <?= htmlspecialchars($step['description']) ?>
           </p>
         </div>
-
-        <!-- Step 2 -->
-        <div style="text-align:center;">
-          <div style="width:56px; height:56px; border-radius:50%; background:#1d4ed8; color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; margin:0 auto 24px auto; box-shadow:0 4px 10px rgba(29,78,216,0.2);">
-            2
-          </div>
-           <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px; font-family:'Poppins', sans-serif;">
-            We Deploy Your Team
-          </h3>
-          <p style="font-size:14px; color:#4b5563; line-height:1.6; max-width:280px; margin:0 auto;">
-            Your dedicated team starts within 7 days. We handle onboarding, tools, and processes.
-          </p>
-        </div>
-        <!-- Step 3 -->
-        <div style="text-align:center;">
-          <div style="width:56px; height:56px; border-radius:50%; background:#1d4ed8; color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; margin:0 auto 24px auto; box-shadow:0 4px 10px rgba(29,78,216,0.2);">
-            3
-          </div>
-          <h3 style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:12px; font-family:'Poppins', sans-serif;">
-            Scale As You Grow
-          </h3>
-          <p style="font-size:14px; color:#4b5563; line-height:1.6; max-width:280px; margin:0 auto;">
-            Add or reduce team members anytime. No long-term contracts. Pay only for hours worked.
-          </p>
-        </div>
+        <?php endforeach; ?>
       </div>
     </div>
   </div>
@@ -432,97 +535,23 @@ $hero_slides = [
 
     <!-- Cards Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-      
-      <!-- Card 1: QUALIFIED EXPERTS -->
+      <?php foreach ($why_choose as $item): ?>
       <div style="background:#172554; border:1px solid #1e40af; border-radius:16px; padding:32px; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
         <div style="width:48px; height:48px; border-radius:50%; background:rgba(59,130,246,0.15); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
-          <svg style="color:#60a5fa; width:24px; height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
-          </svg>
+          <?php if (str_starts_with($item['icon'], '<')): ?>
+            <?= $item['icon'] ?>
+          <?php else: ?>
+            <i class="fa-solid <?= htmlspecialchars($item['icon']) ?>" style="color:#60a5fa; font-size:20px;"></i>
+          <?php endif; ?>
         </div>
         <h3 style="font-size:18px; font-weight:600; color:#fff; margin-bottom:12px; font-family:'Poppins', sans-serif;">
-          QUALIFIED EXPERTS
+          <?= htmlspecialchars($item['title']) ?>
         </h3>
         <p style="font-size:14px; color:#93c5fd; line-height:1.6;">
-          Certified professionals with domain-specific training across every service vertical.
+          <?= htmlspecialchars($item['description']) ?>
         </p>
       </div>
-
-      <!-- Card 2: WORKMANSHIP QUALITY -->
-      <div style="background:#172554; border:1px solid #1e40af; border-radius:16px; padding:32px; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-        <div style="width:48px; height:48px; border-radius:50%; background:rgba(244,63,94,0.15); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
-          <svg style="color:#fb7185; width:24px; height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-          </svg>
-        </div>
-        <h3 style="font-size:18px; font-weight:600; color:#fff; margin-bottom:12px; font-family:'Poppins', sans-serif;">
-          WORKMANSHIP QUALITY
-        </h3>
-        <p style="font-size:14px; color:#93c5fd; line-height:1.6;">
-          Multi-tier QA ensures output with less than 0.5% error rate on every delivery.
-        </p>
-      </div>
-
-      <!-- Card 3: FLEXIBLE SCHEDULE -->
-      <div style="background:#172554; border:1px solid #1e40af; border-radius:16px; padding:32px; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-        <div style="width:48px; height:48px; border-radius:50%; background:rgba(20,184,166,0.15); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
-          <svg style="color:#2dd4bf; width:24px; height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-        </div>
-        <h3 style="font-size:18px; font-weight:600; color:#fff; margin-bottom:12px; font-family:'Poppins', sans-serif;">
-          FLEXIBLE SCHEDULE
-        </h3>
-        <p style="font-size:14px; color:#93c5fd; line-height:1.6;">
-          24/7/365 operations adapted to your time zone and business requirements.
-        </p>
-      </div>
-
-      <!-- Card 4: AFFORDABLE PACKAGES -->
-      <div style="background:#172554; border:1px solid #1e40af; border-radius:16px; padding:32px; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-        <div style="width:48px; height:48px; border-radius:50%; background:rgba(59,130,246,0.15); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
-          <svg style="color:#60a5fa; width:24px; height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-        </div>
-        <h3 style="font-size:18px; font-weight:600; color:#fff; margin-bottom:12px; font-family:'Poppins', sans-serif;">
-          AFFORDABLE PACKAGES
-        </h3>
-        <p style="font-size:14px; color:#93c5fd; line-height:1.6;">
-          Enterprise-grade output at SME-friendly pricing with transparent SLAs.
-        </p>
-      </div>
-
-      <!-- Card 5: DATA SECURITY -->
-      <div style="background:#172554; border:1px solid #1e40af; border-radius:16px; padding:32px; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-        <div style="width:48px; height:48px; border-radius:50%; background:rgba(20,184,166,0.15); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
-          <svg style="color:#2dd4bf; width:24px; height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-          </svg>
-        </div>
-        <h3 style="font-size:18px; font-weight:600; color:#fff; margin-bottom:12px; font-family:'Poppins', sans-serif;">
-          DATA SECURITY
-        </h3>
-        <p style="font-size:14px; color:#93c5fd; line-height:1.6;">
-          ISO-aligned protocols, NDAs, and GDPR-aware data handling by default.
-        </p>
-      </div>
-
-      <!-- Card 6: WORK ETHICS -->
-      <div style="background:#172554; border:1px solid #1e40af; border-radius:16px; padding:32px; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-        <div style="width:48px; height:48px; border-radius:50%; background:rgba(59,130,246,0.15); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
-          <svg style="color:#60a5fa; width:24px; height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-          </svg>
-        </div>
-        <h3 style="font-size:18px; font-weight:600; color:#fff; margin-bottom:12px; font-family:'Poppins', sans-serif;">
-          WORK ETHICS
-        </h3>
-        <p style="font-size:14px; color:#93c5fd; line-height:1.6;">
-          Dedicated account managers and a customer-first culture in everything we do.
-        </p>
-      </div>
-
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -609,109 +638,22 @@ $hero_slides = [
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <!-- Gaming & Entertainment -->
+      <?php foreach ($industries_sec as $ind): 
+        $bg = $ind['bg'] ?? 'rgba(37,99,235,0.1)';
+        $color = $ind['color'] ?? '#2563eb';
+      ?>
       <article class="card feature-card">
-        <div class="feature-card__icon" style="background:rgba(37,99,235,0.1); color:#2563eb; font-size:20px;">
-          <i class="fa-solid fa-gamepad"></i>
+        <div class="feature-card__icon" style="background:<?= $bg ?>; color:<?= $color ?>; font-size:20px;">
+          <i class="fa-solid <?= htmlspecialchars($ind['icon']) ?>"></i>
         </div>
         <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
-          Gaming & Entertainment
+          <?= htmlspecialchars($ind['title']) ?>
         </h3>
         <p>
-          Content moderation, QA testing, player support
+          <?= htmlspecialchars($ind['description']) ?>
         </p>
       </article>
-
-      <!-- Education -->
-      <article class="card feature-card">
-        <div class="feature-card__icon" style="background:rgba(239,68,68,0.1); color:#ef4444; font-size:20px;">
-          <i class="fa-solid fa-graduation-cap"></i>
-        </div>
-        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
-          Education
-        </h3>
-        <p>
-          Admissions processing, student records, LMS data
-        </p>
-      </article>
-
-      <!-- Retail & E-commerce -->
-      <article class="card feature-card">
-        <div class="feature-card__icon" style="background:rgba(6,182,212,0.1); color:#06b6d4; font-size:20px;">
-          <i class="fa-solid fa-cart-shopping"></i>
-        </div>
-        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
-          Retail & E-commerce
-        </h3>
-        <p>
-          Product listings, order processing, catalog ops
-        </p>
-      </article>
-
-      <!-- Hospitality -->
-      <article class="card feature-card">
-        <div class="feature-card__icon" style="background:rgba(59,130,246,0.1); color:#3b82f6; font-size:20px;">
-          <i class="fa-solid fa-hotel"></i>
-        </div>
-        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
-          Hospitality
-        </h3>
-        <p>
-          Reservations, guest data, multi-property ops
-        </p>
-      </article>
-
-      <!-- Staffing & HR -->
-      <article class="card feature-card">
-        <div class="feature-card__icon" style="background:rgba(236,72,153,0.1); color:#ec4899; font-size:20px;">
-          <i class="fa-solid fa-address-card"></i>
-        </div>
-        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
-          Staffing & HR
-        </h3>
-        <p>
-          Resume screening, ATS management, onboarding
-        </p>
-      </article>
-
-      <!-- Healthcare -->
-      <article class="card feature-card">
-        <div class="feature-card__icon" style="background:rgba(20,184,166,0.1); color:#14b8a6; font-size:20px;">
-          <i class="fa-solid fa-briefcase-medical"></i>
-        </div>
-        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
-          Healthcare
-        </h3>
-        <p>
-          Claims processing, patient records, compliance
-        </p>
-      </article>
-
-      <!-- Real Estate -->
-      <article class="card feature-card">
-        <div class="feature-card__icon" style="background:rgba(79,70,229,0.1); color:#4f46e5; font-size:20px;">
-          <i class="fa-solid fa-house"></i>
-        </div>
-        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
-          Real Estate
-        </h3>
-        <p>
-          Listings management, lead processing, CRM data
-        </p>
-      </article>
-
-      <!-- Financial Services -->
-      <article class="card feature-card">
-        <div class="feature-card__icon" style="background:rgba(245,158,11,0.1); color:#f59e0b; font-size:20px;">
-          <i class="fa-solid fa-coins"></i>
-        </div>
-        <h3 style="text-transform:none; font-size:16px; font-weight:600; letter-spacing:normal; margin-bottom:8px; font-family:'Poppins', sans-serif;">
-          Financial Services
-        </h3>
-        <p>
-          Transaction processing, reconciliation, reporting
-        </p>
-      </article>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>
@@ -724,17 +666,7 @@ $hero_slides = [
     </h2>
     
     <div style="display:flex; flex-direction:column; border-top:1px solid #e5e7eb;">
-      <?php
-      $faqs = [
-        ['q' => 'What outsourcing services does Clevora offer?', 'a' => 'Clevora provides customer support, call center operations, content moderation, e-commerce support, finance, HR, data management and KPO solutions.'],
-        ['q' => 'How quickly can you deploy a team?', 'a' => 'Deployment depends on requirements, team size and process complexity. Clevora builds flexible teams designed around client needs.'],
-        ['q' => 'How much can outsourcing save?', 'a' => 'Savings vary by operation type, but outsourcing helps reduce hiring, infrastructure and management costs.'],
-        ['q' => 'How do you ensure data security?', 'a' => 'We follow controlled access practices, secure workflows and confidentiality-focused operational processes.'],
-        ['q' => 'Can I scale services?', 'a' => 'Yes. Teams and processes can expand or adjust according to changing business requirements.'],
-        ['q' => 'Where are your teams located?', 'a' => 'Our operations are based in Delhi, India, supporting clients globally.']
-      ];
-      foreach($faqs as $faq):
-      ?>
+      <?php foreach($faqs as $faq): ?>
       <div x-data="{ open: false }" style="border-bottom:1px solid #e5e7eb;">
         <button @click="open = !open" style="width:100%; display:flex; justify-content:space-between; align-items:center; padding:32px 0; background:transparent; border:none; cursor:pointer; text-align:left;">
           <span style="font-size:20px; font-weight:400; color:#111827; letter-spacing:-0.01em;"><?= htmlspecialchars($faq['q']) ?></span>
